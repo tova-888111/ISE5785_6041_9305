@@ -4,10 +4,7 @@ import primitives.*;
 
 /**
  * The Tube class represents an infinite cylindrical tube in 3D space.
- * A tube is defined by a central axis (represented as a {@link Ray}) and a radius.
- * This class extends {@link RadialGeometry}, which represents geometric shapes with a radius.
- * A tube does not have finite length, meaning it extends infinitely along its axis.
- * @author Naomi Ben Shabat and Tova Tretiak
+ * @author Tehila Shraga and Tova Tretiak
  */
 public class Tube extends RadialGeometry{
 

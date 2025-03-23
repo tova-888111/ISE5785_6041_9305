@@ -2,7 +2,7 @@ package primitives;
 
 /**
  * The Vector class represents a three-dimensional mathematical vector.
- * @author Naomi Ben Shabat and Tova Tretiak
+ * @author Tehila Shraga and Tova Tretiak
  */
 public class Vector extends Point{
 

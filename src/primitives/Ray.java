@@ -1,9 +1,8 @@
 package primitives;
 
 /**
- * Represents a ray in 3D space, defined by a starting point (head) and a direction vector.
- * The direction vector is always normalized upon initialization.
- * @author Naomi Ben Shabat and Tova Tretiak
+ * This class represents a ray in 3D space.
+ * @author Tehila Shraga Shabat and Tova Tretiak
  */
 public class Ray {
 

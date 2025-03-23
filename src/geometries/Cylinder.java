@@ -6,10 +6,7 @@ import static primitives.Util.isZero;
 
 /**
  * The Cylinder class represents a finite cylindrical shape in 3D space.
- * A cylinder is defined by a central axis (represented as a {@link Ray}), a radius, and a height.
- * This class extends {@link Tube}, which represents an infinite tube.
- * Unlike a tube, a cylinder has two circular bases that cap its top and bottom at a fixed height.
- * @author Naomi Ben Shabat and Tova Tretiak
+ * @author Tehila Shraga and Tova Tretiak
  */
 public class Cylinder extends Tube{
 

@@ -5,7 +5,7 @@ import primitives.*;
 /**
  * Abstract class representing a geometric shape in 3D space.
  * This class serves as a base for all geometric objects.
- * @author Naomi Ben Shabat and Tova Tretiak
+ * @author Tehila Shraga and Tova Tretiak
  */
 public abstract class Geometry {
 

@@ -4,9 +4,7 @@ import primitives.*;
 
 /**
  * The class represents a plane in 3D space.
- * A plane is defined by either a point and a normal vector or by three non-collinear points.
- * This class extends {@link Geometry}, which represents general geometric objects.
- * @author Naomi Ben Shabat and Tova Tretiak
+ * @author Tehila Shraga and Tova Tretiak
  */
 public class Plane extends Geometry {
 

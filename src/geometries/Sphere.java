@@ -3,10 +3,8 @@ package geometries;
 import primitives.*;
 
 /**
- * The {@code Sphere} class represents a three-dimensional sphere in 3D space.
- * A sphere is defined by a central point and a radius.
- * This class extends {@link RadialGeometry}, which represents geometric shapes with a radius.
- * @author Naomi Ben Shabat and Tova Tretiak
+ * This class represents a three-dimensional sphere in 3D space.
+ * @author Tehila Shraga and Tova Tretiak
  */
 public class Sphere extends RadialGeometry{
 
