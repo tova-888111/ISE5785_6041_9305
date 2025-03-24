@@ -2,7 +2,7 @@ package primitives;
 
 /**
  * This class represents a ray in 3D space.
- * @author Tehila Shraga Shabat and Tova Tretiak
+ * @author Tehila Shraga and Tova Tretiak
  */
 public class Ray {
 
