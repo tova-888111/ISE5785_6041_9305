@@ -7,8 +7,12 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit tests for the Vector class.
  * This class contains tests for various methods of the Vector class to ensure they work correctly.
+ * @author Tehila Shraga and Tova Tretiak
  */
 class VectorTests {
+    /***
+     * Vectors for testing
+     */
     Vector v1 = new Vector(1, 2, 3);
     Vector v2 = new Vector(4, 5, 6);
     Vector v3=new Vector (-3,0,1);

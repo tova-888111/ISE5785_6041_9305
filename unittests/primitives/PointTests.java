@@ -4,11 +4,20 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/***
+ * Unit tests for primitives.Point class
+ * @author Tehila Shraga and Tova Tretiak
+ */
 class PointTests {
+    /***
+     * Points and Vectors for testing
+     */
     Point p1 = new Point(1, 2, 3);
     Point p2 = new Point(2, 4, 6);
     Vector v1 = new Vector(1, 2, 3);
-
+    /***
+     * Test method for {@link primitives.Point#subtract(Point)}.
+     */
     @Test
     void testSubtract() {
         // ============ Equivalence Partitions Tests ==============

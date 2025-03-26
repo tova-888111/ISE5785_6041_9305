@@ -1,16 +1,25 @@
 package geometries;
 import primitives.Point;
 import primitives.Vector;
-//We stop here
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/***
+ * Unit tests for geometries.Plane class
+ * @author Tehila Shraga and Tova Tretiak
+ */
 class PlaneTests {
+    /***
+     * Points for the tests
+     */
      Point p1 = new Point(0, 0, 0);
      Point p2 = new Point(1, 0, 0);
      Point p3 = new Point(0, 1, 0);
      Point p4 = new Point(2, 0, 0);
+    /***
+     * Test method for {@link geometries.Plane#Plane(Point, Point, Point)}.
+     */
     @Test
     void testConstructor() {
         // ============ Equivalence Partitions Tests ==============
