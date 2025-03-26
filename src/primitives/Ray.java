@@ -28,11 +28,12 @@ public class Ray {
 
     @Override
     public String toString() {
-        return "Ray{" + "head=" + head.toString() + ", direction=" + direction.toString() + '}'; //ray{head=,direction=}
+        return "Ray{" + "head=" + head.toString() + ", direction=" + direction.toString() + '}';
     }
 
     @Override
     public final boolean equals(Object obj) {
+        if (this==obj) return true;
         if (!(obj instanceof Ray ray))
             return false;
         return head.equals(ray.head) && direction.equals(ray.direction);

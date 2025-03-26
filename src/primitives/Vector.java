@@ -14,6 +14,7 @@ public class Vector extends Point{
      * @throws IllegalArgumentException if the vector is (0,0,0)
      */
     public Vector(double x, double y, double z) {
+
         this(new Double3(x, y, z));
     }
 
@@ -30,6 +31,7 @@ public class Vector extends Point{
 
     @Override
     public boolean equals(Object obj) {
+        if (this==obj) return true;
         if (!(obj instanceof Vector vector))
             return false;
         return xyz.equals(vector.xyz);
