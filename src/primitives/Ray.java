@@ -9,12 +9,12 @@ public class Ray {
     /**
      * The starting point of the ray.
      */
-    final private Point head;
+    final public Point head;
 
     /**
      * The direction vector of the ray (always normalized).
      */
-    final private Vector direction;
+    final public Vector direction;
 
     /**
      * Constructor to initialize new ray with a given starting point and direction.

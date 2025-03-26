@@ -23,6 +23,8 @@ public class Tube extends RadialGeometry{
 
     @Override
     public Vector getNormal(Point point) {
-        return null;
+        double t=axis.direction.dotProduct(axis.head.subtract(point));
+        Point o=axis.head.add(axis.direction.scale(t));
+        return point.subtract(o).normalize();
     }
 }
