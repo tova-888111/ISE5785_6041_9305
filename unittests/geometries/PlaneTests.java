@@ -1,7 +1,7 @@
 package geometries;
 import primitives.Point;
 import primitives.Vector;
-
+//We stop here
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
