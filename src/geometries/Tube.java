@@ -1,5 +1,5 @@
 package geometries;
-
+import static primitives.Util.isZero;
 import primitives.*;
 
 /**
@@ -23,8 +23,10 @@ public class Tube extends RadialGeometry{
 
     @Override
     public Vector getNormal(Point point) {
-        double t=axis.direction.dotProduct(axis.head.subtract(point));
-        Point o=axis.head.add(axis.direction.scale(t));
+        double t=axis.direction.dotProduct(point.subtract(axis.head));
+        Point o=axis.head;
+        if (!isZero(t))
+            o=o.add(axis.direction.scale(t));
         return point.subtract(o).normalize();
     }
 }

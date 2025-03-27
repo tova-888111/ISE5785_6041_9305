@@ -20,7 +20,6 @@ class SphereTests {
         Point center = new Point(0, 0, 0);
         Sphere sphere = new Sphere(2, center);
         Point pointOnSurface = new Point(0, 0, 2);
-        Vector normal = sphere.getNormal(pointOnSurface);
-        assertEquals(new Vector(0, 0, 1), normal, "The normal vector is incorrect");
+        assertEquals(new Vector(0, 0, 1),sphere.getNormal(pointOnSurface), "The normal vector is incorrect");
     }
 }

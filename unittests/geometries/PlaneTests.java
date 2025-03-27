@@ -102,8 +102,15 @@ class PlaneTests {
     @Test
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
-        Plane plane1=new Plane(p1,p2,p3);
-        //Test that the normal of the plane is correct
-        assertEquals(new Vector(0,0,1),plane1.getNormal(p1), "The normal is not correct");
+        Plane plane=new Plane(p1,p2,p3);
+        //Two vectors on the plane
+        Vector v1=p1.subtract(p2);
+        Vector v2=p1.subtract(p3);
+        //The normal of the plane
+        Vector normal=plane.getNormal(p1);
+        assertEquals(1,normal.length(),ACCURACY,"The length of the normal is not 1");
+        //Test that the normal of the plane is orthogonal to two vectors on the plane
+        assertEquals(0,v1.dotProduct(normal),ACCURACY, "The normal is not orthogonal to the first vector");
+        assertEquals(0,v2.dotProduct(normal),ACCURACY, "The normal is not orthogonal to the second vector");
     }
 }
