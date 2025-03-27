@@ -5,20 +5,22 @@ import primitives.Point;
 import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/***
+ * Unit tests for geometries.Sphere class
+ * @author Tehila Shraga and Tova Tretiak
+ */
 class SphereTests {
-
+    /***
+     * Test method for {@link geometries.Sphere#getNormal(primitives.Point)}.
+     * Test method for getNormal() method.
+     */
     @Test
     void testGetNormal() {
-        // Arrange
+        // ============ Equivalence Partitions Tests ==============
         Point center = new Point(0, 0, 0);
-        Sphere sphere = new Sphere(1, center);
-        Point pointOnSurface = new Point(0, 0, 1);
-
-        // Act
+        Sphere sphere = new Sphere(2, center);
+        Point pointOnSurface = new Point(0, 0, 2);
         Vector normal = sphere.getNormal(pointOnSurface);
-
-        // Assert
         assertEquals(new Vector(0, 0, 1), normal, "The normal vector is incorrect");
     }
 }
