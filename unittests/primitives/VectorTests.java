@@ -27,7 +27,7 @@ class VectorTests {
     @Test
     void testLengthSquared() {
         // ============ Equivalence Partitions Tests ==============
-        // Test that the squared distance of v1 is correct
+        //TC01: Test that the squared distance of v1 is correct
         assertEquals(14, v1.lengthSquared(),ACCURACY, "LengthSquared() wrong result");
     }
 
@@ -38,7 +38,7 @@ class VectorTests {
     @Test
     void testLength() {
         //============ Equivalence Partitions Tests ==============
-        // Test that the distance between v1 is correct
+        //TC01: Test that the distance between v1 is correct
         assertEquals(Math.sqrt(14),v1.length(),ACCURACY, "Length() wrong result");
     }
 
@@ -49,7 +49,7 @@ class VectorTests {
     @Test
     void testNormalize() {
         //============ Equivalence Partitions Tests ==============
-        // Test that the normalized vector of v1 is correct
+        //TC01: Test that the normalized vector of v1 is correct
         assertEquals(new Vector(1 / Math.sqrt(14), 2 / Math.sqrt(14), 3 / Math.sqrt(14)),v1.normalize(), "Normalize() wrong result");
     }
 
@@ -60,10 +60,10 @@ class VectorTests {
     @Test
     void testCrossProduct() {
         //============ Equivalence Partitions Tests ==============
-        //Test that the cross product of v1 and v2 is correct
+        //TC01: Test that the cross product of v1 and v2 is correct
         assertEquals(new Vector(-3, 6, -3),v1.crossProduct(v2), "CrossProduct() wrong result");
         // =============== Boundary Values Tests ==================
-        //Test that cross product of two parallel vectors throw an exception
+        //TC02: Test that cross product of two parallel vectors throw an exception
         assertThrows(IllegalArgumentException.class, () -> v1.crossProduct(v1),
                 "crossProduct() for parallel vectors does not throw an exception");
 }
@@ -75,10 +75,10 @@ class VectorTests {
     @Test
     void testDotProduct() {
         //============ Equivalence Partitions Tests ==============
-        //Test that the dot product of v1 and v2 is correct
+        //TC01: Test that the dot product of v1 and v2 is correct
         assertEquals(32,v1.dotProduct(v2),ACCURACY, "DotProduct() wrong result");
         // =============== Boundary Values Tests ==================
-        //Test that the dot product of two orthogonal vectors is zero
+        //TC02: Test that the dot product of two orthogonal vectors is zero
         assertEquals(0,v1.dotProduct(v3),ACCURACY, "DotProduct() for orthogonal vectors is not zero");
 
     }
@@ -90,10 +90,10 @@ class VectorTests {
     @Test
     void testAdd() {
         //============ Equivalence Partitions Tests ==============
-        //Test that add of v1 and v2 is correct
+        //TC01: Test that add of v1 and v2 is correct
         assertEquals(new Vector(5, 7, 9),v1.add(v2), "Add() wrong result");
         // =============== Boundary Values Tests ==================
-        //Test that add of two opposite vectors is correct
+        //TC02: Test that add of two opposite vectors is correct
         assertThrows(IllegalArgumentException.class, () -> v1.add(v4),
                 "Add() for opposite vectors does not throw an exception");
     }
@@ -105,10 +105,10 @@ class VectorTests {
     @Test
     void testScale() {
         //============ Equivalence Partitions Tests ==============
-        //Test if the scale between v1 and 2 is correct
+        //TC01: Test if the scale between v1 and 2 is correct
         assertEquals(new Vector(2, 4, 6),v1.scale(2), "Scale() wrong result");
         // =============== Boundary Values Tests ==================
-        //Test if the scale between v1 and 0 throw an exception
+        //TC02: Test if the scale between v1 and 0 throw an exception
         assertThrows(IllegalArgumentException.class, () -> v1.scale(0),
                 "Scale() vector with zero does not throw an exception");
     }
@@ -121,10 +121,10 @@ class VectorTests {
     @Test
     void testSubtract() {
         //============ Equivalence Partitions Tests ==============
-        //Test that subtract between v2 and v1 is correct
+        //TC01: Test that subtract between v2 and v1 is correct
         assertEquals(new Vector(3, 3, 3), v2.subtract(v1), "Subtract() wrong result");
         // =============== Boundary Values Tests ==================
-        //Test that abstract between v1 and itself throw an exception
+        //TC02: Test that abstract between v1 and itself throw an exception
         assertThrows(IllegalArgumentException.class, () -> v1.subtract(v1),
                 "Subtract() for same vector does not throw an exception");
     }

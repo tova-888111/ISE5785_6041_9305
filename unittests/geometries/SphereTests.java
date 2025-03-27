@@ -17,6 +17,7 @@ class SphereTests {
     @Test
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
+        //TC01: Test that the normal of the sphere is correct
         Point center = new Point(0, 0, 0);
         Sphere sphere = new Sphere(2, center);
         Point pointOnSurface = new Point(0, 0, 2);

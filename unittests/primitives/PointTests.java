@@ -24,10 +24,10 @@ class PointTests {
     @Test
     void testSubtract() {
         // ============ Equivalence Partitions Tests ==============
-        // Test that subtracting p1 from p2 results is the correct vector
+        //TC01: Test that subtracting p1 from p2 results is the correct vector
         assertEquals(v1, p2.subtract(p1), "Subtract() wrong result");
         // =============== Boundary Values Tests ==================
-        // Test that subtracting a point from itself throws an IllegalArgumentException
+        //TCO2: Test that subtracting a point from itself throws an IllegalArgumentException
         assertThrows(IllegalArgumentException.class, () -> p1.subtract(p1),
                 "Subtract() for same point does not throw an exception");
     }
@@ -38,7 +38,7 @@ class PointTests {
     @Test
     void testAdd() {
         // ============ Equivalence Partitions Tests ==============
-        // Test that adding vector v1 to point p1 results is the correct point
+        //TCO1: Test that adding vector v1 to point p1 results is the correct point
         assertEquals(p2, p1.add(v1), "Add() wrong result");
     }
     /***
@@ -48,7 +48,7 @@ class PointTests {
     @Test
     void testDistanceSquared() {
         // ============ Equivalence Partitions Tests ==============
-        // Test that the squared distance between p1 and p2 is correct
+        //TC01: Test that the squared distance between p1 and p2 is correct
         assertEquals(14, p1.distanceSquared(p2),ACCURACY, "DistanceSquared() wrong result");
     }
     /***
@@ -58,7 +58,7 @@ class PointTests {
     @Test
     void testDistance() {
         // ============ Equivalence Partitions Tests ==============
-        // Test that the distance between p1 and p2 is correct
+        //TC01: Test that the distance between p1 and p2 is correct
         assertEquals(Math.sqrt(14), p1.distance(p2),ACCURACY, "Distance() wrong result");
     }
 }

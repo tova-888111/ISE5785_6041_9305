@@ -9,12 +9,12 @@ public class Ray {
     /**
      * The starting point of the ray.
      */
-    final public Point head;
+    final private Point head;
 
     /**
      * The direction vector of the ray (always normalized).
      */
-    final public Vector direction;
+    final private Vector direction;
 
     /**
      * Constructor to initialize new ray with a given starting point and direction.
@@ -39,5 +39,20 @@ public class Ray {
         return head.equals(ray.head) && direction.equals(ray.direction);
     }
 
+    /***
+     * Getter for the head of the ray.
+     * @return the head of the ray
+     */
+    public Point getHead() {
+        return head;
+    }
+
+    /***
+     * Getter for the direction of the ray.
+     * @return the direction of the ray
+     */
+    public Vector getDirection() {
+        return direction;
+    }
 
 }

@@ -25,16 +25,18 @@ class PlaneTests {
     @Test
     void testConstructor() {
         // ============ Equivalence Partitions Tests ==============
-        //Test a plane with correct points
+        //TC01: Test a plane with correct points
         testConstructor1();
         // =============== Boundary Values Tests ==================
-        //Test a plane with two identical points
+        //TC02: Test a plane with two identical points first and second
         testConstructor2();
+        //TC03: Test a plane with two identical points second and third
         testConstructor3();
+        //TC04: Test a plane with two identical points first and third
         testConstructor4();
-        //Test a plane with three identical points
+        //TC05: Test a plane with three identical points
         testConstructor5();
-        //Test a plane with three points that are on the same line
+        //TC06: Test a plane with three points that are on the same line
         testConstructor6();
     }
 
@@ -71,11 +73,11 @@ class PlaneTests {
                 "Constructed a plane with two identical points");
     }
     /***
-     * Test a plane with three identical points
+     * Test a plane with two identical points
      */
     @Test
     void testConstructor4() {
-        assertThrows(IllegalArgumentException.class, () ->new Plane(p1,p1,p1),
+        assertThrows(IllegalArgumentException.class, () ->new Plane(p1,p2,p1),
                 "Constructed a plane with two identical points");
     }
     /***
@@ -102,6 +104,7 @@ class PlaneTests {
     @Test
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
+        //TC01: Test that the normal of the plane is correct
         Plane plane=new Plane(p1,p2,p3);
         //Two vectors on the plane
         Vector v1=p1.subtract(p2);

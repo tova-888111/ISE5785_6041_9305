@@ -18,12 +18,13 @@ class TriangleTests {
     @Test
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
+        //TC01: Test that the normal of the triangle is correct
         Point point1=(new Point(0,0,0));
         Point point2=(new Point(4,0,0));
         Point point3=(new Point(0,3,0));
         Triangle triangle=new Triangle(point1,point2,point3);
         Vector normal = triangle.getNormal(point1);
-        //Test that the normal of the triangle is correct
+        //Test that the length of the triangle's normal is 1
         assertEquals(1, normal.length(), "The length of the normal is not 1");
         //Test that the normal of the triangle is orthogonal to two vectors on the triangle
         assertEquals(0, (point1.subtract(point2)).dotProduct(normal), "The normal is not orthogonal to the first vector");
