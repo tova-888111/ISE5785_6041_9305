@@ -29,7 +29,25 @@ public class Cylinder extends Tube{
     @Override
     public Vector getNormal(Point point) {
 
-        return super.getNormal(point);
+        Point p0 = axis.getHead(); // Base center
+        Vector vector = axis.getDirection().normalize();
+        if (p0.equals(point)) {
+            // Point is on the bottom base center
+            return vector.scale(-1);
+        }
+        // Projection of P onto the axis
+        double t = point.subtract(p0).dotProduct(vector);
+        if (isZero(t)) {
+            // Point is on the bottom base center
+            return vector.scale(-1);
+        } else if (isZero(t - height)) {
+            // Point is on the top base center
+            return vector;
+        } else {
+            // Point is on the lateral surface
+            Point o = p0.add(vector.scale(t)); // Closest point on axis
+            return point.subtract(o).normalize();
+        }
     }
 
 }
