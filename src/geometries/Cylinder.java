@@ -30,7 +30,7 @@ public class Cylinder extends Tube{
     public Vector getNormal(Point point) {
 
         Point p0 = axis.getHead(); // Base center
-        Vector vector = axis.getDirection().normalize();
+        Vector vector = axis.getDirection(); // Axis direction
         if (p0.equals(point)) {
             // Point is on the bottom base center
             return vector.scale(-1);

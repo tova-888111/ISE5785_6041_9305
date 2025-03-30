@@ -32,14 +32,15 @@ public class Plane extends Geometry {
      */
     public Plane(Point q1,Point q2,Point q3) {
         this.q=q1;
-        Vector v1=q2.subtract(q1);
-        Vector v2=q3.subtract(q1);
-        try {
+        try{
+            Vector v1=q2.subtract(q1);
+            Vector v2=q3.subtract(q1);
             v1.crossProduct(v2);
+            this.normal=v1.crossProduct(v2).normalize();
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("The points are collinear");
         }
-        this.normal=v1.crossProduct(v2).normalize();
+
     }
 
     @Override
