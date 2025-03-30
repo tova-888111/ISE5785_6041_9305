@@ -17,6 +17,7 @@ class VectorTests {
     Vector v2 = new Vector(4, 5, 6);//Second vector
     Vector v3=new Vector (-3,0,1);//Third vector is orthogonal to v1
     Vector v4=new Vector(-1,-2,-3);//Fourth vector is the opposite of v1
+    Vector v5= new Vector(2,4,6);//Fifth vector is a multiple of v1
     private static final double ACCURACY = 0.000001;//It is a value that shows the maximum allowed difference between the expected result and the actual result.
     /***
      * Test method for {@link primitives.Vector#Vector(double, double, double)}.
@@ -78,8 +79,11 @@ class VectorTests {
         assertEquals(new Vector(-3, 6, -3),v1.crossProduct(v2), "CrossProduct() wrong result");
         // =============== Boundary Values Tests ==================
         //TC02: Test that cross product of two parallel vectors throw an exception
-        assertThrows(IllegalArgumentException.class, () -> v1.crossProduct(v1),
+        assertThrows(IllegalArgumentException.class, () -> v1.crossProduct(v5),
                 "crossProduct() for parallel vectors does not throw an exception");
+        //TC03: Test that cross product of same vectors throw an exception
+        assertThrows(IllegalArgumentException.class, () -> v1.crossProduct(v1),
+                "crossProduct() for same vectors does not throw an exception");
 }
 
     /**
