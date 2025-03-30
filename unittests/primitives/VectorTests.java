@@ -13,13 +13,27 @@ class VectorTests {
     /***
      * Vectors for testing
      */
-    Vector v1 = new Vector(1, 2, 3);
-    Vector v2 = new Vector(4, 5, 6);
-    Vector v3=new Vector (-3,0,1);
-    Vector v4=new Vector(-1,-2,-3);
-    //It is a value that shows the maximum allowed difference between the expected result and the actual result.
-    private static final double ACCURACY = 0.0001;
-
+    Vector v1 = new Vector(1, 2, 3);//First vector
+    Vector v2 = new Vector(4, 5, 6);//Second vector
+    Vector v3=new Vector (-3,0,1);//Third vector is orthogonal to v1
+    Vector v4=new Vector(-1,-2,-3);//Fourth vector is the opposite of v1
+    private static final double ACCURACY = 0.0001;//It is a value that shows the maximum allowed difference between the expected result and the actual result.
+    /***
+     * Test method for {@link primitives.Vector#Vector(double, double, double)}.
+     * This test checks if the vector is created correctly.
+     */
+    @Test
+    void testVector() {
+        // ============ Equivalence Partitions Tests ==============
+        //TC01: Test that the vector is created correctly
+        assertEquals(1, v1.xyz.d1(), "Vector constructor wrong result");
+        assertEquals(2, v1.xyz.d2(), "Vector constructor wrong result");
+        assertEquals(3, v1.xyz.d3(), "Vector constructor wrong result");
+        // =============== Boundary Values Tests ==================
+        //TC02: Test that the vector with zero length throws an exception
+        assertThrows(IllegalArgumentException.class, () -> new Vector(0, 0, 0),
+                "Vector constructor for zero length does not throw an exception");
+    }
     /**
      * Test method for {@link primitives.Vector#lengthSquared()}.
      * This test checks if the squared length of the vector is calculated correctly.
@@ -113,9 +127,8 @@ class VectorTests {
                 "Scale() vector with zero does not throw an exception");
     }
 
-    /**
-     * Test method for
-     *  {@link primitives.Vector#subtract#(primitives.Vector)}
+    /***
+     * Test method for {@link primitives.Vector#subtract(primitives.Point)}.
      * This test checks if the subtraction of two vectors is calculated correctly.
      */
     @Test

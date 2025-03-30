@@ -10,6 +10,11 @@ import primitives.*;
 public abstract class Geometry {
 
     /**
+     * Default constructor for the Geometry class.
+     */
+    public Geometry() {
+    }
+    /**
      * Computes the normal vector to the geometric shape at a given point.
      * @param point the point at which the normal is calculated
      * @return a normalized vector representing the normal to the shape at the given point
