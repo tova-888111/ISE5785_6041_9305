@@ -15,7 +15,7 @@ class PointTests {
     Point p1 = new Point(1, 2, 3);//First point
     Point p2 = new Point(2, 4, 6);//Second point
     Vector v1 = new Vector(1, 2, 3);//Vector subtract p1 from p2
-    private static final double ACCURACY = 0.0001;//It is a value that shows the maximum allowed difference between the expected result and the actual result.
+    private static final double ACCURACY = 0.000001;//It is a value that shows the maximum allowed difference between the expected result and the actual result.
     /***
      * Test method for {@link primitives.Point#subtract(primitives.Point)}.
      * This test checks if subtract between two points is calculated correctly.

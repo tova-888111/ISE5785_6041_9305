@@ -17,7 +17,7 @@ class VectorTests {
     Vector v2 = new Vector(4, 5, 6);//Second vector
     Vector v3=new Vector (-3,0,1);//Third vector is orthogonal to v1
     Vector v4=new Vector(-1,-2,-3);//Fourth vector is the opposite of v1
-    private static final double ACCURACY = 0.0001;//It is a value that shows the maximum allowed difference between the expected result and the actual result.
+    private static final double ACCURACY = 0.000001;//It is a value that shows the maximum allowed difference between the expected result and the actual result.
     /***
      * Test method for {@link primitives.Vector#Vector(double, double, double)}.
      * This test checks if the vector is created correctly.

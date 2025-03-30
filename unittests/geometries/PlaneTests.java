@@ -17,7 +17,7 @@ class PlaneTests {
      Point p2 = new Point(2, 0, 0);//Second point
      Point p3 = new Point(0, 1, 0);//Third point
      Point p4 = new Point(4, 0, 0);//Fourth point
-    private static final double ACCURACY = 0.0001;//It is a value that shows the maximum allowed difference between the expected result and the actual result.
+    private static final double ACCURACY = 0.000001;//It is a value that shows the maximum allowed difference between the expected result and the actual result.
     /***
      * Test method for {@link geometries.Plane#Plane(Point, Point, Point)}.
      */
