@@ -29,4 +29,12 @@ public class Tube extends RadialGeometry{
             projectionPoint=projectionPoint.add(axis.getDirection().scale(projectionLength));
         return point.subtract(projectionPoint).normalize();
     }
+
+    /***
+     * Returns the central axis of the tube.
+     * @return axis
+     */
+    public Ray getAxis() {
+        return axis;
+    }
 }

@@ -10,12 +10,31 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class PointTests {
     /***
-     * Points and Vectors for testing
+     * Default constructor for the PointTests class.
      */
-    Point p1 = new Point(1, 2, 3);//First point
-    Point p2 = new Point(2, 4, 6);//Second point-add v1 to p1
-    Vector v1 = new Vector(1, 2, 3);//Vector subtract p1 from p2
-    private static final double ACCURACY = 0.000001;//It is a value that shows the maximum allowed difference between the expected result and the actual result.
+    public PointTests() {
+    }
+
+    /**Point (1,2,3) for testing*/
+    Point p1 = new Point(1, 2, 3);
+    /**Point (2,4,6) for testing - add v1 to p1*/
+    Point p2 = new Point(2, 4, 6);
+    /**Vector (1,2,3) for testing -subtract p1 from p2*/
+    Vector v1 = new Vector(1, 2, 3);
+    /**It is a value that shows the maximum allowed difference between the expected result and the actual result.*/
+    private static final double ACCURACY = 0.000001;
+    /***
+     * Test method for {@link primitives.Point#Point(double, double, double)}.
+     * This test checks if the point is created correctly.
+     */
+    @Test
+    void testConstructor() {
+        // ============ Equivalence Partitions Tests ==============
+        //TC01: Test that the point is created correctly, The point is created with the coordinates (1,2,3)
+        assertEquals(1, p1.xyz.d1(), "Point constructor wrong result");
+        assertEquals(2, p1.xyz.d2(), "Point constructor wrong result");
+        assertEquals(3, p1.xyz.d3(), "Point constructor wrong result");
+    }
     /***
      * Test method for {@link primitives.Point#subtract(primitives.Point)}.
      * This test checks if subtract between two points is calculated correctly.

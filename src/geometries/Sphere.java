@@ -25,4 +25,12 @@ public class Sphere extends RadialGeometry{
     public Vector getNormal(Point point) {
         return point.subtract(center).normalize();
     }
+
+    /***
+     * Getter for the center of the sphere.
+     * @return center
+     */
+    public Point getCenter() {
+        return center;
+    }
 }

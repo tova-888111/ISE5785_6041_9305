@@ -23,4 +23,11 @@ public abstract class RadialGeometry extends Geometry {
         this.radius = radius;
     }
 
+    /***
+     * Returns the radius of the geometric shape.
+     * @return radius
+     */
+    public double getRadius() {
+        return radius;
+    }
 }

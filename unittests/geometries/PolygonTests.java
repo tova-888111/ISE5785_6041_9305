@@ -15,6 +15,12 @@ class PolygonTests {
      */
     private static final double DELTA = 0.000001;
 
+    /***
+     * Default constructor for the PolygonTests class.
+     */
+    public PolygonTests() {
+    }
+
     /** Test method for {@link geometries.Polygon#Polygon(primitives.Point...)}. */
     @Test
     void testConstructor() {

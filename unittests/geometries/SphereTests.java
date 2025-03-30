@@ -11,6 +11,30 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class SphereTests {
     /***
+     * Default constructor for the SphereTests class.
+     */
+    public SphereTests() {
+    }
+
+    /***
+     * Test method for {@link geometries.Sphere#Sphere(double, primitives.Point)}.
+     * Test method for constructor.
+     */
+    @Test
+    void testConstructor() {
+        // ============ Equivalence Partitions Tests ==============
+        //TC01: Test that the sphere is created correctly
+        Point center = new Point(0, 0, 0);
+        Sphere sphere = new Sphere(2, center);
+        assertEquals(2, sphere.getRadius(), "The radius of the sphere is incorrect");
+        assertEquals(center, sphere.getCenter(), "The center point of the sphere is incorrect");
+        // =============== Boundary Values Tests ==================
+        //TC02: Test that the sphere is created with a negative radius
+        assertThrows(IllegalArgumentException.class, () -> new Sphere(-2, center), "Constructed a sphere with a negative radius");
+        //TC03: Test that the sphere is created with a zero radius
+        assertThrows(IllegalArgumentException.class, () -> new Sphere(0, center), "Constructed a sphere with a zero radius");
+    }
+    /***
      * Test method for {@link geometries.Sphere#getNormal(primitives.Point)}.
      * Test method for getNormal() method.
      */

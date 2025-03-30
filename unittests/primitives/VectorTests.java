@@ -10,21 +10,33 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Tehila Shraga and Tova Tretiak
  */
 class VectorTests {
-    /***
-     * Vectors for testing
+    /**
+     * Default constructor for the VectorTests class.
+     * This constructor initializes the test class.
      */
-    Vector v1 = new Vector(1, 2, 3);//First vector
-    Vector v2 = new Vector(4, 5, 6);//Second vector
-    Vector v3=new Vector (-3,0,1);//Third vector is orthogonal to v1
-    Vector v4=new Vector(-1,-2,-3);//Fourth vector is the opposite of v1
-    Vector v5= new Vector(2,4,6);//Fifth vector is a multiple of v1
-    private static final double ACCURACY = 0.000001;//It is a value that shows the maximum allowed difference between the expected result and the actual result.
+    public VectorTests() {
+    }
+
+    /** Vector v1 for testing*/
+    Vector v1 = new Vector(1, 2, 3);
+    /** Vector v2 for testing */
+    Vector v2 = new Vector(4, 5, 6);
+    /** Vector v3 for testing- it is orthogonal to v1 */
+    Vector v3=new Vector (-3,0,1);
+    /** Vector v4 for testing- it is the opposite of v1 */
+    Vector v4=new Vector(-1,-2,-3);
+    /** Vector v5 for testing- it is a multiple of v1 */
+    Vector v5= new Vector(2,4,6);
+
+    /**It is a value that shows the maximum allowed difference between the expected result and the actual result.*/
+    private static final double ACCURACY = 0.000001;
+
     /***
      * Test method for {@link primitives.Vector#Vector(double, double, double)}.
      * This test checks if the vector is created correctly.
      */
     @Test
-    void testVector() {
+    void testConstructor() {
         // ============ Equivalence Partitions Tests ==============
         //TC01: Test that the vector is created correctly
         assertEquals(1, v1.xyz.d1(), "Vector constructor wrong result");

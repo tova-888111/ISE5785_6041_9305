@@ -11,39 +11,30 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class PlaneTests {
     /***
-     * Points for the tests
+     * Default constructor for the PlaneTests class.
      */
-     Point p1 = new Point(0, 0, 0);//First point
-     Point p2 = new Point(2, 0, 0);//Second point
-     Point p3 = new Point(0, 1, 0);//Third point
-     Point p4 = new Point(4, 0, 0);//Fourth point
-    private static final double ACCURACY = 0.000001;//It is a value that shows the maximum allowed difference between the expected result and the actual result.
-    /***
-     * Test method for {@link geometries.Plane#Plane(Point, Point, Point)}.
-     */
-    @Test
-    void testPlane() {
-        // ============ Equivalence Partitions Tests ==============
-        //TC01: Test a plane with correct points
-        testConstructor1();
-        // =============== Boundary Values Tests ==================
-        //TC02: Test a plane with two identical points first and second
-        testConstructor2();
-        //TC03: Test a plane with two identical points second and third
-        testConstructor3();
-        //TC04: Test a plane with two identical points first and third
-        testConstructor4();
-        //TC05: Test a plane with three identical points
-        testConstructor5();
-        //TC06: Test a plane with three points that are on the same line
-        testConstructor6();
+    public PlaneTests() {
     }
 
+    /** Point (0,0,0) for testing */
+     Point p1 = new Point(0, 0, 0);
+    /** Point (2,0,0) for testing */
+     Point p2 = new Point(2, 0, 0);
+    /** Point (0,1,0) for testing */
+     Point p3 = new Point(0, 1, 0);
+    /** Point (4,0,0) for testing */
+     Point p4 = new Point(4, 0, 0);
+
+    /**It is a value that shows the maximum allowed difference between the expected result and the actual result.*/
+    private static final double ACCURACY = 0.000001;
     /***
-     * Test a plane with correct points
+     * Test method for {@link geometries.Plane#Plane(Point, Point, Point)}.
+     * This test checks if the plane is created correctly.
      */
     @Test
-    void testConstructor1() {
+    void testConstructor() {
+        // ============ Equivalence Partitions Tests ==============
+        //TC01: Test a plane with correct points
         Plane plane1=new Plane(p1,p2,p3);
         //Two vectors on the plane
         Vector v1=p1.subtract(p2);
@@ -54,44 +45,20 @@ class PlaneTests {
         //Test that the normal of the plane is orthogonal to two vectors on the plane
         assertEquals(0,v1.dotProduct(normal),ACCURACY, "The normal is not orthogonal to the first vector");
         assertEquals(0,v2.dotProduct(normal),ACCURACY, "The normal is not orthogonal to the second vector");
-    }
-    /***
-     * Test a plane with two identical points
-     */
-    @Test
-    void testConstructor2() {
+        // =============== Boundary Values Tests ==================
+        //TC02: Test a plane with two identical points first and second
         assertThrows(IllegalArgumentException.class, () ->new Plane(p1,p1,p2),
                 "Constructed a plane with two identical points");
-    }
-    /***
-     * Test a plane with two identical points
-     */
-    @Test
-    void testConstructor3() {
+        //TC03: Test a plane with two identical points second and third
         assertThrows(IllegalArgumentException.class, () ->new Plane(p1,p2,p2),
                 "Constructed a plane with two identical points");
-    }
-    /***
-     * Test a plane with two identical points
-     */
-    @Test
-    void testConstructor4() {
+        //TC04: Test a plane with two identical points first and third
         assertThrows(IllegalArgumentException.class, () ->new Plane(p1,p2,p1),
                 "Constructed a plane with two identical points");
-    }
-    /***
-     * Test a plane with three identical points
-     */
-    @Test
-    void testConstructor5() {
+        //TC05: Test a plane with three identical points
         assertThrows(IllegalArgumentException.class, () ->new Plane(p1,p1,p1),
                 "Constructed a plane with three identical points");
-    }
-    /***
-     * Test a plane with three points that are on the same line
-     */
-    @Test
-    void testConstructor6() {
+        //TC06: Test a plane with three points that are on the same line
         assertThrows(IllegalArgumentException.class, () ->new Plane(p1,p2,p4),
                 "Constructed a plane with three points that are on the same line");
     }
