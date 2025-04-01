@@ -46,5 +46,9 @@ class SphereTests {
         Sphere sphere = new Sphere(2, center);
         Point pointOnSurface = new Point(0, 0, 2);
         assertEquals(new Vector(0, 0, 1),sphere.getNormal(pointOnSurface), "The normal vector is incorrect");
+        // =============== Boundary Values Tests ==================
+        //TC02: Test that the normal of the sphere is correct when the point is on the opposite side of the sphere
+        Point oppositePoint = new Point(0, 0, -2);
+        assertEquals(new Vector(0, 0, -1),sphere.getNormal(oppositePoint), "The normal vector is incorrect");
+        }
     }
-}
