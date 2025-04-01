@@ -18,15 +18,15 @@ class VectorTests {
     }
 
     /** Vector v1 for testing*/
-    Vector v1 = new Vector(1, 2, 3);
+    private final Vector v1 = new Vector(1, 2, 3);
     /** Vector v2 for testing */
-    Vector v2 = new Vector(4, 5, 6);
+    private final Vector v2 = new Vector(4, 5, 6);
     /** Vector v3 for testing- it is orthogonal to v1 */
-    Vector v3=new Vector (-3,0,1);
+    private final Vector v3=new Vector (-3,0,1);
     /** Vector v4 for testing- it is the opposite of v1 */
-    Vector v4=new Vector(-1,-2,-3);
+    private final Vector v4=new Vector(-1,-2,-3);
     /** Vector v5 for testing- it is a multiple of v1 */
-    Vector v5= new Vector(2,4,6);
+    private final Vector v5= new Vector(2,4,6);
 
     /**It is a value that shows the maximum allowed difference between the expected result and the actual result.*/
     private static final double ACCURACY = 0.000001;

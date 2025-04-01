@@ -16,11 +16,11 @@ class PointTests {
     }
 
     /**Point (1,2,3) for testing*/
-    Point p1 = new Point(1, 2, 3);
+    private final Point p1 = new Point(1, 2, 3);
     /**Point (2,4,6) for testing - add v1 to p1*/
-    Point p2 = new Point(2, 4, 6);
+    private final Point p2 = new Point(2, 4, 6);
     /**Vector (1,2,3) for testing -subtract p1 from p2*/
-    Vector v1 = new Vector(1, 2, 3);
+    private final Vector v1 = new Vector(1, 2, 3);
     /**It is a value that shows the maximum allowed difference between the expected result and the actual result.*/
     private static final double ACCURACY = 0.000001;
     /***

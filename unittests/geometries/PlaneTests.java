@@ -17,13 +17,13 @@ class PlaneTests {
     }
 
     /** Point (0,0,0) for testing */
-     Point p1 = new Point(0, 0, 0);
+    private final Point p1 = new Point(0, 0, 0);
     /** Point (2,0,0) for testing */
-     Point p2 = new Point(2, 0, 0);
+    private final Point p2 = new Point(2, 0, 0);
     /** Point (0,1,0) for testing */
-     Point p3 = new Point(0, 1, 0);
+    private final Point p3 = new Point(0, 1, 0);
     /** Point (4,0,0) for testing */
-     Point p4 = new Point(4, 0, 0);
+    private final Point p4 = new Point(4, 0, 0);
 
     /**It is a value that shows the maximum allowed difference between the expected result and the actual result.*/
     private static final double ACCURACY = 0.000001;
