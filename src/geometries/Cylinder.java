@@ -35,6 +35,10 @@ public class Cylinder extends Tube{
             // Point is on the bottom base center
             return vector.scale(-1);
         }
+        if (p0.add(vector.scale(height)).equals(point)) {
+            // Point is on the top base center
+            return vector;
+        }
         // Projection of P onto the axis
         double t = point.subtract(p0).dotProduct(vector);
         if (isZero(t)) {
