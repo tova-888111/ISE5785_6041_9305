@@ -4,6 +4,9 @@ import primitives.*;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 /**
  * The class represents a plane in 3D space.
  * @author Tehila Shraga and Tova Tretiak
@@ -52,6 +55,29 @@ public class Plane extends Geometry {
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        return null;
+        Point p0=ray.getHead();
+        Vector v=ray.getDirection();
+        Vector n=normal;
+        double nv=alignZero(n.dotProduct(v));
+
+        //if the ray starts on the plane, in the point that presents the plane
+        if (q.equals(p0))
+            return null;
+
+        //if the ray is parallel to the plane
+        if (isZero(nv)) {
+            return null; // The ray is parallel to the plane
+        }
+        double t=alignZero( n.dotProduct(q.subtract(p0))/nv);
+        //The ray starts on the plane
+        if (isZero(t))
+            return null; // The ray is in the plane
+
+        //The ray is in the opposite direction of the normal
+        if (t<0)
+            return null; // The ray is in the opposite direction of the normal
+
+
+        return List.of(ray.getPoint(t));
     }
 }

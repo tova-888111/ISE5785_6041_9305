@@ -1,8 +1,7 @@
 package geometries;
-import primitives.Point;
-import primitives.Vector;
+import primitives.*;
 import org.junit.jupiter.api.Test;
-
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /***
@@ -23,7 +22,9 @@ class PlaneTests {
     /** Point (0,1,0) for testing */
     private final Point p3 = new Point(0, 1, 0);
     /** Point (4,0,0) for testing */
-    private final Point p4 = new Point(4, 0, 0);
+    private final Point p4 = new Point(3, 0, 0);
+    /** Point (0,2,0) for testing */
+    private final Point p5 = new Point(0, 2, 0);
 
     /**It is a value that shows the maximum allowed difference between the expected result and the actual result.*/
     private static final double ACCURACY = 0.000001;
@@ -81,5 +82,49 @@ class PlaneTests {
         //Test that the normal of the plane is orthogonal to two vectors on the plane
         assertEquals(0,v1.dotProduct(normal),ACCURACY, "The normal is not orthogonal to the first vector");
         assertEquals(0,v2.dotProduct(normal),ACCURACY, "The normal is not orthogonal to the second vector");
+    }
+
+    /***
+     * Test method for {@link geometries.Plane#findIntersections(Ray)}.
+     * This test checks if the intersection points of the plane and the ray are calculated correctly.
+     */
+    @Test
+    void testFindIntersections() {
+        Plane plane =new Plane (p2,p4,p5);
+        // ============ Equivalence Partitions Tests ==============
+        //TC01: Test that the ray intersects the plane,the ray is not parallel or orthogonal to the plane
+        Ray ray1 = new Ray(new Point(0,0,4), new Vector(3,0,-4));
+        assertEquals(List.of(p4), plane.findIntersections(ray1), "The ray does not intersect the plane");
+        //TC02: Test that the ray does not intersect the plane, the ray is not parallel or orthogonal to the plane
+        Ray ray2 = new Ray(new Point(0,0,4), new Vector(3,0,4));
+        assertNull(plane.findIntersections(ray2), "The ray intersects the plane");
+
+        // =============== Boundary Values Tests ==================
+        //Tests when the ray is parallel to the plane
+        //TC03: Test that the ray does not intersect the plane when it is  not on the plane
+        Ray ray3 = new Ray(new Point(0,0,4), new Vector(3,0,0));
+        assertNull(plane.findIntersections(ray3), "The ray intersects the plane");
+        //TC04: Test that the ray does not intersect the plane when it is on the plane
+        Ray ray4 = new Ray(new Point(6,5,0), new Vector(3,0,0));
+        assertNull(plane.findIntersections(ray4), "The ray intersects the plane");
+
+        //Tests when the ray is orthogonal to the plane
+        //TC05: Test that the ray intersects the plane when it starts in front of the plane
+        Ray ray5 = new Ray(new Point(5,0,-7), new Vector(0,0,1));
+        assertEquals(List.of(new Point(5,0,0)), plane.findIntersections(ray5), "The ray does not intersect the plane");
+        //TC06: Test that the ray  does not intersect the plane when it starts behind the plane
+        Ray ray6 = new Ray(new Point(5,0,7), new Vector(0,0,1));
+        assertNull(plane.findIntersections(ray6), "The ray intersects the plane");
+        //TC07: Test that the ray  does not intersect the plane when it starts on the plane
+        Ray ray7 = new Ray(new Point(5,0,0), new Vector(0,0,1));
+        assertNull(plane.findIntersections(ray7), "The ray intersects the plane");
+
+        //Tests when the ray is not parallel or orthogonal to the plane
+        //TC08: Test that the ray does not intersect the plane when the head of the ray presents the plane
+        Ray ray8 = new Ray(new Point(2,0,0), new Vector(1,5,9));
+        assertNull(plane.findIntersections(ray8), "The ray intersects the plane");
+        //TC09: Test that the ray does not intersect the plane when the head of the ray is on the plane
+        Ray ray9 = new Ray(new Point(5,0,0), new Vector(1,0,0));
+        assertNull(plane.findIntersections(ray9), "The ray intersects the plane");
     }
 }
