@@ -2,6 +2,8 @@ package geometries;
 
 import primitives.*;
 
+import java.util.List;
+
 import static primitives.Util.isZero;
 
 /**
@@ -24,6 +26,11 @@ public class Cylinder extends Tube{
         if (isZero(height)||height<0)
             throw new IllegalArgumentException("height must be positive");
         this.height = height;
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null; // The Cylinder class does not implement intersection logic
     }
 
     @Override

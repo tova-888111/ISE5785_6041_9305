@@ -2,6 +2,8 @@ package geometries;
 import static primitives.Util.isZero;
 import primitives.*;
 
+import java.util.List;
+
 /**
  * The Tube class represents an infinite cylindrical tube in 3D space.
  * @author Tehila Shraga and Tova Tretiak
@@ -36,5 +38,10 @@ public class Tube extends RadialGeometry{
      */
     public Ray getAxis() {
         return axis;
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null; // The Tube class does not implement intersection logic
     }
 }

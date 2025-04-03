@@ -2,6 +2,8 @@ package geometries;
 
 import primitives.*;
 
+import java.util.List;
+
 /**
  * The class represents a plane in 3D space.
  * @author Tehila Shraga and Tova Tretiak
@@ -46,5 +48,10 @@ public class Plane extends Geometry {
     @Override
     public Vector getNormal(Point point) {
         return normal;
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }
