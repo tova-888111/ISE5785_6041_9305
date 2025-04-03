@@ -38,16 +38,18 @@ public class Cylinder extends Tube{
 
         Point p0 = axis.getHead(); // Base center
         Vector vector = axis.getDirection(); // Axis direction
+
         if (p0.equals(point)) {
             // Point is on the bottom base center
             return vector.scale(-1);
         }
-        if (p0.add(vector.scale(height)).equals(point)) {
+
+        if (axis.getPoint(height).equals(point)) {
             // Point is on the top base center
             return vector;
         }
         // Projection of P onto the axis
-        double t = point.subtract(p0).dotProduct(vector);
+        double t = axis.getDirection().dotProduct(point.subtract(axis.getHead()));
         if (isZero(t)) {
             // Point is on the bottom base center
             return vector.scale(-1);
@@ -56,8 +58,7 @@ public class Cylinder extends Tube{
             return vector;
         } else {
             // Point is on the lateral surface
-            Point o = p0.add(vector.scale(t)); // Closest point on axis
-            return point.subtract(o).normalize();
+            return point.subtract(axis.getPoint(t)).normalize();
         }
     }
 
