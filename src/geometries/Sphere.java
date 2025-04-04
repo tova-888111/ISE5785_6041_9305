@@ -45,7 +45,7 @@ public class Sphere extends RadialGeometry{
         Point p0 = ray.getHead();
         // The vector from the center of the sphere to the ray's head
         if (p0.equals(center)) {
-            return List.of(p0.add(v.scale(radius)));
+            return List.of(ray.getPoint(radius));
         }
             Vector u = center.subtract(p0);
             double tm = alignZero(v.dotProduct(u));
@@ -57,7 +57,7 @@ public class Sphere extends RadialGeometry{
             double t1 = alignZero(tm - th);
             double t2 = alignZero(tm + th);
 
-        if (t1 <= 0 && t2 <= 0) {
+        if (t1 <=0 && t2 <= 0) {
             return null; // No intersection
         }
 
