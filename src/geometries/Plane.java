@@ -71,12 +71,11 @@ public class Plane extends Geometry {
         double t=alignZero( n.dotProduct(q.subtract(p0))/nv);
         //The ray starts on the plane
         if (isZero(t))
-            return null; // The ray is in the plane
+            return null; // The ray starts on the plane
 
         //The ray is in the opposite direction of the normal
         if (t<0)
             return null; // The ray is in the opposite direction of the normal
-
 
         return List.of(ray.getPoint(t));
     }

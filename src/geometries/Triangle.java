@@ -3,8 +3,8 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-
 import java.util.List;
+import static primitives.Util.isZero;
 
 /**
  * This class represents a triangle in 3D space.
@@ -23,30 +23,44 @@ public class Triangle extends Polygon {
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        //Barycentric coordinates method
-        Vector edge1 = vertices.get(1).subtract(vertices.get(0));
-        Vector edge2 = vertices.get(2).subtract(vertices.get(0));
-        Vector h = ray.getDirection().crossProduct(edge2);
-        double a = edge1.dotProduct(h);
-        if (a > -0.0000001 && a < 0.0000001) {
-            return null; // This ray is parallel to this triangle.
-        }
-        double f = 1.0 / a;
-        Vector s = ray.getHead().subtract(vertices.get(0));
-        double u = f * s.dotProduct(h);
-        if (u < 0.0 || u > 1.0) {
+        List<Point> intersectionPoints = plane.findIntersections(ray);
+
+        //If the ray does not intersect with the plane, return null
+        if (intersectionPoints == null) {
             return null;
         }
-        Vector q = s.crossProduct(edge1);
-        double v = f * ray.getDirection().dotProduct(q);
-        if (v < 0.0 || u + v > 1.0) {
+        Point p = intersectionPoints.getFirst();
+        Point p0 = ray.getHead();
+        Vector v = ray.getDirection();
+        //If the intersection point is the same as the ray's head, return null
+        if (p.equals(p0)) {
             return null;
         }
-        // At this point we can compute t to find out where the ray intersects the plane
-        double t = f * edge2.dotProduct(q);
-        if (t > 0.0000001) { // ray intersection
-            return List.of(ray.getHead().add(ray.getDirection().scale(t)));
-        } // This means that there is a line intersection but not a ray intersection.
+
+        Point p1 = vertices.get(0);
+        Point p2 = vertices.get(1);
+        Point p3 = vertices.get(2);
+
+        Vector v1 = p1.subtract(p0);
+        Vector v2 = p2.subtract(p0);
+        Vector v3 = p3.subtract(p0);
+
+        Vector n1 = v1.crossProduct(v2).normalize();
+        Vector n2 = v2.crossProduct(v3).normalize();
+        Vector n3 = v3.crossProduct(v1).normalize();
+
+        double s1 = v.dotProduct(n1);
+        double s2 = v.dotProduct(n2);
+        double s3 = v.dotProduct(n3);
+
+        if (isZero(s1)|| isZero(s2)|| isZero(s3))
             return null;
+        // If the ray intersects the plane and is inside the triangle
+        if ((s1 > 0 && s2 > 0 && s3 > 0) || (s1 < 0 && s2 < 0 && s3 < 0)) {
+            return List.of(p);
         }
+        // If the ray intersects the plane but is not inside triangle, return null
+        return null;
+    }
 }
+
