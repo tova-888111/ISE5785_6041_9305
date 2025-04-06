@@ -1,5 +1,4 @@
 package geometries;
-
 import primitives.*;
 
 /**
@@ -7,7 +6,7 @@ import primitives.*;
  * This class serves as a base for all geometric objects.
  * @author Tehila Shraga and Tova Tretiak
  */
-public abstract class Geometry {
+public abstract class Geometry implements Intersectable {
 
     /**
      * Default constructor for the Geometry class.
