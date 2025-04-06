@@ -23,10 +23,12 @@ class RayTests {
         // ============ Equivalence Partitions Tests ==============
         //TC01: Test for positive distance
         assertEquals(new Point(1, 2, 6), ray.getPoint(3), "Ray getPoint() wrong result");
-        //TC02: Test for negative distance
+        //TC02: Test for large distance
+        assertEquals(new Point(1,2,1003), ray.getPoint(1000), "Ray getPoint() wrong result");
+        //TC03: Test for negative distance
         assertEquals(new Point(1, 2, 0), ray.getPoint(-3), "Ray getPoint() wrong result");
         // =============== Boundary Values Tests ==================
-        //TC03: Test for zero distance
+        //TC04: Test for zero distance
         assertEquals(new Point(1, 2, 3), ray.getPoint(0), "Ray getPoint() wrong result");
 
     }
