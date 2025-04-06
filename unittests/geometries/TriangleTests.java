@@ -1,7 +1,6 @@
 package geometries;
 
 import org.junit.jupiter.api.Test;
-
 import primitives.*;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Tehila Shraga and Tova Tretiak
  */
 class TriangleTests {
+    // Points and Vectors used many times in the tests
     /**Point (0,0,0) for tests*/
     private final Point point1=(new Point(0,0,0));
     /**Point (4,0,0) for tests*/
@@ -21,6 +21,8 @@ class TriangleTests {
     private final Point point4=(new Point(1,0,0));
     /**Point (3,0,0) for tests*/
     private final Point point5=(new Point(3,0,0));
+    /**Vector (0,0,-2) for tests*/
+    private final Vector v1=new Vector(0,0,-2);
 
     /***
      * Default constructor for the TriangleTests class.
@@ -58,17 +60,17 @@ class TriangleTests {
         Ray ray2=new Ray(new Point(1,-1,5),new Vector(0,0,-2));
         assertNull(triangle.findIntersections(ray2), "There is intersection point when the ray hits the plane of the triangle but not the triangle near its vertices");
         //TC03: Test that the ray does not intersect the triangle, the ray hits the plane of the triangle but not the triangle near its edges
-        Ray ray3=new Ray(new Point(3,3,5),new Vector(0,0,-2));
+        Ray ray3=new Ray(new Point(3,3,5),v1);
         assertNull(triangle.findIntersections(ray3), "There is intersection point when the ray hits the plane of the triangle but not the triangle near its edges");
         // ================== Boundary Values Tests ==================
         //TC04: Test that the ray does not intersect the triangle, the intersection point is on the edge of the triangle
-        Ray ray4=new Ray(new Point(2,0,5),new Vector(0,0,-2));
+        Ray ray4=new Ray(new Point(2,0,5),v1);
         assertNull(triangle.findIntersections(ray4), "There is intersection point when the ray hits the edge of the triangle");
         //TC05: Test that the ray does not intersect the triangle, the intersection point is on the vertex of the triangle
-        Ray ray5=new Ray(new Point(4,0,4),new Vector(0,0,-2));
+        Ray ray5=new Ray(new Point(4,0,4),v1);
         assertNull(triangle.findIntersections(ray5), "There is  intersection point when the ray hits the vertex of the triangle");
         //TC06: Test that the ray does not intersect the triangle, the intersection point is at the continuation of the edge of the triangle
-        Ray ray6=new Ray(new Point(-3,0,0),new Vector(0,0,-2));
+        Ray ray6=new Ray(new Point(-3,0,0),v1);
         assertNull(triangle.findIntersections(ray6), "There is intersection point when the ray hits the continuation of the edge of the triangle");
     }
 }

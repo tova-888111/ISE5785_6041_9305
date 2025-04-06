@@ -1,7 +1,6 @@
 package geometries;
-import primitives.*;
 
-import java.util.Collection;
+import primitives.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,6 +10,7 @@ import java.util.List;
  * @author Tehila Shraga and Tova Tretiak
  */
 public class Geometries implements Intersectable {
+
     /** A list of intersectable geometries.*/
     private final List<Intersectable> geometries= new LinkedList<>();
 
@@ -23,6 +23,7 @@ public class Geometries implements Intersectable {
 
     /**
      * Constructor for the Geometries class.
+     * @param geometries the intersectable geometries to be added to the collection
      */
     public Geometries(Intersectable... geometries){
         add(geometries);
@@ -38,17 +39,25 @@ public class Geometries implements Intersectable {
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        List<Point> intersections = new LinkedList<>();
+        List<Point> intersections = null;
 
         for (Intersectable geometry : geometries) {
             List<Point> tempIntersections = geometry.findIntersections(ray);
             if (tempIntersections != null) {
+                if (intersections == null) {
+                    intersections = new LinkedList<>();
+                }
                 intersections.addAll(tempIntersections);
             }
         }
 
-        return intersections.isEmpty() ? null : intersections;
+        return intersections;
     }
+
+    /**
+     * Returns the list of geometries in the collection.
+     * @return the list of intersectable geometries
+     */
     public List<Intersectable> getGeometries() {
         return geometries;
     }

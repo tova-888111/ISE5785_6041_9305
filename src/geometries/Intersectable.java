@@ -1,7 +1,6 @@
 package geometries;
 
 import primitives.*;
-
 import java.util.List;
 /**
  * The Intersectable interface represents a geometric object that can be intersected by a ray.

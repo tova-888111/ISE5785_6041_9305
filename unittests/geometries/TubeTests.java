@@ -1,4 +1,5 @@
 package geometries;
+
 import primitives.*;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -9,15 +10,19 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Tehila Shraga and Tova Tretiak
  */
 class TubeTests {
+
+    // Points and Vectors used many times in the tests
+    /** A vector used in some tests */
+    Vector v100 = new Vector(1, 0, 0);
+    /** A vector used in some tests */
+    Point p100 = new Point(1, 0, 0);
+
     /***
      * Default constructor for the TubeTests class.
      */
     public TubeTests() {
     }
-    /** A vector used in some tests */
-    Vector v100 = new Vector(1, 0, 0);
-    /** A vector used in some tests */
-    Point p100 = new Point(1, 0, 0);
+
     /***
      * Test method for {@link geometries.Tube#Tube(double, primitives.Ray)}.
      * Test method for constructor.
@@ -50,7 +55,10 @@ class TubeTests {
         //TC02: Test that the normal of the tube is correct when the connection between the point and the head of the ray forms a right angle with the ray.
         assertEquals(v100, tube.getNormal(p100), "The normal vector is incorrect");
     }
-
+    /***
+     * Test method for {@link geometries.Tube#findIntersections(primitives.Ray)}.
+     * Test method for finding intersections.
+     */
     @Test
     void testFindIntersections() {
         /* Tube used for the test */

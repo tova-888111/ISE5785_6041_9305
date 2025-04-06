@@ -10,13 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Tehila Shraga and Tova Tretiak
  */
 class VectorTests {
-    /**
-     * Default constructor for the VectorTests class.
-     * This constructor initializes the test class.
-     */
-    public VectorTests() {
-    }
 
+    // Points and Vectors used many times in the tests
     /** Vector v1 for testing*/
     private final Vector v1 = new Vector(1, 2, 3);
     /** Vector v2 for testing */
@@ -30,6 +25,13 @@ class VectorTests {
 
     /**It is a value that shows the maximum allowed difference between the expected result and the actual result.*/
     private static final double ACCURACY = 0.000001;
+
+    /**
+     * Default constructor for the VectorTests class.
+     * This constructor initializes the test class.
+     */
+    public VectorTests() {
+    }
 
     /***
      * Test method for {@link primitives.Vector#Vector(double, double, double)}.

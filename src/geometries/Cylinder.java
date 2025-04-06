@@ -29,11 +29,6 @@ public class Cylinder extends Tube{
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
-        return null; // The Cylinder class does not implement intersection logic
-    }
-
-    @Override
     public Vector getNormal(Point point) {
 
         Point p0 = axis.getHead(); // Base center
@@ -68,5 +63,10 @@ public class Cylinder extends Tube{
      */
     public double getHeight() {
         return height;
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null; // The Cylinder class does not implement intersection logic
     }
 }

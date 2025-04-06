@@ -1,4 +1,5 @@
 package geometries;
+
 import org.junit.jupiter.api.Test;
 import primitives.*;
 import java.util.List;
@@ -9,12 +10,19 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Tehila Shraga and Tova Tretiak
  */
 class SphereTests {
-    /** A point used in some tests */
-    private final Point  p001 = new Point(0, 0, 1);
+    // Points and Vectors used many times in the tests
     /** A point used in some tests */
     private final Point  p100 = new Point(1, 0, 0);
+    /** A Point used in some tests */
+    private final Point p000 = new Point(0, 0, 0);
     /** A vector used in some tests */
-    private final Vector v001 = new Vector(0, 0, 1);
+    private final Point p01    = new Point(-1, 0, 0);
+    /** A vector used in some tests */
+    private final Point p02 = new Point(0.5, 0, 0);
+    /** A point used in some tests */
+    private final Point p03 = new Point(1, 1, 0);
+    /** A point used in some tests */
+    private final Point  p04 = new Point(1, -1, 0);
     /** A vector used in some tests */
     private final Vector v310   = new Vector(3, 1, 0);
     /** A vector used in some tests */
@@ -22,13 +30,7 @@ class SphereTests {
     /** A vector used in some tests */
     private final Vector v100   = new Vector(1, 0, 0);
     /** A vector used in some tests */
-    private final Point  p01    = new Point(-1, 0, 0);
-    /** A vector used in some tests */
     private final Vector v010 = new Vector(0,1,0);
-    /** A vector used in some tests */
-    private final Point p02 = new Point(0.5, 0, 0);
-    /** A point used in some tests */
-    private final Point p03 = new Point(1, 1, 0);
 
     /***
      * Default constructor for the SphereTests class.
@@ -62,8 +64,7 @@ class SphereTests {
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
         //TC01: Test that the normal of the sphere is correct
-        Point center = new Point(0, 0, 0);
-        Sphere sphere = new Sphere(2, center);
+        Sphere sphere = new Sphere(2, p000);
         Point pointOnSurface = new Point(0, 0, 2);
         assertEquals(new Vector(0, 0, 1),sphere.getNormal(pointOnSurface), "The normal vector is incorrect");
     }
@@ -75,7 +76,7 @@ class SphereTests {
     @Test
     public void testFindIntersections() {
         //The sphere used in the tests
-        Sphere       sphere = new Sphere( 1d,p100);
+        Sphere sphere = new Sphere( 1d,p100);
 
         // ============ Equivalence Partitions Tests ==============
 
@@ -110,13 +111,13 @@ class SphereTests {
         // **** Group 2: Ray's line goes through the center
 
         // TC21: Ray starts before the sphere (2 points)
-        assertEquals(List.of(p03, new Point(1,-1,0)),sphere.findIntersections(new Ray(new Point(1,2,0), new Vector(0,-1,0))), "Ray's line inside sphere");
+        assertEquals(List.of(p03, p04),sphere.findIntersections(new Ray(new Point(1,2,0), new Vector(0,-1,0))), "Ray's line inside sphere");
 
         // TC22: Ray starts at sphere and goes inside (1 Points)
-        assertEquals(List.of(new Point(1,-1,0)),sphere.findIntersections(new Ray(p03, new Vector(0,-1,0))), "Ray's line inside sphere");
+        assertEquals(List.of(p04),sphere.findIntersections(new Ray(p03, new Vector(0,-1,0))), "Ray's line inside sphere");
 
         // TC23: Ray starts inside (1 Points)
-        assertEquals(List.of(new Point(1,-1,0)),sphere.findIntersections(new Ray(new Point(1,0.5,0), new Vector(0,-1,0))), "Ray's line inside sphere");
+        assertEquals(List.of(p04),sphere.findIntersections(new Ray(new Point(1,0.5,0), new Vector(0,-1,0))), "Ray's line inside sphere");
 
 
         // TC24: Ray starts at the center (1 Points)

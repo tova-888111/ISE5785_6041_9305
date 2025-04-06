@@ -2,7 +2,6 @@ package geometries;
 
 import org.junit.jupiter.api.Test;
 import primitives.*;
-import geometries.*;
 
 import java.util.List;
 
@@ -12,8 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Tehila Shraga and Tova Tretiak
  */
 class GeometriesTests {
+    /**Sphere used in some tests*/
     Sphere sphere= new Sphere(4,new Point(2, 0, 0));
+    /**Plane used in some tests*/
     Plane plane= new Plane(new Point(1, 2, 1), new Vector(0, 0, 1));
+    /**Triangle used in some tests*/
     Triangle triangle= new Triangle(new Point(0,1,0), new Point(1,0,0), new Point(0,0,0));
 
     /**

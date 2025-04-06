@@ -1,8 +1,9 @@
 package geometries;
+
 import primitives.*;
 
 /**
- * Abstract class representing a geometric shape in 3D space.
+ * An abstract class representing a geometric shape in 3D space.
  * This class serves as a base for all geometric objects.
  * @author Tehila Shraga and Tova Tretiak
  */

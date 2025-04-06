@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Tehila Shraga and Tova Tretiak
  */
 class RayTests {
+    /** A ray (1,2,3) in the direction of (0,0,1) used in tests */
     private final Ray ray = new Ray(new Point(1, 2, 3), new Vector(0, 0, 1));
     /**
      * Constructor for the RayTests class.
