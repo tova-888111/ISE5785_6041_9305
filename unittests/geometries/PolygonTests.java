@@ -88,4 +88,17 @@ class PolygonTests {
             assertEquals(0d, result.dotProduct(pts[i].subtract(pts[i == 0 ? 3 : i - 1])), DELTA,
                     "Polygon's normal is not orthogonal to one of the edges");
     }
+
+    /**
+     * Test method for {@link geometries.Polygon#findIntersections(Ray)}.
+     */
+    @Test
+    public void testFindIntersections() {
+        // The polygon used in the tests
+        Point[] pts = { new Point(0, 0, 1), new Point(1, 0, 0), new Point(0, 1, 0), new Point(-1, 1, 1) };
+        Polygon polygon = new Polygon(pts);
+        //============= Equivalence Partitions Tests ==============
+        //TC01: Test that the ray intersects the polygon
+
+    }
 }
