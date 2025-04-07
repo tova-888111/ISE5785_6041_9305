@@ -103,10 +103,11 @@ class PolygonTests {
         //============= Equivalence Partitions Tests ==============
         // TC01: Test that the ray intersects the polygon
         Ray ray1 = new Ray(new Point(0, 0, 0.5), new Vector(0, 0.5, 0.5));
-        assertEquals(List.of(new Point(0,0.25,0.75)), polygon.findIntersections(ray1), "Wrong number of intersection points");
+        assertEquals(List.of(new Point(0,0.25,0.75)), polygon.findIntersections(ray1), "The intersection point is incorrect when the ray intersects the polygon inside the polygon");
+
         // TC02: Test that the ray does not intersect the polygon
-        Ray ray2 = new Ray(new Point(0, 0, 0.5), new Vector(0, 0, 1));
-        //assertNull(polygon.findIntersections(ray2), "There is intersection point when the ray does not intersect the polygon");
+        Ray ray2 = new Ray(new Point(2, 2, 5), new Vector(-1, -1, -2));
+        assertNull(polygon.findIntersections(ray2), "There is intersection point when the ray does not intersect the polygon");
 
         // ============ Boundary Values Tests ==============
         // TC03: Ray intersects at vertex
@@ -125,12 +126,16 @@ class PolygonTests {
         Ray ray6 = new Ray(new Point(0, 0, 0), new Vector(1, -1, 0));
         assertNull(polygon.findIntersections(ray6), "Ray parallel to polygon should return null");
 
-        // TC07: Ray lies in the polygon plane
-        Ray ray7 = new Ray(new Point(0, 0, 1), new Vector(1, 1, -2));
-        //assertNull(polygon.findIntersections(ray7), "Ray in plane should return null");
+        // TC07: Ray is on one of the edges of the polygon
+        Ray ray7 = new Ray(new Point(0, 0, 1), new Vector(1, 0, -1));
+        assertNull(polygon.findIntersections(ray7), "Ray in plane should return null");
 
         // TC08: Ray intersects the plane outside the polygon bounds
         Ray ray8 = new Ray(new Point(2, 2, -1), new Vector(-1, -1, 1));
         assertNull(polygon.findIntersections(ray8), "Ray intersects plane outside polygon should return null");
+
+        // TC09: Ray is on the Polygon but not on one of its edge
+        Ray ray9 = new Ray(new Point(1.0/3, 1.0/3, 1.0/3), new Vector(1, -1, 0));
+        assertNull(polygon.findIntersections(ray9), "Ray in plane should return null");
     }
 }
