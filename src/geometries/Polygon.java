@@ -81,6 +81,50 @@ public class Polygon extends Geometry {
 
    @Override
    public List<Point> findIntersections(Ray ray) {
-      return null;
+      // Step 1: Intersect the ray with the polygon's plane
+      List<Point> planeIntersections = plane.findIntersections(ray);
+      if (planeIntersections == null) {
+         return null; // No intersection with the plane
+      }
+
+      Point intersectionPoint = planeIntersections.get(0);
+      Point p0 = ray.getHead();
+      Vector dir = ray.getDirection();
+
+      // Exclude the ray's origin point (head) if it's exactly on the polygon
+      if (intersectionPoint.equals(p0)) {
+         return null;
+      }
+
+      Vector v = intersectionPoint.subtract(p0);
+
+      // Step 2: Check if the intersection point is inside the polygon
+      Vector n = null;
+      int size = vertices.size();
+      boolean isPositive = false;
+
+      for (int i = 0; i < size; i++) {
+         Point vi = vertices.get(i);
+         Point vi1 = vertices.get((i + 1) % size);
+
+         Vector edge1 = vi.subtract(p0);
+         Vector edge2 = vi1.subtract(p0);
+
+         Vector cross = edge1.crossProduct(edge2);
+         double dot = cross.dotProduct(v);
+
+         // On the first iteration, determine the direction (positive/negative)
+         if (i == 0) {
+            if (isZero(dot)) return null; // Point is on the edge
+            isPositive = dot > 0;
+         } else {
+            // If the sign differs from the initial sign — point is outside
+            if (isZero(dot) || (dot > 0) != isPositive) return null;
+         }
+      }
+
+      // If the point is inside, return it
+      return List.of(intersectionPoint);
    }
+
 }
