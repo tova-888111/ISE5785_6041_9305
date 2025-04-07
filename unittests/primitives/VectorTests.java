@@ -48,6 +48,10 @@ class VectorTests {
         //TC02: Test that the vector with zero length throws an exception
         assertThrows(IllegalArgumentException.class, () -> new Vector(0, 0, 0),
                 "Vector constructor for zero length does not throw an exception");
+        //TC03: Test that the vector with almost zero length throws an exception
+        assertThrows(IllegalArgumentException.class, () -> new Vector(0.00000000000000001, 0, 0),
+                "Vector constructor for almost zero length does not throw an exception");
+
     }
     /**
      * Test method for {@link primitives.Vector#lengthSquared()}.

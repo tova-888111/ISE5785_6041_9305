@@ -87,9 +87,8 @@ public class Polygon extends Geometry {
          return null; // No intersection with the plane
       }
 
-      Point intersectionPoint = planeIntersections.get(0);
+      Point intersectionPoint = planeIntersections.getFirst();
       Point p0 = ray.getHead();
-      Vector dir = ray.getDirection();
 
       // Exclude the ray's origin point (head) if it's exactly on the polygon
       if (intersectionPoint.equals(p0)) {
@@ -99,7 +98,6 @@ public class Polygon extends Geometry {
       Vector v = intersectionPoint.subtract(p0);
 
       // Step 2: Check if the intersection point is inside the polygon
-      Vector n = null;
       int size = vertices.size();
       boolean isPositive = false;
 
@@ -111,7 +109,7 @@ public class Polygon extends Geometry {
          Vector edge2 = vi1.subtract(p0);
 
          Vector cross = edge1.crossProduct(edge2);
-         double dot = cross.dotProduct(v);
+         double dot = alignZero(cross.dotProduct(v));
 
          // On the first iteration, determine the direction (positive/negative)
          if (i == 0) {
