@@ -1,7 +1,10 @@
 package geometries;
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 import primitives.*;
 
+import java.util.AbstractMap;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -46,47 +49,78 @@ public class Tube extends RadialGeometry{
         Point p0 = axis.getHead();
         Vector v0 = axis.getDirection();
 
-        if (Math.abs(v0.dotProduct(v) - v0.length() * v.length()) < 1e-10) {
-            return null;
-        }
-
-        // w = deltaP = p - p0
-        Vector deltaP = p.subtract(p0);
-
-        Vector vCrossV0 = v.crossProduct(v0);
-        Vector deltaPCrossV0 = deltaP.crossProduct(v0);
-
-        double a = vCrossV0.lengthSquared();
-        double b = 2 * vCrossV0.dotProduct(deltaPCrossV0);
-        double c = deltaPCrossV0.lengthSquared() - radius * radius * v0.lengthSquared();
-
-        double discriminant = b * b - 4 * a * c;
-
-        // No intersection
-        if (isZero(discriminant) || discriminant < 0 || isZero(a)) {
-            return null;
-        }
-
-        double sqrtDisc = Math.sqrt(discriminant);
-        double denom = 2 * a;
-
-        double t1 = (-b + sqrtDisc) / denom;
-        double t2 = (-b - sqrtDisc) / denom;
-
-        List<Point> result = new java.util.LinkedList<>();
-
-        if (t1 > 0 && !isZero(t1)) {
-            result.add(ray.getPoint(t1));
-        }
-
-        if (t2 > 0 && !isZero(t2)) {
-            Point point2 = ray.getPoint(t2);
-            // Avoid adding the same point (if very close numerically)
-            if (result.isEmpty() || !result.getFirst().equals(point2)) {
-                result.add(point2);
+        if (p.equals(p0)) {
+            if (Math.abs(v0.dotProduct(v)) < v0.length() * v.length() - 1e-10) {
+                return List.of(ray.getPoint(radius));
             }
+            return null;
         }
 
-        return result.isEmpty() ? null : result;
+        if (Math.abs(v0.dotProduct(v)) > v0.length() * v.length() - 1e-10) {
+            return null;
+        }
+
+        try {
+            Vector deltaP = p.subtract(p0);
+            Vector vCrossV0 = v.crossProduct(v0);
+            Vector deltaPCrossV0 = deltaP.crossProduct(v0);
+
+            double a = alignZero(vCrossV0.lengthSquared());
+            double b = alignZero(2 * vCrossV0.dotProduct(deltaPCrossV0));
+            double c = alignZero(deltaPCrossV0.lengthSquared() - radius * radius * v0.lengthSquared());
+
+            double discriminant = alignZero(b * b - 4 * a * c);
+
+            if (isZero(discriminant) || discriminant < 0 || isZero(a)) {
+                return null;
+            }
+
+            double sqrtDisc = Math.sqrt(discriminant);
+            double denom = 2 * a;
+
+            double t1 = alignZero((-b + sqrtDisc) / denom);
+            double t2 = alignZero((-b - sqrtDisc) / denom);
+
+            List<AbstractMap.SimpleEntry<Double, Point>> temp = new java.util.LinkedList<>();
+            final double EPSILON = 1e-10;
+
+            if (t1 > EPSILON) {
+                temp.add(new AbstractMap.SimpleEntry<>(t1, ray.getPoint(t1)));
+            }
+
+            if (t2 > EPSILON) {
+                Point point2 = ray.getPoint(t2);
+                boolean alreadyExists = false;
+                for (AbstractMap.SimpleEntry<Double, Point> entry : temp) {
+                    if (entry.getValue().distance(point2) < EPSILON) {
+                        alreadyExists = true;
+                        break;
+                    }
+                }
+                if (!alreadyExists) {
+                    temp.add(new AbstractMap.SimpleEntry<>(t2, point2));
+                }
+            }
+
+            if (temp.isEmpty()) {
+                return null;
+            }
+
+            temp.sort(new Comparator<AbstractMap.SimpleEntry<Double, Point>>() {
+                @Override
+                public int compare(AbstractMap.SimpleEntry<Double, Point> o1, AbstractMap.SimpleEntry<Double, Point> o2) {
+                    return Double.compare(o1.getKey(), o2.getKey());
+                }
+            });
+
+            List<Point> result = new java.util.LinkedList<>();
+            for (AbstractMap.SimpleEntry<Double, Point> entry : temp) {
+                result.add(entry.getValue());
+            }
+
+            return result;
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 }
