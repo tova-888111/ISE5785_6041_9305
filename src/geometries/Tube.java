@@ -49,8 +49,26 @@ public class Tube extends RadialGeometry{
         Point p0 = axis.getHead();
         Vector v0 = axis.getDirection();
 
-        if (p.equals(p0)) {
-            if (Math.abs(v0.dotProduct(v)) < v0.length() * v.length() - 1e-10) {
+        Vector deltaP;
+        try {
+            deltaP = p.subtract(p0);
+        } catch (IllegalArgumentException e) {
+            if (isZero(v.dotProduct(v0))) {
+                return List.of(ray.getPoint(radius));
+            }
+            return null;
+        }
+
+        try {
+            Vector cross = deltaP.crossProduct(v0);
+            if (isZero(cross.length())) {
+                if (isZero(v.dotProduct(v0))) {
+                    return List.of(ray.getPoint(radius));
+                }
+                return null;
+            }
+        } catch (IllegalArgumentException e) {
+            if (isZero(v.dotProduct(v0))) {
                 return List.of(ray.getPoint(radius));
             }
             return null;
@@ -60,67 +78,57 @@ public class Tube extends RadialGeometry{
             return null;
         }
 
-        try {
-            Vector deltaP = p.subtract(p0);
-            Vector vCrossV0 = v.crossProduct(v0);
-            Vector deltaPCrossV0 = deltaP.crossProduct(v0);
+        Vector vCrossV0 = v.crossProduct(v0);
+        Vector deltaPCrossV0 = deltaP.crossProduct(v0);
 
-            double a = alignZero(vCrossV0.lengthSquared());
-            double b = alignZero(2 * vCrossV0.dotProduct(deltaPCrossV0));
-            double c = alignZero(deltaPCrossV0.lengthSquared() - radius * radius * v0.lengthSquared());
+        double a = alignZero(vCrossV0.lengthSquared());
+        double b = alignZero(2 * vCrossV0.dotProduct(deltaPCrossV0));
+        double c = alignZero(deltaPCrossV0.lengthSquared() - radius * radius * v0.lengthSquared());
 
-            double discriminant = alignZero(b * b - 4 * a * c);
+        double discriminant = alignZero(b * b - 4 * a * c);
 
-            if (isZero(discriminant) || discriminant < 0 || isZero(a)) {
-                return null;
-            }
-
-            double sqrtDisc = Math.sqrt(discriminant);
-            double denom = 2 * a;
-
-            double t1 = alignZero((-b + sqrtDisc) / denom);
-            double t2 = alignZero((-b - sqrtDisc) / denom);
-
-            List<AbstractMap.SimpleEntry<Double, Point>> temp = new java.util.LinkedList<>();
-            final double EPSILON = 1e-10;
-
-            if (t1 > EPSILON) {
-                temp.add(new AbstractMap.SimpleEntry<>(t1, ray.getPoint(t1)));
-            }
-
-            if (t2 > EPSILON) {
-                Point point2 = ray.getPoint(t2);
-                boolean alreadyExists = false;
-                for (AbstractMap.SimpleEntry<Double, Point> entry : temp) {
-                    if (entry.getValue().distance(point2) < EPSILON) {
-                        alreadyExists = true;
-                        break;
-                    }
-                }
-                if (!alreadyExists) {
-                    temp.add(new AbstractMap.SimpleEntry<>(t2, point2));
-                }
-            }
-
-            if (temp.isEmpty()) {
-                return null;
-            }
-
-            temp.sort(new Comparator<AbstractMap.SimpleEntry<Double, Point>>() {
-                @Override
-                public int compare(AbstractMap.SimpleEntry<Double, Point> o1, AbstractMap.SimpleEntry<Double, Point> o2) {
-                    return Double.compare(o1.getKey(), o2.getKey());
-                }
-            });
-
-            List<Point> result = new java.util.LinkedList<>();
-            for (AbstractMap.SimpleEntry<Double, Point> entry : temp) {
-                result.add(entry.getValue());
-            }
-
-            return result;
-        } catch (IllegalArgumentException e) {
+        if (isZero(discriminant) || discriminant < 0 || isZero(a)) {
             return null;
         }
+
+        double sqrtDisc = alignZero(Math.sqrt(discriminant));
+        double denom = alignZero(2 * a);
+
+        double t1 = alignZero((-b + sqrtDisc) / denom);
+        double t2 = alignZero((-b - sqrtDisc) / denom);
+
+        List<AbstractMap.SimpleEntry<Double, Point>> temp = new java.util.LinkedList<>();
+        final double EPSILON = 1e-10;
+
+        if (t1 > EPSILON) {
+            temp.add(new AbstractMap.SimpleEntry<>(t1, ray.getPoint(t1)));
+        }
+
+        if (t2 > EPSILON) {
+            Point point2 = ray.getPoint(t2);
+            boolean alreadyExists = false;
+            for (AbstractMap.SimpleEntry<Double, Point> entry : temp) {
+                if (entry.getValue().distance(point2) < EPSILON) {
+                    alreadyExists = true;
+                    break;
+                }
+            }
+            if (!alreadyExists) {
+                temp.add(new AbstractMap.SimpleEntry<>(t2, point2));
+            }
+        }
+
+        if (temp.isEmpty()) {
+            return null;
+        }
+
+        temp.sort(Comparator.comparingDouble(AbstractMap.SimpleEntry::getKey));
+
+        List<Point> result = new java.util.LinkedList<>();
+        for (AbstractMap.SimpleEntry<Double, Point> entry : temp) {
+            result.add(entry.getValue());
+        }
+
+        return result;
     }
 }

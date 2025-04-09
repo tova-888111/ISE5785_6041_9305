@@ -157,8 +157,8 @@ class TubeTests {
         //Tests when the ray is orthogonal to the tube and its center ray
 
         //TC24: Test that the ray intersects the tube when the ray orthogonal to its center ray and starts at continue of the center ray
-       //assertEquals(List.of(new Point(2,0,-3)), tube.findIntersections(new Ray(new Point(1, 0, -3), v100)),
-              //"The intersection point is incorrect when the ray orthogonal to its center ray and starts at continue of the center ray");
+       assertEquals(List.of(new Point(2,0,-3)), tube.findIntersections(new Ray(new Point(1, 0, -3), v100)),
+              "The intersection point is incorrect when the ray orthogonal to its center ray and starts at continue of the center ray");
 
         //TC25: Test that the ray intersects the tube when the ray orthogonal to its center ray and starts in front of continue of the center ray inside the tube
         assertEquals(List.of(new Point(2,0,3)), tube.findIntersections(new Ray(new Point(0.5, 0, 3), v100)),
