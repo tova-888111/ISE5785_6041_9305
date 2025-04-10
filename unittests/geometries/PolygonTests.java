@@ -139,18 +139,22 @@ class PolygonTests {
         Ray ray9 = new Ray(new Point(1.0/3, 1.0/3, 1.0/3), new Vector(1, -1, 0));
         assertNull(polygon.findIntersections(ray9), "Ray in plane should return null");
 
-        // TC10: Ray intersects the polygon at its center but the intersection point is not the head of the ray
-        Ray ray11 = new Ray(new Point(0.25, 0.5, 0.25), new Vector(0, 0, 1));
-        assertNull(polygon.findIntersections(ray11), "Ray intersects polygon at center but the intersection point is the head of the ray -it should return null");
+        // TC10: Ray intersects the polygon at its center but the intersection point is the head of the ray
+        Ray ray10 = new Ray(new Point(0.25, 0.5, 0.25), new Vector(0, 0, 1));
+        assertNull(polygon.findIntersections(ray10), "Ray intersects polygon at center but the intersection point is the head of the ray -it should return null");
 
         // TC11: Ray hits from up down
-        Ray ray12 = new Ray(new Point(0.2, 0.6, 5), new Vector(0, 0, -1));
-        List<Point> expected12 = List.of(new Point(0.2, 0.6, 0.2));
-        assertEquals(expected12, polygon.findIntersections(ray12), "Top down internal hit");
+        Ray ray11 = new Ray(new Point(0.2, 0.6, 5), new Vector(0, 0, -1));
+        List<Point> expected11 = List.of(new Point(0.2, 0.6, 0.2));
+        assertEquals(expected11, polygon.findIntersections(ray11), "Top down internal hit");
 
         // TC12: ray with a very small angle
-        Ray ray10 = new Ray(new Point(0, 0, 0), new Vector(0.001, 0.999, 1));
-        List<Point> expected10 = List.of(new Point(0.0005, 0.4995, 0.5));
-        assertEquals(expected10, polygon.findIntersections(ray10), "Sharp angle intersection");
+        Ray ray12 = new Ray(new Point(0, 0, 0), new Vector(0.001, 0.999, 1));
+        List<Point> expected12 = List.of(new Point(0.0005, 0.4995, 0.5));
+        assertEquals(expected12, polygon.findIntersections(ray12), "Sharp angle intersection");
+
+        // TC13: ray with  normal vector
+        Ray ray13 = new Ray(new Point(1.0/3, 1.0/3, 1.0/3), new Vector(1, 1, 1));
+        assertNull(polygon.findIntersections(ray13), "Normal vector intersection, starts on the polygon");
     }
 }

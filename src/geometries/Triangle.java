@@ -52,7 +52,7 @@ public class Triangle extends Polygon {
         // Check if intersection point is behind the ray's origin or at the origin
         if (t <= 0) return null;
 
-        Point intersectionPoint = p0.add(dir.scale(t));
+        Point intersectionPoint = ray.getPoint(t);
 
         // Reject intersection if it lies exactly on vertex or edge
         if (intersectionPoint.equals(p0) ||
