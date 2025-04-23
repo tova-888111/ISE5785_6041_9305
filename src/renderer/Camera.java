@@ -28,10 +28,10 @@ import static primitives.Util.isZero;
  *
  * <p>This class also provides a nested Builder class for constructing Camera objects.</p>
  *
- * @author Tehila Shraga
- * @author Tova Tretiak
+ * @author Tehila Shraga and Tova Tretiak
  */
 public class Camera implements Cloneable {
+    // Camera properties
     private Point p0=null; // The position of the camera
     private Vector vTo=null; // The forward direction vector
     private Vector vUp=null; // The upward direction vector
@@ -137,6 +137,15 @@ public class Camera implements Cloneable {
     }
 
     /**
+     * Retrieves the center of the view plane.
+     *
+     * @return the center of the view plane
+     */
+    public Point getPc() {
+        return pc;
+    }
+
+    /**
      * The Builder class is used to construct Camera objects.
      * It provides methods for setting the camera's properties and ensures
      * that the camera is properly initialized before use.
@@ -237,10 +246,9 @@ public class Camera implements Cloneable {
             if (camera.p0.equals(target)) {
                 throw new IllegalArgumentException("Target point cannot be the same as camera position");
             }
-            camera.vTo = target.subtract(camera.p0).normalize();
-            camera.vUp=new Vector(0,1,0);
+            camera.vTo= target.subtract(camera.p0).normalize();
             //Calculate vRight as the cross product of vTo and vUp
-                camera.vRight= camera.vTo.crossProduct(camera.vUp).normalize();
+            camera.vRight= camera.vTo.crossProduct(camera.vUp).normalize();
             // Calculate vUp as the cross product of vRight and vTo
             camera.vUp = camera.vRight.crossProduct(camera.vTo).normalize();
             return this;
@@ -280,6 +288,13 @@ public class Camera implements Cloneable {
             return this;
         }
 
+        /**
+         * Sets the resolution of the view plane.
+         *
+         * @param nx the number of pixels in the x-direction
+         * @param ny the number of pixels in the y-direction
+         * @return the Builder instance
+         */
         public Builder setResolution(int nx, int ny) {
             //todo
             return  this;
@@ -314,7 +329,8 @@ public class Camera implements Cloneable {
             if (camera.height==0.0){
                 throw new MissingResourceException(errorMessage, className, "Missing height");
             }
-
+            // Calculate the center of the view plane
+            camera.pc=camera.p0.add(camera.vTo.scale(camera.distance));
             try {
                 // Clone the camera to ensure immutability
                 return (Camera) camera.clone();
