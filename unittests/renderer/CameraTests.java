@@ -12,6 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Dan
  */
 class CameraTests {
+
+    /**
+     * Default constructor for the CameraTests class.
+     */
+    public CameraTests() {
+    }
+
     /** Camera builder for the tests */
     private final Camera.Builder cameraBuilder = Camera.getBuilder()
             .setLocation(Point.ZERO)
@@ -61,6 +68,10 @@ class CameraTests {
 
     }
 
+    /**
+     * Test method for
+     * {@link renderer.Camera#constructRay(int, int, int, int)}.
+     */
     @Test
     void testBuilder() {
         cameraBuilder.setVpSize(4, 4).setResolution(2, 2);

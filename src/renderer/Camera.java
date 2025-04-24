@@ -24,7 +24,6 @@ import static primitives.Util.isZero;
  *   <li>distance: The distance from the camera to the view plane.</li>
  *   <li>width and height: The dimensions of the view plane.</li>
  * </ul>
- * </p>
  *
  * <p>This class also provides a nested Builder class for constructing Camera objects.</p>
  *
@@ -32,16 +31,26 @@ import static primitives.Util.isZero;
  */
 public class Camera implements Cloneable {
     // Camera properties
-    private Point p0=null; // The position of the camera
-    private Vector vTo=null; // The forward direction vector
-    private Vector vUp=null; // The upward direction vector
-    private Vector vRight=null; // The rightward direction vector
-    private double distance = 0.0; // Distance from the camera to the view plane
-    private double width = 0.0; // Width of the view plane
-    private double height = 0.0; // Height of the view plane
-    private Point pc=null; // The center of the view plane
-    private int nx= 0; // Number of pixels in the x-direction
-    private int ny= 0; // Number of pixels in the y-direction
+    /** The position of the camera */
+    private Point p0=null;
+    /** The forward direction vector of the camera */
+    private Vector vTo=null;
+    /** The upward direction vector of the camera */
+    private Vector vUp=null;
+    /** The rightward direction vector of the camera */
+    private Vector vRight=null;
+    /** The distance from the camera to the view plane */
+    private double distance = 0.0;
+    /** Width of the view plane*/
+    private double width = 0.0;
+    /** Height of the view plane */
+    private double height = 0.0;
+    /** The center of the view plane */
+    private Point pc=null;
+    /** Number of pixels in the x-direction */
+    private int nx= 0;
+    /** Number of pixels in the y-direction */
+    private int ny= 0;
 
     /**
      * Private constructor to prevent direct instantiation.
@@ -151,7 +160,7 @@ public class Camera implements Cloneable {
      * that the camera is properly initialized before use.
      */
     public static class Builder {
-        //The Camera object being constructed
+        /** The Camera object being constructed */
         private final Camera camera = new Camera();
 
         /**

@@ -74,7 +74,6 @@ public class Sphere extends RadialGeometry {
      *   <li>Otherwise, calculate the distances to the intersection points along the ray.</li>
      *   <li>Return the intersection points that are in front of the ray's origin.</li>
      * </ol>
-     * </p>
      */
     @Override
     public List<Point> findIntersections(Ray ray) {

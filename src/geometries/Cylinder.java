@@ -8,29 +8,53 @@ import static primitives.Util.isZero;
 
 /**
  * The Cylinder class represents a finite cylindrical shape in 3D space.
- * @author Tehila Shraga and Tova Tretiak
+ * It extends the {@link Tube} class, adding a height property to define the finite length of the cylinder.
+ * The cylinder is defined by its radius, central axis (as a {@link Ray}), and height.
+ *
+ * <p>Authors: Tehila Shraga and Tova Tretiak</p>
  */
-public class Cylinder extends Tube{
+public class Cylinder extends Tube {
 
-    /** The height of the cylinder */
+    /** The height of the cylinder. This value must be positive. */
     private final double height;
 
     /**
      * Constructs a new Cylinder with the specified radius, central axis, and height.
+     * Validates that the height is positive and non-zero.
+     *
      * @param radius The radius of the cylinder (must be positive).
      * @param axis The central axis of the cylinder, represented as a {@link Ray}.
      * @param height The height of the cylinder (must be positive).
+     * @throws IllegalArgumentException if the height is zero or negative.
      */
     public Cylinder(double radius, Ray axis, double height) {
-        super(radius, axis);
-        if (isZero(height)||height<0)
+        super(radius, axis); // Call the constructor of the Tube class
+        if (isZero(height) || height < 0) {
             throw new IllegalArgumentException("height must be positive");
+        }
         this.height = height;
     }
 
+    /**
+     * Computes the normal vector to the cylinder at a given point.
+     * The normal vector is perpendicular to the surface of the cylinder at the specified point.
+     * The method handles three cases:
+     * <ul>
+     *   <li>Point is on the bottom base.</li>
+     *   <li>Point is on the top base.</li>
+     *   <li>Point is on the lateral surface.</li>
+     * </ul>
+     *
+     * @param point The point at which the normal is calculated.
+     *              <ul>
+     *                <li>If the point lies on the bottom base, the normal points inward along the axis direction.</li>
+     *                <li>If the point lies on the top base, the normal points outward along the axis direction.</li>
+     *                <li>If the point lies on the lateral surface, the normal is perpendicular to the axis.</li>
+     *              </ul>
+     * @return A normalized vector representing the normal to the cylinder at the given point.
+     */
     @Override
     public Vector getNormal(Point point) {
-
         Point p0 = axis.getHead(); // Base center
         Vector vector = axis.getDirection(); // Axis direction
 
@@ -43,7 +67,8 @@ public class Cylinder extends Tube{
             // Point is on the top base center
             return vector;
         }
-        // Projection of P onto the axis
+
+        // Projection of the point onto the axis
         double t = axis.getDirection().dotProduct(point.subtract(axis.getHead()));
         if (isZero(t)) {
             // Point is on the bottom base center
@@ -57,14 +82,23 @@ public class Cylinder extends Tube{
         }
     }
 
-    /***
+    /**
      * Returns the height of the cylinder.
-     * @return height
+     * Provides access to the height property for external use.
+     *
+     * @return The height of the cylinder.
      */
     public double getHeight() {
         return height;
     }
 
+    /**
+     * Finds the intersection points of a ray with the cylinder.
+     * This method is not implemented in the current version of the class.
+     *
+     * @param ray The ray to check for intersections.
+     * @return {@code null} as the intersection logic is not implemented.
+     */
     @Override
     public List<Point> findIntersections(Ray ray) {
         return null; // The Cylinder class does not implement intersection logic
