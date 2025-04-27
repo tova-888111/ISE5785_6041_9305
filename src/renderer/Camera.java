@@ -51,6 +51,10 @@ public class Camera implements Cloneable {
     private int nx= 0;
     /** Number of pixels in the y-direction */
     private int ny= 0;
+    /** Pixel resolution in the x-direction */
+    private double rx= 0;
+    /** Pixel resolution in the y-direction */
+    private double ry= 0;
 
     /**
      * Private constructor to prevent direct instantiation.
@@ -305,7 +309,15 @@ public class Camera implements Cloneable {
          * @return the Builder instance
          */
         public Builder setResolution(int nx, int ny) {
-            //todo
+            // Ensure nx and ny are positive
+            if (alignZero(nx) <= 0 || alignZero(ny) <= 0) {
+                throw new IllegalArgumentException("Resolution must be positive");
+            }
+            camera.nx = nx;
+            camera.ny = ny;
+            // Calculate pixel size in the x and y directions
+            camera.rx = alignZero(camera.width / nx);
+            camera.ry = alignZero(camera.height / ny);
             return  this;
         }
 
