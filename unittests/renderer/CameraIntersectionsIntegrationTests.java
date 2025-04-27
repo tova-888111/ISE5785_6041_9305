@@ -44,8 +44,8 @@ public class CameraIntersectionsIntegrationTests {
         int size=0;
         // Iterate over the view plane pixels
         // The view plane is divided into 3x3 pixels
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i<3; i++) {
+            for (int j=0; j < 3; j++) {
                 Ray ray = camera.constructRay(3,3,j,i);
                 intersections = intersectable.findIntersections(ray);
                 if (intersections != null) {
@@ -102,13 +102,13 @@ public class CameraIntersectionsIntegrationTests {
         // Test with camera at (0,0,0)
         checkNumOfIntersections(plane1, camera1, 9);
 
-        //Plane plane2 = new Plane(new Point(0,1,-3), new Point(0,2,-2), new Point(1,1,-3));
+        Plane plane2 = new Plane(new Point(0,1,-3), new Point(0,2,-2.5), new Point(1,1,-3));
         // Test with camera at (0,0,0)
-        //checkNumOfIntersections(plane2, camera2, 9);
+        checkNumOfIntersections(plane2, camera2, 9);
 
-        //Plane plane3 = new Plane(new Point(0,0,-5), new Point(1,0,-5), new Point(0,1,-4));
+        Plane plane3 = new Plane(new Point(0,0,-5), new Point(1,0,-5), new Point(0,1,-4));
         // Test with camera at (0,0,0)
-        //checkNumOfIntersections(plane3, camera1, 6);
+        checkNumOfIntersections(plane3, camera1, 6);
     }
 
     /**
