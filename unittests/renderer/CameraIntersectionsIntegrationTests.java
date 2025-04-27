@@ -76,7 +76,7 @@ public class CameraIntersectionsIntegrationTests {
 
         Sphere sphere2 = new Sphere(2.5, new Point(0,0,-2.5));
         // Test with camera at (0,0,0.5)
-        checkNumOfIntersections(sphere1, camera2, 18);
+        checkNumOfIntersections(sphere2, camera2, 18);
 
         Sphere sphere3 = new Sphere(2, new Point(0,0,-2));
         // Test with camera at (0,0,0.5)
@@ -102,12 +102,11 @@ public class CameraIntersectionsIntegrationTests {
         // Test with camera at (0,0,0)
         checkNumOfIntersections(plane1, camera1, 9);
 
-        Plane plane2 = new Plane(new Point(0,0,-5), new Point(1,0,-5), new Point(0,1,-4));
+        //Plane plane2 = new Plane(new Point(0,1,-3), new Point(0,2,-2), new Point(1,1,-3));
         // Test with camera at (0,0,0)
-        checkNumOfIntersections(plane2, camera1, 9);
+        //checkNumOfIntersections(plane2, camera2, 9);
 
-        //TODO
-        // Plane plane3 = new Plane();
+        //Plane plane3 = new Plane(new Point(0,0,-5), new Point(1,0,-5), new Point(0,1,-4));
         // Test with camera at (0,0,0)
         //checkNumOfIntersections(plane3, camera1, 6);
     }

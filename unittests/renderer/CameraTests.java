@@ -48,11 +48,11 @@ class CameraTests {
 
         // BV02: 4X4 Side (0,1)
         assertEquals(new Ray(Point.ZERO, new Vector(1, -3, -10)),
-                camera1.constructRay(4, 4, 1, 0), BAD_RAY);
+               camera1.constructRay(4, 4, 1, 0), BAD_RAY);
 
         // BV03: 3X3 Center (1,1)
         assertEquals(new Ray(Point.ZERO, new Vector(0, 0, -10)),
-                camera2.constructRay(3, 3, 1, 1), BAD_RAY);
+               camera2.constructRay(3, 3, 1, 1), BAD_RAY);
 
         // BV04: 3X3 Center of Upper Side (0,1)
         assertEquals(new Ray(Point.ZERO, new Vector(0, -2, -10)),

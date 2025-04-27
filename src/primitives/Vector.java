@@ -7,7 +7,7 @@ package primitives;
 public class Vector extends Point{
 
     /** The unit vector along the Z-axis */
-    public static final Vector AXIS_Z = new Vector(0,0,-1) ;
+    public static final Vector AXIS_Z = new Vector(0,0,1) ;
     /** The unit vector along the Y-axis */
     public static final Vector AXIS_Y = new Vector(0,1,0) ;
     /** The unit vector along the X-axis */

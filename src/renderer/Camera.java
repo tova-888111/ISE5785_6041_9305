@@ -82,8 +82,34 @@ public class Camera implements Cloneable {
      * @return the constructed ray
      */
     public Ray constructRay(int nX, int nY, int j, int i) {
-        // TODO: Implement the method to construct a ray through a pixel
-        return null;
+        Point pij = p0.add(vTo.scale(distance)); // Initialize the pixel point to the center of the view plane
+        if (nx!=nX||ny!=nY) {
+            nx = nX;
+            ny = nY;
+        }
+        if (rx==0||ry==0){
+            rx=width/nx;
+            ry=height/ny;
+        }
+        double yi=0;
+        double xj=0;
+        if (nx%2==0&&ny%2==0) {
+            yi=-(i-ny/2+0.5)*ry;
+            xj=(j-nx/2+0.5)*rx;
+        }
+        else {
+            yi=-(i-(ny-1)/2)*ry;
+            xj=(j-(nx-1)/2)*rx;
+        }
+        if (!isZero(xj)){
+            pij=pij.add(vRight.scale(xj));
+        }
+        if (!isZero(yi)){
+            pij=pij.add(vUp.scale(yi));
+        }
+        Vector vector= pij.subtract(p0).normalize(); // Calculate the direction vector from the camera to the pixel
+        // Create a new ray from the camera position to the pixel point
+        return new Ray(p0, vector);
     }
 
     /**
@@ -159,6 +185,24 @@ public class Camera implements Cloneable {
     }
 
     /**
+     * Retrieves the number of pixels in the x-direction.
+     *
+     * @return the number of pixels in the x-direction
+     */
+    public double getRx(){
+        return rx;
+    }
+
+    /**
+     * Retrieves the number of pixels in the y-direction.
+     *
+     * @return the number of pixels in the y-direction
+     */
+    public double getRy(){
+        return ry;
+    }
+
+    /**
      * The Builder class is used to construct Camera objects.
      * It provides methods for setting the camera's properties and ensures
      * that the camera is properly initialized before use.
@@ -221,7 +265,7 @@ public class Camera implements Cloneable {
             camera.vTo = vTo.normalize();
             camera.vUp = vUp.normalize();
             // Calculate vRight as the cross product of vTo and vUp
-            camera.vRight = vTo.crossProduct(vUp);
+            camera.vRight = vTo.crossProduct(vUp).normalize();
             return this;
         }
 
@@ -260,6 +304,7 @@ public class Camera implements Cloneable {
                 throw new IllegalArgumentException("Target point cannot be the same as camera position");
             }
             camera.vTo= target.subtract(camera.p0).normalize();
+            camera.vUp= new Vector(0,1,0);
             //Calculate vRight as the cross product of vTo and vUp
             camera.vRight= camera.vTo.crossProduct(camera.vUp).normalize();
             // Calculate vUp as the cross product of vRight and vTo
