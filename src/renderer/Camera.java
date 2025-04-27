@@ -79,10 +79,13 @@ public class Camera implements Cloneable {
      * @param nY the number of pixels in the y-direction
      * @param j the column index of the pixel
      * @param i the row index of the pixel
-     * @return the constructed ray
+     * @return the constructed ray from the camera to the specified pixel
      */
     public Ray constructRay(int nX, int nY, int j, int i) {
-        Point pij = p0.add(vTo.scale(distance)); // Initialize the pixel point to the center of the view plane
+        // Calculate the center of the view plane (pc) by moving from the camera position (p0)
+        // in the direction of vTo by the distance to the view plane
+        Point pij = p0.add(vTo.scale(distance));
+        // Calculate the pixel size in the x and y directions
         if (nx!=nX||ny!=nY) {
             nx = nX;
             ny = nY;
@@ -91,8 +94,8 @@ public class Camera implements Cloneable {
             rx=width/nx;
             ry=height/ny;
         }
-        double yi=0;
-        double xj=0;
+        double yi;
+        double xj;
         if (nx%2==0&&ny%2==0) {
             yi=-(i-ny/2+0.5)*ry;
             xj=(j-nx/2+0.5)*rx;
