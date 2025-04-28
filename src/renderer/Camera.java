@@ -1,13 +1,8 @@
 package renderer;
 
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
-
+import primitives.*;
 import java.util.MissingResourceException;
-
-import static primitives.Util.alignZero;
-import static primitives.Util.isZero;
+import static primitives.Util.*;
 
 /**
  * The Camera class represents a virtual camera in 3D space.
@@ -31,30 +26,22 @@ import static primitives.Util.isZero;
  */
 public class Camera implements Cloneable {
     // Camera properties
-    /** The position of the camera */
-    private Point p0=null;
-    /** The forward direction vector of the camera */
-    private Vector vTo=null;
-    /** The upward direction vector of the camera */
-    private Vector vUp=null;
-    /** The rightward direction vector of the camera */
-    private Vector vRight=null;
+    /** The position of the camera in 3D space */
+    private Point p0 = null;
+    /** The forward direction vector of the camera (points towards the view plane) */
+    private Vector vTo = null;
+    /** The upward direction vector of the camera (points upwards relative to the camera) */
+    private Vector vUp = null;
+    /** The rightward direction vector of the camera (perpendicular to vTo and vUp) */
+    private Vector vRight = null;
     /** The distance from the camera to the view plane */
     private double distance = 0.0;
-    /** Width of the view plane*/
+    /** The width of the view plane */
     private double width = 0.0;
-    /** Height of the view plane */
+    /** The height of the view plane */
     private double height = 0.0;
-    /** The center of the view plane */
-    private Point pc=null;
-    /** Number of pixels in the x-direction */
-    private int nx= 0;
-    /** Number of pixels in the y-direction */
-    private int ny= 0;
-    /** Pixel resolution in the x-direction */
-    private double rx= 0;
-    /** Pixel resolution in the y-direction */
-    private double ry= 0;
+    /** The center point of the view plane */
+    private Point pc = null;
 
     /**
      * Private constructor to prevent direct instantiation.
@@ -75,43 +62,49 @@ public class Camera implements Cloneable {
     /**
      * Constructs a ray through a specific pixel on the view plane.
      *
-     * @param nX the number of pixels in the x-direction
-     * @param nY the number of pixels in the y-direction
-     * @param j the column index of the pixel
-     * @param i the row index of the pixel
+     * @param nX the number of pixels in the x-direction (horizontal resolution)
+     * @param nY the number of pixels in the y-direction (vertical resolution)
+     * @param j the column index of the pixel (0-based)
+     * @param i the row index of the pixel (0-based)
      * @return the constructed ray from the camera to the specified pixel
      */
     public Ray constructRay(int nX, int nY, int j, int i) {
-        // Calculate the center of the view plane (pc) by moving from the camera position (p0)
-        // in the direction of vTo by the distance to the view plane
-        Point pij = p0.add(vTo.scale(distance));
+        // Point pij is the center of the pixel, we start with the center of the view plane
+        Point pij=pc;
         // Calculate the pixel size in the x and y directions
-        if (nx!=nX||ny!=nY) {
-            nx = nX;
-            ny = nY;
+        double rX = width / nX; // Width of a single pixel
+        double rY = height / nY; // Height of a single pixel
+
+        // Calculate the x and y offsets for the pixel
+        double xj; // Offset in the x-direction
+        double yi; // Offset in the y-direction
+
+        // Calculate the x offset based on whether the number of pixels in the x-direction is even or odd
+        if (isZero(nX % 2)) {
+            xj = (j - nX / 2.0 + 0.5) * rX;
+        } else {
+            xj = (j - (nX - 1) / 2.0) * rX;
         }
-        if (rx==0||ry==0){
-            rx=width/nx;
-            ry=height/ny;
+
+        // Calculate the y offset based on whether the number of pixels in the y-direction is even or odd
+        if (isZero(nY % 2)) {
+            yi = -(i - nY / 2.0 + 0.5) * rY;
+        } else {
+            yi = -(i - (nY - 1) / 2.0) * rY;
         }
-        double yi;
-        double xj;
-        if (nx%2==0&&ny%2==0) {
-            yi=-(i-ny/2+0.5)*ry;
-            xj=(j-nx/2+0.5)*rx;
+
+        // Adjust the center point of the pixel (pij) by adding the scaled vRight and vUp vectors
+        if (!isZero(xj)) {
+            pij = pij.add(vRight.scale(xj));
         }
-        else {
-            yi=-(i-(ny-1)/2)*ry;
-            xj=(j-(nx-1)/2)*rx;
+        if (!isZero(yi)) {
+            pij = pij.add(vUp.scale(yi));
         }
-        if (!isZero(xj)){
-            pij=pij.add(vRight.scale(xj));
-        }
-        if (!isZero(yi)){
-            pij=pij.add(vUp.scale(yi));
-        }
-        Vector vector= pij.subtract(p0).normalize(); // Calculate the direction vector from the camera to the pixel
-        // Create a new ray from the camera position to the pixel point
+
+        // Calculate the direction vector from the camera position (p0) to the pixel point (pij)
+        Vector vector = pij.subtract(p0).normalize();
+
+        // Create and return a new ray from the camera position to the pixel point
         return new Ray(p0, vector);
     }
 
@@ -185,24 +178,6 @@ public class Camera implements Cloneable {
      */
     public Point getPc() {
         return pc;
-    }
-
-    /**
-     * Retrieves the number of pixels in the x-direction.
-     *
-     * @return the number of pixels in the x-direction
-     */
-    public double getRx(){
-        return rx;
-    }
-
-    /**
-     * Retrieves the number of pixels in the y-direction.
-     *
-     * @return the number of pixels in the y-direction
-     */
-    public double getRy(){
-        return ry;
     }
 
     /**
@@ -285,13 +260,13 @@ public class Camera implements Cloneable {
             if (camera.p0.equals(target)) {
                 throw new IllegalArgumentException("Target point cannot be the same as camera position");
             }
-            //Calculate vTo as the normalized vector from camera position to target point
-            camera.vTo= target.subtract(camera.p0).normalize();
-            //Calculate vRight as the cross product of vTo and vUp
-            camera.vRight= camera.vTo.crossProduct(vUp).normalize();
+            // Calculate vTo as the normalized vector from camera position to target point
+            camera.vTo = target.subtract(camera.p0).normalize();
+            // Calculate vRight as the cross product of vTo and vUp
+            camera.vRight = camera.vTo.crossProduct(vUp).normalize();
             // Calculate vUp as the cross product of vRight and vTo
             camera.vUp = camera.vRight.crossProduct(camera.vTo).normalize();
-            return  this;
+            return this;
         }
 
         /**
@@ -306,11 +281,13 @@ public class Camera implements Cloneable {
             if (camera.p0.equals(target)) {
                 throw new IllegalArgumentException("Target point cannot be the same as camera position");
             }
-            camera.vTo= target.subtract(camera.p0).normalize();
-            camera.vUp= new Vector(0,1,0);
-            //Calculate vRight as the cross product of vTo and vUp
-            camera.vRight= camera.vTo.crossProduct(camera.vUp).normalize();
-            // Calculate vUp as the cross product of vRight and vTo
+            // Calculate vTo as the normalized vector from camera position to target point
+            camera.vTo = target.subtract(camera.p0).normalize();
+            // Set default vUp as (0,1,0)
+            camera.vUp = new Vector(0, 1, 0);
+            // Calculate vRight as the cross product of vTo and vUp
+            camera.vRight = camera.vTo.crossProduct(camera.vUp).normalize();
+            // Recalculate vUp as the cross product of vRight and vTo
             camera.vUp = camera.vRight.crossProduct(camera.vTo).normalize();
             return this;
         }
@@ -352,54 +329,49 @@ public class Camera implements Cloneable {
         /**
          * Sets the resolution of the view plane.
          *
-         * @param nx the number of pixels in the x-direction
-         * @param ny the number of pixels in the y-direction
+         * @param nX the number of pixels in the x-direction
+         * @param nY the number of pixels in the y-direction
          * @return the Builder instance
          */
-        public Builder setResolution(int nx, int ny) {
-            // Ensure nx and ny are positive
-            if (alignZero(nx) <= 0 || alignZero(ny) <= 0) {
-                throw new IllegalArgumentException("Resolution must be positive");
-            }
-            camera.nx = nx;
-            camera.ny = ny;
-            // Calculate pixel size in the x and y directions
-            camera.rx = alignZero(camera.width / nx);
-            camera.ry = alignZero(camera.height / ny);
-            return  this;
+        public Builder setResolution(int nX, int nY) {
+            // TODO: The teacher said not to implement this method in this assignment
+            return this;
         }
 
         /**
          * Builds and returns the Camera object.
          *
          * @return the constructed Camera object
+         * @throws MissingResourceException if any required property is missing
          */
         public Camera build() {
-            String errorMessage = "Missing render data";
+            //Strings for error messages
+            String errorMessage = "Missing render data ";
             String className = "Camera";
-            if (camera.p0==null){
+            // Check if required properties are set
+            if (camera.p0 == null) {
                 throw new MissingResourceException(errorMessage, className, "Missing p0");
             }
-            if (camera.vTo==null){
+            if (camera.vTo == null) {
                 throw new MissingResourceException(errorMessage, className, "Missing vTo");
             }
-            if (camera.vUp==null){
+            if (camera.vUp == null) {
                 throw new MissingResourceException(errorMessage, className, "Missing vUp");
             }
-            if (camera.vRight==null){
+            if (camera.vRight == null) {
                 throw new MissingResourceException(errorMessage, className, "Missing vRight");
             }
-            if (camera.distance==0.0){
+            if (camera.distance == 0.0) {
                 throw new MissingResourceException(errorMessage, className, "Missing distance");
             }
-            if (camera.width==0.0){
+            if (camera.width == 0.0) {
                 throw new MissingResourceException(errorMessage, className, "Missing width");
             }
-            if (camera.height==0.0){
+            if (camera.height == 0.0) {
                 throw new MissingResourceException(errorMessage, className, "Missing height");
             }
             // Calculate the center of the view plane
-            camera.pc=camera.p0.add(camera.vTo.scale(camera.distance));
+            camera.pc = camera.p0.add(camera.vTo.scale(camera.distance));
             try {
                 // Clone the camera to ensure immutability
                 return (Camera) camera.clone();
@@ -407,6 +379,5 @@ public class Camera implements Cloneable {
                 return null;
             }
         }
-
     }
 }
