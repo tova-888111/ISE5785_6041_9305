@@ -80,18 +80,10 @@ public class Camera implements Cloneable {
         double yi; // Offset in the y-direction
 
         // Calculate the x offset based on whether the number of pixels in the x-direction is even or odd
-        if (isZero(nX % 2)) {
-            xj = (j - nX / 2.0 + 0.5) * rX;
-        } else {
             xj = (j - (nX - 1) / 2.0) * rX;
-        }
 
         // Calculate the y offset based on whether the number of pixels in the y-direction is even or odd
-        if (isZero(nY % 2)) {
-            yi = -(i - nY / 2.0 + 0.5) * rY;
-        } else {
             yi = -(i - (nY - 1) / 2.0) * rY;
-        }
 
         // Adjust the center point of the pixel (pij) by adding the scaled vRight and vUp vectors
         if (!isZero(xj)) {
