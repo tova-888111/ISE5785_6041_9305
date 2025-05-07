@@ -276,7 +276,7 @@ public class Camera implements Cloneable {
             // Calculate vTo as the normalized vector from camera position to target point
             camera.vTo = target.subtract(camera.p0).normalize();
             // Set default vUp as (0,1,0)
-            camera.vUp = new Vector(0, 1, 0);
+            camera.vUp= Vector.AXIS_Y;
             // Calculate vRight as the cross product of vTo and vUp
             camera.vRight = camera.vTo.crossProduct(camera.vUp).normalize();
             // Recalculate vUp as the cross product of vRight and vTo
