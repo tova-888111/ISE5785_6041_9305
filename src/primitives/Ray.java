@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 import static primitives.Util.isZero;
 
 /**
@@ -69,4 +71,21 @@ public class Ray {
         return head.add(direction.scale(distance));
     }
 
+    public Point findClosestPoint(List<Point> points) {
+       if (points==null){
+           return null;
+       }
+
+       Point closesPoint = points.get(0);
+       double minDistanceSquared = head.distanceSquared(closesPoint);
+        for (int i = 1; i < points.size(); i++) {
+            Point point = points.get(i);
+            double distanceSquared = head.distanceSquared(point);
+            if (distanceSquared < minDistanceSquared) {
+                closesPoint = point;
+                minDistanceSquared = distanceSquared;
+            }
+        }
+            return closesPoint;
+    }
 }

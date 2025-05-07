@@ -42,6 +42,14 @@ public class Camera implements Cloneable {
     private double height = 0.0;
     /** The center point of the view plane */
     private Point pc = null;
+    /** The image writer used for rendering the scene */
+    private ImageWriter imageWriter= null;
+    /** The ray tracer used for rendering the scene */
+    private RayTracerBase rayTracerBase= null;
+    /** The number of pixels in the x-direction (horizontal resolution) */
+    private int nX;
+    /** The number of pixels in the y-direction (vertical resolution) */
+    private int nY;
 
     /**
      * Private constructor to prevent direct instantiation.
