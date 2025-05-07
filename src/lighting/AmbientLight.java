@@ -2,14 +2,19 @@ package lighting;
 
 import primitives.Color;
 
+/**
+ * This class represents the ambient light in a scene.
+ * Ambient light is a type of light that is scattered in all directions and illuminates all objects equally.
+ * It does not have a specific source and does not cast shadows.
+ * The intensity of the ambient light can be adjusted to create different lighting effects in the scene.
+ * @author Tehila Shraga and Tova Tretiak
+ */
 public class AmbientLight {
 
     /** The intensity of the ambient light.*/
     private final Color intensity;
 
-    /**
-     * Default ambient light with intensity of black (no light).
-     */
+    /** Default ambient light with intensity of black (no light).*/
     public final static AmbientLight NONE = new AmbientLight(Color.BLACK);
 
     /**
@@ -20,6 +25,10 @@ public class AmbientLight {
         this.intensity = IA;
     }
 
+    /**
+     * Getter for the intensity of the ambient light.
+     * @return the intensity of the ambient light
+     */
     public Color getIntensity() {
         return intensity;
     }

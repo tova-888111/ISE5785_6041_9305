@@ -39,32 +39,38 @@ class RayTests {
     @Test
     void testFindClosestPoint(){
 
-        Ray ray= new Ray(new Point(1, 2, 3), new Vector(0, 0, 1));
         // ============ Equivalence Partitions Tests ==============
         //TC01: Test when the closest point is in the middle of the list
-        List<Point> list1 = List.of(
+        final List<Point> list1 = List.of(
                 new Point(1, 2, 5),
+                new Point(1,2,4.5),
                 new Point(1, 2, 4),
-                new Point(1, 2, 6)
+                new Point(1, 2, 6),
+                new Point(1, 2, 7)
         );
-        assertEquals(new Point(1, 2, 4), ray.findClosestPoint(list1), "Ray findClosestPoint() wrong result");
+        assertEquals(new Point(1, 2, 4), ray.findClosestPoint(list1), "Ray findClosestPoint() wrong result when the closest point is in the middle of the list");
+
         // ============ Boundary Values Tests ==================
+
         //TC02: Test for empty list
-        List<Point> list2 = null;
-        assertNull(ray.findClosestPoint(list2), "Ray findClosestPoint() wrong result");
+        assertNull(ray.findClosestPoint(null), "Ray findClosestPoint() wrong result when the list is null");
+
         //TC03: Test when the closest point is the first point in the list
         List<Point> list3 = List.of(
                 new Point(1, 2, 4),
                 new Point(1, 2, 5),
-                new Point(1, 2, 6)
+                new Point(1, 2, 6),
+                new Point(1, 2, 7)
         );
-        assertEquals(new Point(1, 2, 4), ray.findClosestPoint(list3), "Ray findClosestPoint() wrong result");
+        assertEquals(new Point(1, 2, 4), ray.findClosestPoint(list3), "Ray findClosestPoint() wrong result when the closest point is the first point in the list");
+
         //TC04: Test when the closest point is the last point in the list
         List<Point> list4 = List.of(
+                new Point(1, 2, -10),
                 new Point(1, 2, 5),
                 new Point(1, 2, 6),
                 new Point(1, 2, 4)
         );
-        assertEquals(new Point(1, 2, 4), ray.findClosestPoint(list4), "Ray findClosestPoint() wrong result");
+        assertEquals(new Point(1, 2, 4), ray.findClosestPoint(list4), "Ray findClosestPoint() wrong result when the closest point is the last point in the list");
     }
 }
