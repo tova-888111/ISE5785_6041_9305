@@ -28,25 +28,25 @@ public class ImageWriterTests {
 
         // Create an instance of ImageWriter with the desired image size
         // The image size is set to 800x500 pixels
-        int width = 800;
-        int height = 500;
+        final int width = 800;
+        final int height = 500;
 
         // Set the number of columns and rows for the grid
-        int columns = 16;
-        int rows = 10;
+        final int columns = 16;
+        final int rows = 10;
 
         // Create an instance of ImageWriter
-        ImageWriter writer = new ImageWriter(width, height);
+        final ImageWriter writer = new ImageWriter(width, height);
 
         // Set the background color to yellow
-        Color backgroundColor = new Color(java.awt.Color.YELLOW);
+        final Color backgroundColor = new Color(java.awt.Color.YELLOW);
 
         // Set the line color to red
-        Color lineColor = new Color(java.awt.Color.RED);
+        final Color lineColor = new Color(java.awt.Color.RED);
 
         // Calculate the width and height of each cell in the grid
-        int cellWidth = width / columns;
-        int cellHeight = height / rows;
+        final int cellWidth = width / columns;
+        final int cellHeight = height / rows;
 
         // Loop through each pixel in the image
         for (int y = 0; y < height; y++) {

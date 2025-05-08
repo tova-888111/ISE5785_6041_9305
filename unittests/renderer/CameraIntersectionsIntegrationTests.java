@@ -35,6 +35,7 @@ public class CameraIntersectionsIntegrationTests {
      * @param intersectable The intersectable object (e.g., sphere, plane, triangle) to check for intersections.
      * @param camera The camera used to construct rays.
      * @param expectedSize The expected number of intersection points.
+     * @param kindOfGeometry  The kind of the geometry
      */
     void checkNumOfIntersections(Intersectable intersectable, Camera camera, int expectedSize,String kindOfGeometry) {
         List<Point> intersections;

@@ -188,6 +188,7 @@ public class Camera implements Cloneable {
      * @return the image writer
      */
     public Camera renderImage(){
+        // Iterate through each pixel in the image
         for (int i=0; i<nY; i++){
             for (int j=0; j<nX; j++){
                 // Cast a ray through the pixel
