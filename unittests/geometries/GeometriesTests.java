@@ -14,9 +14,9 @@ class GeometriesTests {
     /**Sphere used in some tests*/
     Sphere sphere= new Sphere(4,new Point(2, 0, 0));
     /**Plane used in some tests*/
-    Plane plane= new Plane(new Point(1, 2, 1), new Vector(0, 0, 1));
+    Plane plane= new Plane(new Point(1, 2, 1), Vector.AXIS_Z);
     /**Triangle used in some tests*/
-    Triangle triangle= new Triangle(new Point(0,1,0), new Point(1,0,0), new Point(0,0,0));
+    Triangle triangle= new Triangle(new Point(0,1,0), new Point(1,0,0), Point.ZERO);
 
     /**
      * Default constructor for the GeometriesTests class.
@@ -65,7 +65,7 @@ class GeometriesTests {
         assertEquals(4, intersections2.size(), "The number of intersection points is incorrect");
 
         //TC03: Test that the ray does not intersect any of the geometries
-        Ray ray3 = new Ray(new Point(0, 0, 8), new Vector(0, 0, 1));
+        Ray ray3 = new Ray(new Point(0, 0, 8), Vector.AXIS_Z);
         List<Point> intersections3 = geometries1.findIntersections(ray3);
         assertNull(intersections3, "The intersection point is incorrect");
 

@@ -71,16 +71,6 @@ public class Plane extends Geometry {
 
     /**
      * Finds the intersection points of a ray with the plane.
-     *
-     * <p>Algorithm:</p>
-     * <ol>
-     *   <li>Calculate the dot product of the ray's direction vector and the plane's normal vector.</li>
-     *   <li>If the dot product is zero, the ray is parallel to the plane (no intersection).</li>
-     *   <li>Calculate the parameter `t` for the ray equation: p = p0 + t * v.</li>
-     *   <li>If `t` is negative, the intersection point is behind the ray's origin (no intersection).</li>
-     *   <li>Return the intersection point if it exists.</li>
-     * </ol>
-     *
      * @param ray the ray to check for intersections
      * @return a list containing the intersection point, or {@code null} if there is no intersection
      */

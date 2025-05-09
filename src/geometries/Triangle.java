@@ -28,14 +28,6 @@ public class Triangle extends Polygon {
 
     /**
      * Finds the intersection points of a ray with the triangle.
-     *
-     * <p>Algorithm:</p>
-     * <ol>
-     *   <li>Calculate the plane intersection using the Möller-Trumbore algorithm.</li>
-     *   <li>Check if the intersection point lies inside the triangle using barycentric coordinates.</li>
-     *   <li>Exclude points on the edges or vertices of the triangle.</li>
-     * </ol>
-     *
      * @param ray the ray to check for intersections
      * @return a list of intersection points, or {@code null} if there are no intersections
      */

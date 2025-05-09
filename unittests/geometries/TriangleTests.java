@@ -19,8 +19,6 @@ class TriangleTests {
     private final Point point3=(new Point(0,3,0));
     /**Point (0,0,1) for tests*/
     private final Point point4=(new Point(1,0,0));
-    /**Point (3,0,0) for tests*/
-    private final Point point5=(new Point(3,0,0));
     /**Vector (0,0,-2) for tests*/
     private final Vector v1=new Vector(0,0,-2);
 

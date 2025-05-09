@@ -24,15 +24,6 @@ public abstract class Geometry implements Intersectable {
      * Each subclass must provide its own implementation of this method based on its specific geometry.
      *
      * @param point the point at which the normal is calculated
-     *              <ul>
-     *                <li>The point must lie on the surface of the geometric shape.</li>
-     *                <li>The method assumes that the input point is valid and belongs to the shape.</li>
-     *              </ul>
-     * @return a normalized vector representing the normal to the shape at the given point
-     *         <ul>
-     *           <li>The returned vector is guaranteed to be a unit vector (length = 1).</li>
-     *           <li>The direction of the normal vector depends on the orientation of the shape.</li>
-     *         </ul>
      */
     public abstract Vector getNormal(Point point);
 

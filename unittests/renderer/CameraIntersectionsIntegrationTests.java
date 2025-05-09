@@ -5,11 +5,19 @@ import org.junit.jupiter.api.Test;
 import primitives.*;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * Integration tests for the Camera class and its intersection with geometries
  * @author Tehila Shraga and Tova Tretiak
  */
 public class CameraIntersectionsIntegrationTests {
+
+    /**
+     * Default constructor for the CameraIntersectionsIntegrationTests class.
+     */
+    public CameraIntersectionsIntegrationTests() {
+    }
+
     /**
      * The  builder camera used for testing
      * It is a camera with a view plane size of 3x3, resolution of 3x3, and a distance of 1 from the camera to the view plane.
@@ -17,11 +25,13 @@ public class CameraIntersectionsIntegrationTests {
     Camera.Builder builder = Camera.getBuilder()
             .setVpSize(3,3)
             .setVpDistance(1);
+
     /**
      * The first camera used for testing
      * It is a camera with a location at (0,0,0)
      */
     Camera camera1 = builder.build();
+
     /**
      * The second camera used for testing
      * It is a camera with a location at (0,0,0.5)
@@ -53,11 +63,6 @@ public class CameraIntersectionsIntegrationTests {
         }
         // Check the number of intersection points
         assertEquals(expectedSize, size, "Wrong number of intersection points with " + kindOfGeometry);
-    }
-    /**
-     * Default constructor for the CameraIntersectionsIntegrationTests class.
-     */
-    public CameraIntersectionsIntegrationTests() {
     }
 
     // Test cases for camera intersections with different geometries

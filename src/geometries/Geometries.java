@@ -54,7 +54,8 @@ public class Geometries implements Intersectable {
      */
     @Override
     public List<Point> findIntersections(Ray ray) {
-        List<Point> intersections = new LinkedList<>(); // List to store intersection points
+        // List to store intersection points
+        List<Point> intersections = new LinkedList<>();
 
         // Iterate through each geometry in the collection
         for (Intersectable geometry : geometries) {

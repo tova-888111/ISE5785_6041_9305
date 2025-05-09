@@ -9,7 +9,7 @@ public class Point {
     /**
      * Constant representing the origin point (0,0,0) in the coordinate system.
      */
-    public static final Point ZERO = new Point(0, 0, 0);
+    public static final Point ZERO = new Point(Double3.ZERO);
 
     /**
      * A {@link Double3} object that stores the point's coordinates.

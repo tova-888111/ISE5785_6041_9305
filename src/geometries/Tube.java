@@ -31,17 +31,9 @@ public class Tube extends RadialGeometry {
         super(radius);
         this.axis = axis;
     }
+
     /**
      * Calculates the normal vector to the tube at a given point on its surface.
-     *
-     * <p>Algorithm:</p>
-     * <ol>
-     *   <li>Project the vector from the tube's axis head to the given point onto the axis direction.</li>
-     *   <li>If the projection length is zero, the point is perpendicular to the axis head.</li>
-     *   <li>Otherwise, calculate the projection point on the axis and subtract it from the given point.</li>
-     *   <li>Normalize the resulting vector to get the normal.</li>
-     * </ol>
-     *
      * @param point The point on the tube's surface.
      * @return The normalized normal vector at the given point.
      */
@@ -70,16 +62,6 @@ public class Tube extends RadialGeometry {
 
     /**
      * Finds the intersection points of a ray with the tube.
-     *
-     * <p>Algorithm:</p>
-     * <ol>
-     *   <li>Calculate the vector from the ray's origin to the tube's axis head.</li>
-     *   <li>Check if the ray is parallel to the tube's axis or lies on it.</li>
-     *   <li>Use the quadratic equation to find intersection points based on the tube's geometry.</li>
-     *   <li>Filter out points that are behind the ray's origin or duplicate points.</li>
-     *   <li>Sort the intersection points by distance from the ray's origin.</li>
-     * </ol>
-     *
      * @param ray The ray to check for intersections.
      * @return A list of intersection points, or {@code null} if there are no intersections.
      */

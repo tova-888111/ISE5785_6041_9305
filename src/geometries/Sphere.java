@@ -14,8 +14,7 @@ import static primitives.Util.isZero;
  * It provides methods to calculate the normal vector at a given point on the sphere
  * and to find intersection points of a ray with the sphere.
  *
- * @author Tehila Shraga
- * @author Tova Tretiak
+ * @author Tehila Shraga and Tova Tretiak
  */
 public class Sphere extends RadialGeometry {
 
@@ -63,17 +62,6 @@ public class Sphere extends RadialGeometry {
      *
      * @param ray the ray to check for intersections
      * @return a list of intersection points, or {@code null} if there are no intersections
-     *
-     * <p>Algorithm:
-     * <ol>
-     *   <li>Calculate the vector from the ray's origin to the sphere's center.</li>
-     *   <li>Project this vector onto the ray's direction to find the projection length (tm).</li>
-     *   <li>Calculate the squared distance from the sphere's center to the ray (d^2).</li>
-     *   <li>Compare this distance to the squared radius of the sphere (r^2).</li>
-     *   <li>If the distance is greater than the radius, there are no intersections.</li>
-     *   <li>Otherwise, calculate the distances to the intersection points along the ray.</li>
-     *   <li>Return the intersection points that are in front of the ray's origin.</li>
-     * </ol>
      */
     @Override
     public List<Point> findIntersections(Ray ray) {

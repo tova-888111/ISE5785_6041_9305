@@ -17,8 +17,6 @@ class SphereTests {
     private final Point p000 = new Point(0, 0, 0);
     /** A vector used in some tests */
     private final Point p01    = new Point(-1, 0, 0);
-    /** A vector used in some tests */
-    private final Point p02 = new Point(0.5, 0, 0);
     /** A point used in some tests */
     private final Point p03 = new Point(1, 1, 0);
     /** A point used in some tests */
@@ -46,7 +44,7 @@ class SphereTests {
     void testConstructor() {
         // ============ Equivalence Partitions Tests ==============
         //TC01: Test that the sphere is created correctly
-        Point center = new Point(0, 0, 0);
+        Point center = Point.ZERO;
         Sphere sphere = new Sphere(2, center);
         assertEquals(2, sphere.getRadius(), "The radius of the sphere is incorrect");
         assertEquals(center, sphere.getCenter(), "The center point of the sphere is incorrect");
@@ -66,7 +64,7 @@ class SphereTests {
         //TC01: Test that the normal of the sphere is correct
         Sphere sphere = new Sphere(2, p000);
         Point pointOnSurface = new Point(0, 0, 2);
-        assertEquals(new Vector(0, 0, 1),sphere.getNormal(pointOnSurface), "The normal vector is incorrect");
+        assertEquals(Vector.AXIS_Z,sphere.getNormal(pointOnSurface), "The normal vector is incorrect");
     }
 
 

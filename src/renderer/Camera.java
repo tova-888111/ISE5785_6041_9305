@@ -11,19 +11,6 @@ import static primitives.Util.*;
  * It defines the position, orientation, and view plane of the camera.
  * The camera is used to construct rays through pixels on the view plane.
  * This class uses the Builder design pattern for flexible initialization.
- *
- * <p>Key components:
- * <ul>
- *   <li>p0: The position of the camera in 3D space.</li>
- *   <li>vTo: The forward direction vector of the camera.</li>
- *   <li>vUp: The upward direction vector of the camera.</li>
- *   <li>vRight: The rightward direction vector of the camera (calculated as the cross product of vTo and vUp).</li>
- *   <li>distance: The distance from the camera to the view plane.</li>
- *   <li>width and height: The dimensions of the view plane.</li>
- * </ul>
- *
- * <p>This class also provides a nested Builder class for constructing Camera objects.</p>
- *
  * @author Tehila Shraga and Tova Tretiak
  */
 public class Camera implements Cloneable {
@@ -184,7 +171,7 @@ public class Camera implements Cloneable {
 
     /**
      * Retrieves the image writer used for rendering the scene.
-     *
+     *  Iterates through each pixel in the image and casts a ray through it.
      * @return the image writer
      */
     public Camera renderImage(){
@@ -207,7 +194,7 @@ public class Camera implements Cloneable {
      */
     public Camera printGrid(int interval, Color color){
         // Check if the interval is valid
-        if (interval <= 0) {
+        if (alignZero(interval) <= 0) {
             throw new IllegalArgumentException("Interval must be positive");
         }
         // Loop through the pixels in the image
@@ -244,6 +231,7 @@ public class Camera implements Cloneable {
      * @param row the row index of the pixel (0-based)
      */
     private void castRay(int Nx, int Ny, int column, int row){
+        // Construct a ray through the pixel (column, row)
         Ray ray= constructRay(Nx, Ny, column, row);
         // Cast the ray and get the color at the intersection point
         Color color = rayTracer.traceRay(ray);
@@ -264,10 +252,10 @@ public class Camera implements Cloneable {
          * Constructs a Builder instance with default camera properties.
          */
         public Builder() {
-            this.camera.p0 = new Point(0, 0, 0); // Default position at the origin
+            this.camera.p0 = Point.ZERO; // Default position at the origin
             this.camera.vTo = new Vector(0, 0, -1); // Default forward direction
-            this.camera.vUp = new Vector(0, 1, 0); // Default upward direction
-            this.camera.vRight = new Vector(1, 0, 0); // Default rightward direction
+            this.camera.vUp = Vector.AXIS_Y; // Default upward direction
+            this.camera.vRight = Vector.AXIS_X; // Default rightward direction
         }
 
         /**

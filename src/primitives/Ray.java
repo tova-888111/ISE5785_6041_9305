@@ -84,7 +84,7 @@ public class Ray {
 
         // closest point is the first point in the list
         // This variable will be used to store the closest point found so far
-       Point closesPoint = points.get(0);
+       Point closesPoint = points.getFirst();
 
         // Calculate the distance squared from the head to the first point
         // This variable will be used to store the minimum distance squared found so far
