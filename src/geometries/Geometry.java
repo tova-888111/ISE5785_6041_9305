@@ -5,11 +5,14 @@ import primitives.*;
 /**
  * An abstract class representing a geometric shape in 3D space.
  * This class serves as a base for all geometric objects and provides a common interface for intersection calculations.
- * It implements the {@link Intersectable} interface, ensuring that all geometric shapes can calculate ray intersections.
+ * It extends the {@link Intersectable}  ensuring that all geometric shapes can calculate ray intersections.
  *
  *@author Tehila Shraga and Tova Tretiak
  */
-public abstract class Geometry implements Intersectable {
+public abstract class Geometry extends Intersectable {
+
+    /** The color of the geometry */
+    protected Color emission = Color.BLACK; // Default emission color
 
     /**
      * Default constructor for the Geometry class.
@@ -18,6 +21,20 @@ public abstract class Geometry implements Intersectable {
     public Geometry() {
     }
 
+    /**
+     * Sets the emission color of the geometry.
+     * @param emission the color to set as the emission color
+     */
+    public Geometry setEmission(Color emission) {
+        this.emission = emission;
+        return this;
+    }
+    /**
+     * @return the emission color of the geometry
+     */
+    public Color getEmission() {
+        return emission;
+    }
     /**
      * Computes the normal vector to the geometric shape at a given point.
      * The normal vector is perpendicular to the surface of the shape at the specified point.
