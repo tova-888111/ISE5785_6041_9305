@@ -4,6 +4,7 @@ import primitives.*;
 import scene.Scene;
 
 import java.util.List;
+import geometries.Intersectable. Intersection;
 
 /**
  * This class implements a simple ray tracing algorithm.
@@ -32,7 +33,7 @@ public class SimpleRayTracer extends RayTracerBase {
     @Override
     public Color traceRay(Ray ray) {
         // Check if the ray intersects with any geometries in the scene
-        List<Point> intersections = scene.geometries.findIntersections(ray);
+        List<Intersection> intersections = scene.geometries.calculateIntersectionsHelper(ray);
 
         // If there are no intersections, return the background color of the scene
         if (intersections == null || intersections.isEmpty()) {
@@ -40,7 +41,7 @@ public class SimpleRayTracer extends RayTracerBase {
         }
 
         // If there are intersections, calculate the closest intersection point
-        Point closestPoint = ray.findClosestPoint(intersections);
+        Intersection closestPoint = ray.findClosestIntersection(intersections);
 
         // Return the color at the closest intersection point
         return calcColor(closestPoint);
@@ -48,10 +49,10 @@ public class SimpleRayTracer extends RayTracerBase {
 
     /**
      * Calculates the color at a given point in the scene.
-     * @param point The point at which to calculate the color.
+     * @param intersection- point and geometry at which to calculate the color.
      * @return The color at the given point.
      */
-    private Color calcColor(Point point){
-        return scene.ambientLight.getIntensity();
+    private Color calcColor(Intersection intersection){
+        return scene.ambientLight.getIntensity().add(intersection.geometry.getEmission());
     }
 }

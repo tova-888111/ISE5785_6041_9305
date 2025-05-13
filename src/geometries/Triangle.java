@@ -32,7 +32,7 @@ public class Triangle extends Polygon {
      * @return a list of intersection points, or {@code null} if there are no intersections
      */
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<Intersection> calculateIntersectionsHelper(Ray ray) {
         // Ray's origin point and direction vector
         Point p0 = ray.getHead();
         Vector dir = ray.getDirection();
@@ -86,7 +86,7 @@ public class Triangle extends Polygon {
         }
 
         // Return the intersection point as a list
-        return List.of(intersectionPoint);
+        return List.of(new Intersection(this,intersectionPoint));
     }
 }
 

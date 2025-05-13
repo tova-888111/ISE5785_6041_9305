@@ -66,7 +66,7 @@ public class Tube extends RadialGeometry {
      * @return A list of intersection points, or {@code null} if there are no intersections.
      */
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<Intersection> calculateIntersectionsHelper(Ray ray) {
         Point p = ray.getHead(); // Ray's origin
         Vector v = ray.getDirection(); // Ray's direction
         Point p0 = axis.getHead(); // Tube's axis head
@@ -79,7 +79,7 @@ public class Tube extends RadialGeometry {
         } catch (IllegalArgumentException e) {
             // Special case: ray starts at the axis head
             if (isZero(v.dotProduct(v0))) {
-                return List.of(ray.getPoint(radius));
+                return List.of(new Intersection(this,ray.getPoint(radius)));
             }
             return null;
         }
@@ -89,14 +89,14 @@ public class Tube extends RadialGeometry {
             Vector cross = deltaP.crossProduct(v0);
             if (isZero(cross.length())) {
                 if (isZero(v.dotProduct(v0))) {
-                    return List.of(ray.getPoint(radius));
+                    return List.of(new Intersection(this,ray.getPoint(radius)));
                 }
                 return null;
             }
         } catch (IllegalArgumentException e) {
             // Special case: deltaP is parallel to v0
             if (isZero(v.dotProduct(v0))) {
-                return List.of(ray.getPoint(radius));
+                return List.of(new Intersection(this,ray.getPoint(radius)));
             }
             return null;
         }
@@ -160,9 +160,9 @@ public class Tube extends RadialGeometry {
         temp.sort(Comparator.comparingDouble(AbstractMap.SimpleEntry::getKey));
 
         // Extract the points from the sorted list
-        List<Point> result = new java.util.LinkedList<>();
+        List<Intersection> result = new java.util.LinkedList<>();
         for (AbstractMap.SimpleEntry<Double, Point> entry : temp) {
-            result.add(entry.getValue());
+            result.add(new Intersection(this,entry.getValue()));
         }
 
         return result;

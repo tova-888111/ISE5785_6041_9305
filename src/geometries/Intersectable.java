@@ -20,8 +20,32 @@ public abstract class Intersectable {
      * @param ray the ray to check for intersections
      * @return a list of intersection points, or {@code null} if there are no intersections
      */
-    public abstract List<Point> findIntersections(Ray ray);
+    public final List<Point> findIntersections(Ray ray) {
+        var list = calculateIntersections(ray);
+        return list == null ? null : list.stream().map(intersection -> intersection.point).toList();
+    }
 
+    /**
+     * Finds the intersection points of a ray with the geometric object.
+     * This method returns a list of Intersection objects, which contain both the geometry and the intersection point.
+     * The list may contain multiple intersections if the ray intersects the object at multiple locations.
+     *
+     * @param ray the ray to check for intersections
+     * @return a list of Intersection objects, or {@code null} if there are no intersections
+     */
+    protected abstract List<Intersection> calculateIntersectionsHelper(Ray ray);
+
+    /**
+     * Calculates the intersections of a ray with the geometric object.
+     * This method is a wrapper around the calculateIntersectionsHelper method.
+     * It provides a public interface for calculating intersections.
+     *
+     * @param ray the ray to check for intersections
+     * @return a list of Intersection objects, or {@code null} if there are no intersections
+     */
+    public final List<Intersection> calculateIntersections(Ray ray){
+        return  calculateIntersectionsHelper(ray);
+    }
 
     /**
      * An inner class representing an intersection between a ray and a geometric object.

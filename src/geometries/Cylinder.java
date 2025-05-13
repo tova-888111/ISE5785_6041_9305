@@ -96,7 +96,7 @@ public class Cylinder extends Tube {
      * @return {@code null} as the intersection logic is not implemented.
      */
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<Intersection> calculateIntersectionsHelper(Ray ray) {
         return null; // The Cylinder class does not implement intersection logic
     }
 }

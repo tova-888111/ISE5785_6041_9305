@@ -83,7 +83,7 @@ public class Polygon extends Geometry {
    public Vector getNormal(Point point) { return plane.getNormal(null); }
 
    @Override
-   public List<Point> findIntersections(Ray ray) {
+   public List<Intersection> calculateIntersectionsHelper(Ray ray) {
       // Step 1: Intersect the ray with the polygon's plane
       List<Point> planeIntersections = plane.findIntersections(ray);
       if (planeIntersections == null) {
@@ -125,7 +125,7 @@ public class Polygon extends Geometry {
       }
 
       // If the point is inside, return it
-      return List.of(intersectionPoint);
+      return List.of(new Intersection(this,intersectionPoint));
    }
 
 }

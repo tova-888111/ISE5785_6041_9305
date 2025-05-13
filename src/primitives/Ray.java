@@ -1,5 +1,7 @@
 package primitives;
 
+import geometries.Intersectable.Intersection;
+
 import java.util.List;
 
 import static primitives.Util.isZero;
@@ -77,30 +79,40 @@ public class Ray {
      * @return The closest point to the head of the ray, or null if the list is empty.
      */
     public Point findClosestPoint(List<Point> points) {
+        return points == null ? null
+                : findClosestIntersection(points.stream().map(p -> new Intersection(null, p)).toList()).point;
+    }
+
+    /***
+     * Finds the closest point to the head of the ray from a list of points.
+     * @param intersections The list of points to search for the closest point.
+     * @return The closest point to the head of the ray, or null if the list is empty.
+     */
+    public Intersection findClosestIntersection(List<Intersection> intersections) {
         // Check if the list of points is empty
-       if (points==null){
+       if (intersections==null){
            return null;
        }
 
         // closest point is the first point in the list
         // This variable will be used to store the closest point found so far
-       Point closesPoint = points.getFirst();
+       Intersection closesPoint = intersections.getFirst();
 
         // Calculate the distance squared from the head to the first point
         // This variable will be used to store the minimum distance squared found so far
-       double minDistanceSquared = head.distanceSquared(closesPoint);
+       double minDistanceSquared = head.distanceSquared(closesPoint.point);
 
        // Variable to store the distance squared from the head to the current point
        double distanceSquared;
 
        // Iterate through the list of points starting from the second point
-        for (int i = 1; i < points.size(); i++) {
+        for (int i = 1; i < intersections.size(); i++) {
 
             // Get the current point from the list
-            Point point = points.get(i);
+            Intersection point = intersections.get(i);
 
             // Calculate the distance squared from the head to the current point
-            distanceSquared = head.distanceSquared(point);
+            distanceSquared = head.distanceSquared(point.point);
 
             // Check if the distance squared from the head to the current point is less than the minimum distance squared found so far
             if (distanceSquared < minDistanceSquared) {
