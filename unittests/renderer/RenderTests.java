@@ -50,13 +50,13 @@ public class RenderTests {
          .writeToImage("Two color render test");
    }
 
-   // For stage 6 - please disregard in stage 5
+   // For stage 6 - part one
    /**
     * Produce a scene with basic 3D model - including individual lights of the
     * bodies and render it into a png image with a grid
     */
    @Test
-   public void renderMultiColorTest() {
+   public void renderMultiColorTest1() {
       Scene scene = new Scene("Multi color").setAmbientLight(new AmbientLight(new Color(51, 51, 51)));
       scene.geometries //
          .add(// center
@@ -78,5 +78,32 @@ public class RenderTests {
          .renderImage() //
          .printGrid(100, new Color(WHITE)) //
          .writeToImage("color render test");
+   }
+
+   // For stage 6 - part two
+   /**
+    * Produce a scene with basic 3D model - including individual lights of the
+    * bodies and render it into a png image with a grid
+    */
+   @Test
+   public void renderMultiColorTest2() {
+      Scene scene = new Scene("Multi color").setAmbientLight(new AmbientLight(new Color(WHITE)));
+      scene.geometries //
+              .add(// center
+                      new Sphere(50,new Point(0, 0, -100)).setMaterial(new Material().setKA(0.4)),
+                      // up left
+                      new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)).setMaterial(new Material().setKA(new Double3(0,0.8,0))),
+                      // down left
+                      new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)).setMaterial(new Material().setKA(new Double3(0.8,0,0))),
+                      // down right
+                      new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100)).setMaterial(new Material().setKA(new Double3(0,0,0.8))));
+
+      camera //
+              .setRayTracer(scene, RayTracerType.SIMPLE) //
+              .setResolution(1000, 1000) //
+              .build() //
+              .renderImage() //
+              .printGrid(100, new Color(WHITE)) //
+              .writeToImage("color render test2");
    }
 }

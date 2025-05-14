@@ -14,6 +14,9 @@ public abstract class Geometry extends Intersectable {
     /** The color of the geometry */
     protected Color emission = Color.BLACK; // Default emission color
 
+    /** The material of the geometry */
+    private Material material = new Material(); // Default material
+
     /**
      * Default constructor for the Geometry class.
      * This constructor is used by subclasses to initialize a geometric object.
@@ -29,12 +32,31 @@ public abstract class Geometry extends Intersectable {
         this.emission = emission;
         return this;
     }
+
+    /**
+     * Sets the material of the geometry.
+     * @param material the material to set for the geometry
+     */
+    public Geometry setMaterial(Material material) {
+        this.material = material;
+        return this;
+    }
+
     /**
      * @return the emission color of the geometry
      */
     public Color getEmission() {
         return emission;
     }
+
+    /**
+     * Gets the material of the geometry.
+     * @return the material of the geometry
+     */
+    public Material getMaterial() {
+        return material;
+    }
+
     /**
      * Computes the normal vector to the geometric shape at a given point.
      * The normal vector is perpendicular to the surface of the shape at the specified point.

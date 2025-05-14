@@ -49,10 +49,12 @@ public class SimpleRayTracer extends RayTracerBase {
 
     /**
      * Calculates the color at a given point in the scene.
+     * This method uses the ambient light intensity and the material properties of the geometry
+     * to calculate the final color at the intersection point.
      * @param intersection- point and geometry at which to calculate the color.
      * @return The color at the given point.
      */
     private Color calcColor(Intersection intersection){
-        return scene.ambientLight.getIntensity().add(intersection.geometry.getEmission());
+        return scene.ambientLight.getIntensity().scale(intersection.geometry.getMaterial().kA).add(intersection.geometry.getEmission());
     }
 }

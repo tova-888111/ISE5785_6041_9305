@@ -9,27 +9,16 @@ import primitives.Color;
  * The intensity of the ambient light can be adjusted to create different lighting effects in the scene.
  * @author Tehila Shraga and Tova Tretiak
  */
-public class AmbientLight {
-
-    /** The intensity of the ambient light.*/
-    private final Color intensity;
+public class AmbientLight extends Light {
 
     /** Default ambient light with intensity of black (no light).*/
     public final static AmbientLight NONE = new AmbientLight(Color.BLACK);
 
     /**
      * Constructor for AmbientLight.
-     * @param IA the intensity of the ambient light
+     * @param iA the intensity of the ambient light
      */
-    public AmbientLight(Color IA) {
-        this.intensity = IA;
-    }
-
-    /**
-     * Getter for the intensity of the ambient light.
-     * @return the intensity of the ambient light
-     */
-    public Color getIntensity() {
-        return intensity;
+    public AmbientLight(Color iA) {
+        super(iA);
     }
 }
