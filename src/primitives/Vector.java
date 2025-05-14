@@ -1,7 +1,11 @@
 package primitives;
 
 /**
- * The Vector class represents a three-dimensional mathematical vector.
+ * This class represents a vector in 3D space.
+ * It extends the Point class and provides additional functionality for vector operations.
+ * Vectors are used to represent directions and magnitudes in 3D space.
+ * This class includes methods for vector arithmetic, normalization, and other vector operations.
+ *
  * @author Tehila Shraga and Tova Tretiak
  */
 public class Vector extends Point{
@@ -21,7 +25,6 @@ public class Vector extends Point{
      * @throws IllegalArgumentException if the vector is (0,0,0)
      */
     public Vector(double x, double y, double z) {
-
         this(new Double3(x, y, z));
     }
 
@@ -99,8 +102,7 @@ public class Vector extends Point{
      * @param vector the vector to add
      * @return a new vector representing the sum
      */
-    public Vector add(Vector vector)
-    {
+    public Vector add(Vector vector){
         return new Vector(xyz.add(vector.xyz));
     }
 
@@ -109,14 +111,12 @@ public class Vector extends Point{
      * @param scalar the scale factor
      * @return a new vector that is scaled by the given factor
      */
-    public Vector scale (double scalar) {
-
+    public Vector scale(double scalar) {
         return new Vector(xyz.scale(scalar));
     }
 
     @Override
     public String toString() {
-
         return super.toString();
     }
 }
