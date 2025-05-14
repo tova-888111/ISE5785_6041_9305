@@ -2,12 +2,18 @@ package scene;
 
 import geometries.Geometries;
 import lighting.AmbientLight;
+import lighting.LightSource;
 import primitives.Color;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * This class represents a scene in a 3D rendering system.
  * It contains properties such as the name of the scene, background color, ambient light, and geometries.
  * The class provides methods to set these properties.
+ * This class is PDS
+ * This class includes the design pattern to chaining setters.
  * @author Tehila Shraga and Tova Tretiak
  */
 public class Scene {
@@ -20,6 +26,8 @@ public class Scene {
     public AmbientLight ambientLight = AmbientLight.NONE;
     /** The geometries in the scene. */
     public Geometries geometries= new Geometries();
+    /** The list of light sources in the scene. */
+    List<LightSource> lights= new LinkedList<>();
 
     /**
      * Constructor to initialize a new scene with a given name.
@@ -56,6 +64,16 @@ public class Scene {
      */
     public Scene setGeometries(Geometries geometries) {
         this.geometries = geometries;
+        return this;
+    }
+
+    /**
+     * Sets the light sources of the scene.
+     * @param lights The list of light sources to set.
+     * @return The current Scene object for method chaining.
+     */
+    public Scene setLights(List<LightSource> lights) {
+        this.lights = lights;
         return this;
     }
 }
