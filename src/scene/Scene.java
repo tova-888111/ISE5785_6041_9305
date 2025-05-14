@@ -27,7 +27,7 @@ public class Scene {
     /** The geometries in the scene. */
     public Geometries geometries= new Geometries();
     /** The list of light sources in the scene. */
-    List<LightSource> lights= new LinkedList<>();
+    public List<LightSource> lights= new LinkedList<>();
 
     /**
      * Constructor to initialize a new scene with a given name.
