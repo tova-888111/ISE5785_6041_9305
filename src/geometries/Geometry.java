@@ -6,7 +6,8 @@ import primitives.*;
  * An abstract class representing a geometric shape in 3D space.
  * This class serves as a base for all geometric objects and provides a common interface for intersection calculations.
  * It extends the {@link Intersectable}  ensuring that all geometric shapes can calculate ray intersections.
- *
+ * This class also includes properties for the emission color and material of the geometry.
+ * This class uses the design pattern of chaining setters.
  *@author Tehila Shraga and Tova Tretiak
  */
 public abstract class Geometry extends Intersectable {

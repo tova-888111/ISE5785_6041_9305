@@ -8,6 +8,7 @@ import primitives.Vector;
  * This class represents a directional light source in a scene.
  * A directional light emits light in a specific direction, and the intensity of the light is constant across the entire scene.
  * The direction of the light can be used to create shadows and highlights on objects in the scene.
+ * This class includes the direction of the light beam and the intensity of the light source.
  *
  * @author Tehila Shraga and Tova Tretiak
  */

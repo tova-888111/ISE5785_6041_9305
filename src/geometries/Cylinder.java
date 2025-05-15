@@ -1,9 +1,9 @@
 package geometries;
 
-import primitives.*;
-
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 import java.util.List;
-
 import static primitives.Util.isZero;
 
 /**
@@ -23,7 +23,7 @@ public class Cylinder extends Tube {
      * Validates that the height is positive and non-zero.
      *
      * @param radius The radius of the cylinder (must be positive).
-     * @param axis The central axis of the cylinder, represented as a {@link Ray}.
+     * @param axis   The central axis of the cylinder, represented as a {@link Ray}.
      * @param height The height of the cylinder (must be positive).
      * @throws IllegalArgumentException if the height is zero or negative.
      */
@@ -44,6 +44,7 @@ public class Cylinder extends Tube {
      * 1. If the point is on the bottom base center, the normal vector points in the opposite direction of the axis.
      * 2. If the point is on the top base center, the normal vector points in the same direction as the axis.
      * 3. If the point is on the lateral surface, the normal vector is calculated as the difference between the point and the projection of the point onto the axis.
+     *
      * @return A normalized vector representing the normal to the cylinder at the given point.
      */
     @Override

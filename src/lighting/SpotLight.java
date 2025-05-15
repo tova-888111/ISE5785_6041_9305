@@ -8,6 +8,7 @@ import primitives.*;
  * A spotLight is a type of point light that emits light in a specific direction.
  * The intensity of the light decreases with distance and is affected by the angle between the direction of the light and the direction to the point being illuminated.
  * The spotLight can be used to create focused lighting effects in the scene.
+ * This class includes position, intensity, and attenuation coefficients (kC, kL, kQ) to control the light's behavior.
  *
  * @author Tehila Shraga and Tova Tretiak
  */

@@ -1,24 +1,27 @@
 package renderer;
 
+import geometries.Intersectable.Intersection;
 import lighting.LightSource;
-import primitives.*;
+import primitives.Color;
+import primitives.Double3;
+import primitives.Ray;
+import primitives.Vector;
 import scene.Scene;
-
 import java.util.List;
-import geometries.Intersectable. Intersection;
-
 import static primitives.Util.alignZero;
 
 /**
  * This class implements a simple ray tracing algorithm.
  * It extends the RayTracerBase class and provides an implementation for the traceRay method.
  * The traceRay method is responsible for tracing a ray through the scene and returning the color at the intersection point.
+ *
  * @author Tehila Shraga and Tova Tretiak
  */
 public class SimpleRayTracer extends RayTracerBase {
 
     /**
      * Constructor to initialize the ray tracer with a given scene.
+     *
      * @param scene The scene to be rendered.
      */
     public SimpleRayTracer(Scene scene) {
@@ -30,13 +33,14 @@ public class SimpleRayTracer extends RayTracerBase {
      * This method checks if the ray intersects with any geometries in the scene.
      * If there are no intersections, it returns the background color of the scene.
      * If there are intersections, it calculates the closest intersection point and returns the color at that point.
+     *
      * @param ray The ray to be traced.
      * @return The color at the intersection point of the ray with the scene.
      */
     @Override
     public Color traceRay(Ray ray) {
         // Check if the ray intersects with any geometries in the scene
-        List<Intersection> intersections = scene.geometries.calculateIntersectionsHelper(ray);
+        List<Intersection> intersections = scene.geometries.calculateIntersections(ray);
 
         // If there are no intersections, return the background color of the scene
         if (intersections == null || intersections.isEmpty()) {
@@ -47,20 +51,21 @@ public class SimpleRayTracer extends RayTracerBase {
         Intersection closestPoint = ray.findClosestIntersection(intersections);
 
         // Return the color at the closest intersection point
-        return calcColor(closestPoint,ray);
+        return calcColor(closestPoint, ray);
     }
 
     /**
      * Calculates the color at a given point in the scene.
      * This method uses the ambient light intensity and the material properties of the geometry
      * to calculate the final color at the intersection point.
+     *
      * @param intersection- point and geometry at which to calculate the color.
-     * @param ray - the ray that intersects with the geometry
+     * @param ray           - the ray that intersects with the geometry
      * @return The color at the given point.
      */
-    private Color calcColor(Intersection intersection,Ray ray){
-        if (!preprocessIntersection(intersection,ray.getDirection())){
-            return new Color( java.awt.Color.BLACK);
+    private Color calcColor(Intersection intersection, Ray ray) {
+        if (!preprocessIntersection(intersection, ray.getDirection())) {
+            return new Color(java.awt.Color.BLACK);
         }
         return scene.ambientLight.getIntensity().scale(intersection.geometry.getMaterial().kA).add(calcColorLocalEffects(intersection));
     }
@@ -72,19 +77,20 @@ public class SimpleRayTracer extends RayTracerBase {
      * It also checks if the dot product is zero, indicating that the ray is parallel to the surface.
      * If the dot product is zero, it returns false
      * else it returns true.
+     *
      * @param intersection - the intersection object containing the geometry and point of intersection
-     * @param vector - the direction vector of the ray
+     * @param vector       - the direction vector of the ray
      * @return true if the dot product is not zero, false otherwise
      */
-    private boolean preprocessIntersection(Intersection intersection, Vector vector){
+    private boolean preprocessIntersection(Intersection intersection, Vector vector) {
         // Initialize the normal vector
-        intersection.v=vector;
+        intersection.v = vector;
         // Calculate the normal vector at the intersection point
-        intersection.normal =intersection.geometry.getNormal(intersection.point);
+        intersection.normal = intersection.geometry.getNormal(intersection.point);
         // Calculate the dot product of the ray vector and the normal vector
-        intersection.vNormal=alignZero(intersection.v.dotProduct(intersection.normal));
+        intersection.vNormal = alignZero(intersection.v.dotProduct(intersection.normal));
         // Check if the dot product is zero, indicating that the ray is parallel to the surface
-        return intersection.vNormal!=0;
+        return intersection.vNormal != 0;
     }
 
     /**
@@ -94,19 +100,20 @@ public class SimpleRayTracer extends RayTracerBase {
      * It also checks if the dot product is zero, indicating that the light source is parallel to the surface.
      * If the dot product is zero, it returns false
      * else it returns true.
+     *
      * @param intersection - the intersection object containing the geometry and point of intersection
-     * @param lightSource - the light source illuminating the intersection point
+     * @param lightSource  - the light source illuminating the intersection point
      * @return true if the dot product is not zero, false otherwise
      */
-    private boolean setLightSource(Intersection intersection, LightSource lightSource){
+    private boolean setLightSource(Intersection intersection, LightSource lightSource) {
         // Initialize the light source
-        intersection.light=lightSource;
+        intersection.light = lightSource;
         // Calculate the direction vector of the light source
-        intersection.l=lightSource.getL(intersection.point);
+        intersection.l = lightSource.getL(intersection.point);
         // Calculate the dot product of the light direction and the normal vector
-        intersection.lNormal=alignZero(intersection.l.dotProduct(intersection.normal));
+        intersection.lNormal = alignZero(intersection.l.dotProduct(intersection.normal));
         // Check if the dot product is zero, indicating that the light source is parallel to the surface
-        return (alignZero(intersection.lNormal*intersection.vNormal)>0);
+        return (alignZero(intersection.lNormal * intersection.vNormal) > 0);
     }
 
     /**
@@ -114,49 +121,52 @@ public class SimpleRayTracer extends RayTracerBase {
      * This method iterates through all the light sources in the scene
      * and calculates the diffuse and specular components of the color
      * at the intersection point.
+     *
      * @param intersection - the intersection object containing the geometry and point of intersection
      * @return The color at the intersection point based on local effects.
      */
-    private Color calcColorLocalEffects(Intersection intersection){
-        Color color=intersection.geometry.getEmission();
+    private Color calcColorLocalEffects(Intersection intersection) {
+        Color color = intersection.geometry.getEmission();
         for (LightSource lightSource : scene.lights) {
             // Set the light source for the intersection point
             if (setLightSource(intersection, lightSource)) {
                 // Calculate the diffuse and specular components of the color
-                Color iL= lightSource.getIntensity(intersection.point);
+                Color iL = lightSource.getIntensity(intersection.point);
                 color = color.add(iL.scale(calcDiffuse(intersection))).add(iL.scale(calcSpecular(intersection)));
             }
         }
-       return color;
+        return color;
     }
 
     /**
      * Calculates the specular component of the color at the intersection point.
      * This method scales the specular coefficient of the material by the dot product of the reflection vector and the view vector.
      * This is raised to the power of the shininess coefficient of the material.
+     *
      * @param intersection - the intersection object containing the geometry and point of intersection
      * @return The specular component of the color at the intersection point.
      */
-    private Double3 calcSpecular(Intersection intersection){
-        if (intersection==null|| intersection.material==null)
+    private Double3 calcSpecular(Intersection intersection) {
+        if (intersection == null || intersection.material == null)
             throw new IllegalArgumentException("intersection or material is null");
-        Vector r= intersection.l.add(intersection.normal.scale(-2*intersection.lNormal)).normalize();
-        double vr=r.dotProduct(intersection.v)*(-1);
-        return intersection.material.kS.scale(Math.max(0,Math.pow(vr, intersection.material.nShininess)));
+        Vector r = intersection.l.add(intersection.normal.scale(-2 * intersection.lNormal)).normalize();
+        double vr = r.dotProduct(intersection.v) * (-1);
+        return intersection.material.kS.scale(Math.max(0, Math.pow(vr, intersection.material.nShininess)));
     }
 
     /**
      * Calculates the diffuse component of the color at the intersection point.
      * This method scales the diffuse coefficient of the material by the dot product of the light direction and the normal vector.
+     *
      * @param intersection - the intersection object containing the geometry and point of intersection
      * @return The diffuse component of the color at the intersection point.
      */
-    private Double3 calcDiffuse(Intersection intersection){
-        if (intersection==null|| intersection.material==null)
+    private Double3 calcDiffuse(Intersection intersection) {
+        if (intersection == null || intersection.material == null)
             throw new IllegalArgumentException("intersection or material is null");
-        if (intersection.vNormal>0){
+        if (intersection.lNormal > 0) {
             return intersection.material.kD.scale(intersection.lNormal);
         }
-        return intersection.material.kD.scale(intersection.lNormal*(-1));
+        return intersection.material.kD.scale(intersection.lNormal * (-1));
     }
 }

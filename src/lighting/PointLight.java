@@ -11,6 +11,7 @@ import static primitives.Util.isZero;
  * Point light sources emit light in all directions from a single point in space.
  * They can create soft shadows and are often used to simulate natural light sources, such as the sun or a light bulb.
  * The intensity of the light can be adjusted based on the distance from the light source to the point being illuminated.
+ * This class includes position, intensity, and attenuation coefficients (kC, kL, kQ) to control the light's behavior.
  *
  * @author Tehila Shraga and Tova Tretiak
  */
@@ -75,11 +76,11 @@ public class PointLight extends Light implements LightSource{
     @Override
     public Color getIntensity(Point p) {
         double distance = position.distance(p);
-        double value=kC + kL * distance + kQ * distance * distance;
-        if (isZero(value)) {
+        double factor=kC + kL * distance + kQ * distance * distance;
+        if (isZero(factor)) {
             throw new IllegalArgumentException("Cannot divide by zero");
         }
-        return intensity.scale(1/value);
+        return intensity.scale(1/factor);
     }
 
     /**

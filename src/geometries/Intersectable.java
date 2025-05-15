@@ -81,6 +81,7 @@ public abstract class Intersectable {
 
         /**
          * Constructor to create an intersection object.
+         * This constructor initializes the geometry, intersection point, and material.
          * @param geometry The geometry of the intersected object.
          * @param point The intersection point of the ray with the geometry.
          */

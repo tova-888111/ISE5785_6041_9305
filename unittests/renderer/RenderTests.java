@@ -71,12 +71,12 @@ public class RenderTests {
               new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100)) //
                  .setEmission(new Color(BLUE)));
 
-      camera //
-         .setRayTracer(scene, RayTracerType.SIMPLE) //
-         .setResolution(1000, 1000) //
-         .build() //
-         .renderImage() //
-         .printGrid(100, new Color(WHITE)) //
+      camera // Create a camera object
+         .setRayTracer(scene, RayTracerType.SIMPLE)
+         .setResolution(1000, 1000)
+         .build()
+         .renderImage()
+         .printGrid(100, new Color(WHITE))
          .writeToImage("color render test");
    }
 
@@ -92,18 +92,18 @@ public class RenderTests {
               .add(// center
                       new Sphere(50,new Point(0, 0, -100)).setMaterial(new Material().setKA(0.4)),
                       // up left
-                      new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)).setMaterial(new Material().setKA(new Double3(0,0.8,0))),
+                      new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)).setMaterial(new Material().setKA(new Double3(0,0.8,0))),//GREEN
                       // down left
-                      new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)).setMaterial(new Material().setKA(new Double3(0.8,0,0))),
+                      new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)).setMaterial(new Material().setKA(new Double3(0.8,0,0))),//RED
                       // down right
-                      new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100)).setMaterial(new Material().setKA(new Double3(0,0,0.8))));
+                      new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100)).setMaterial(new Material().setKA(new Double3(0,0,0.8))));//BLUE
 
-      camera //
-              .setRayTracer(scene, RayTracerType.SIMPLE) //
-              .setResolution(1000, 1000) //
-              .build() //
-              .renderImage() //
-              .printGrid(100, new Color(WHITE)) //
+      camera // Create a camera object
+              .setRayTracer(scene, RayTracerType.SIMPLE)
+              .setResolution(1000, 1000)
+              .build()
+              .renderImage()
+              .printGrid(100, new Color(WHITE))
               .writeToImage("color render test2");
    }
 }

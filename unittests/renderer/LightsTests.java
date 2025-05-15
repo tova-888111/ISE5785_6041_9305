@@ -211,19 +211,19 @@ class LightsTests {
       // lights
       // point light
       scene1.lights.add(
-              new PointLight(new Color(1000, 200, 400), new Point(-150, 0, -50))
-                      .setKc(1).setKl(0.0008).setKq(0.0004)
+              new PointLight(new Color(800, 200, 200), new Point(-100, 0, 50))
+                      .setKc(1).setKl(0.001).setKq(0.0002)
       );
 
       // spotLight
       scene1.lights.add(
-              new SpotLight(new Color(200, 1000, 300), new Point(0, -200, 50), new Vector(0, 1, -0.5))
-                      .setKc(1).setKl(0.00005).setKq(0.00001)
+              new SpotLight(new Color(200, 800, 200), new Point(0, -150, 50), new Vector(0, 1, -0.3))
+                      .setKc(1).setKl(0.0005).setKq(0.00005)
       );
 
       // directional light
       scene1.lights.add(
-              new DirectionalLight(new Color(300, 300, 1000), new Vector(-1, -1, -0.5))
+              new DirectionalLight(new Color(200, 200, 800), new Vector(1, -1, -1))
       );
 
       // render image
@@ -241,15 +241,25 @@ class LightsTests {
    void trianglesPointSpotDirection() {
       // triangles
       scene2.geometries.add(triangle1, triangle2);
+
         // lights
         // point light
-      scene2.lights.add(new PointLight(new Color(600, 300, 300), new Point(-150, 0, 0)).setKc(1).setKl(0.0006).setKq(0.0003));
+      scene2.lights.add(
+              new PointLight(new Color(1000, 500, 500), new Point(150, -100, -100))
+                      .setKc(1).setKl(0.0004).setKq(0.0001)
+      );
 
         // spotLight
-      scene2.lights.add(new SpotLight(new Color(300, 600, 300), new Point(0, -100, 300), new Vector(0, 1, -1)).setKc(1).setKl(0.0001).setKq(0.00005));
+      scene2.lights.add(
+              new SpotLight(new Color(500, 1000, 500), new Point(0, 250, 100), new Vector(0, -1, -1))
+                      .setKc(1).setKl(0.00005).setKq(0.000005)
+      );
 
         // directional light
-      scene2.lights.add(new DirectionalLight(new Color(300, 300, 800), new Vector(-1, -1, -1)));
+      scene2.lights.add(
+              new DirectionalLight(new Color(400, 400, 1000), new Vector(-1, -1, -0.5))
+      );
+
 
       // render image
       camera2.setResolution(500, 500)
