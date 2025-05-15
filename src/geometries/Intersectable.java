@@ -14,6 +14,12 @@ import java.util.List;
 public abstract class Intersectable {
 
     /**
+     * Default constructor for the Intersectable class.
+     */
+    public Intersectable() {
+    }
+
+    /**
      * Finds the intersection points of a ray with the geometric object.
      * This method returns a list of intersection points, which may be empty if there are no intersections.
      * The list may contain multiple points if the ray intersects the object at multiple locations.

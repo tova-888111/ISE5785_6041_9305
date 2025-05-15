@@ -27,6 +27,7 @@ public abstract class Geometry extends Intersectable {
     /**
      * Sets the emission color of the geometry.
      * @param emission the color to set as the emission color
+     * @return the current instance of Geometry for method chaining
      */
     public Geometry setEmission(Color emission) {
         this.emission = emission;
@@ -36,6 +37,7 @@ public abstract class Geometry extends Intersectable {
     /**
      * Sets the material of the geometry.
      * @param material the material to set for the geometry
+     * @return the current instance of Geometry for method chaining
      */
     public Geometry setMaterial(Material material) {
         this.material = material;
@@ -43,6 +45,7 @@ public abstract class Geometry extends Intersectable {
     }
 
     /**
+     * Gets the emission color of the geometry.
      * @return the emission color of the geometry
      */
     public Color getEmission() {
@@ -63,6 +66,7 @@ public abstract class Geometry extends Intersectable {
      * Each subclass must provide its own implementation of this method based on its specific geometry.
      *
      * @param point the point at which the normal is calculated
+     * @return the normal vector at the specified point
      */
     public abstract Vector getNormal(Point point);
 

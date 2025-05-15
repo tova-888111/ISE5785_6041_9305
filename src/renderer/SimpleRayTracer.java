@@ -8,7 +8,6 @@ import java.util.List;
 import geometries.Intersectable. Intersection;
 
 import static primitives.Util.alignZero;
-import static primitives.Util.isZero;
 
 /**
  * This class implements a simple ray tracing algorithm.
@@ -56,6 +55,7 @@ public class SimpleRayTracer extends RayTracerBase {
      * This method uses the ambient light intensity and the material properties of the geometry
      * to calculate the final color at the intersection point.
      * @param intersection- point and geometry at which to calculate the color.
+     * @param ray - the ray that intersects with the geometry
      * @return The color at the given point.
      */
     private Color calcColor(Intersection intersection,Ray ray){
@@ -106,9 +106,17 @@ public class SimpleRayTracer extends RayTracerBase {
         // Calculate the dot product of the light direction and the normal vector
         intersection.lNormal=alignZero(intersection.l.dotProduct(intersection.normal));
         // Check if the dot product is zero, indicating that the light source is parallel to the surface
-        return !isZero(intersection.lNormal*intersection.vNormal);
+        return (alignZero(intersection.lNormal*intersection.vNormal)>0);
     }
 
+    /**
+     * Calculates the color at the intersection point based on local effects.
+     * This method iterates through all the light sources in the scene
+     * and calculates the diffuse and specular components of the color
+     * at the intersection point.
+     * @param intersection - the intersection object containing the geometry and point of intersection
+     * @return The color at the intersection point based on local effects.
+     */
     private Color calcColorLocalEffects(Intersection intersection){
         Color color=intersection.geometry.getEmission();
         for (LightSource lightSource : scene.lights) {
@@ -122,6 +130,13 @@ public class SimpleRayTracer extends RayTracerBase {
        return color;
     }
 
+    /**
+     * Calculates the specular component of the color at the intersection point.
+     * This method scales the specular coefficient of the material by the dot product of the reflection vector and the view vector.
+     * This is raised to the power of the shininess coefficient of the material.
+     * @param intersection - the intersection object containing the geometry and point of intersection
+     * @return The specular component of the color at the intersection point.
+     */
     private Double3 calcSpecular(Intersection intersection){
         if (intersection==null|| intersection.material==null)
             throw new IllegalArgumentException("intersection or material is null");

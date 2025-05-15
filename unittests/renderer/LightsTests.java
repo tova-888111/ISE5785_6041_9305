@@ -200,4 +200,62 @@ class LightsTests {
          .writeToImage("lightTrianglesSpotSharp");
    }*/
 
+   /**
+    * Produce a picture of a sphere lighted by a point light, a spotlight and a directional light
+    */
+   @Test
+   void spherePointSpotDirection() {
+      // sphere1
+      scene1.geometries.add(sphere);
+
+      // lights
+      // point light
+      scene1.lights.add(
+              new PointLight(new Color(1000, 200, 400), new Point(-150, 0, -50))
+                      .setKc(1).setKl(0.0008).setKq(0.0004)
+      );
+
+      // spotLight
+      scene1.lights.add(
+              new SpotLight(new Color(200, 1000, 300), new Point(0, -200, 50), new Vector(0, 1, -0.5))
+                      .setKc(1).setKl(0.00005).setKq(0.00001)
+      );
+
+      // directional light
+      scene1.lights.add(
+              new DirectionalLight(new Color(300, 300, 1000), new Vector(-1, -1, -0.5))
+      );
+
+      // render image
+      camera1
+              .setResolution(500, 500)
+              .build()
+              .renderImage()
+              .writeToImage("lightSpherePointSpotDirection");
+   }
+
+   /**
+    * Produce a picture of two triangles lighted by a point light, a spotlight and a directional light
+    */
+   @Test
+   void trianglesPointSpotDirection() {
+      // triangles
+      scene2.geometries.add(triangle1, triangle2);
+        // lights
+        // point light
+      scene2.lights.add(new PointLight(new Color(600, 300, 300), new Point(-150, 0, 0)).setKc(1).setKl(0.0006).setKq(0.0003));
+
+        // spotLight
+      scene2.lights.add(new SpotLight(new Color(300, 600, 300), new Point(0, -100, 300), new Vector(0, 1, -1)).setKc(1).setKl(0.0001).setKq(0.00005));
+
+        // directional light
+      scene2.lights.add(new DirectionalLight(new Color(300, 300, 800), new Vector(-1, -1, -1)));
+
+      // render image
+      camera2.setResolution(500, 500)
+              .build()
+              .renderImage()
+              .writeToImage("lightTrianglesPointSpotDirection");
+   }
+
 }
