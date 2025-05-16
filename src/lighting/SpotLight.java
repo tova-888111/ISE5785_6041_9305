@@ -3,6 +3,8 @@ package lighting;
 import primitives.Color;
 import primitives.*;
 
+import static primitives.Util.isZero;
+
 /**
  * This class represents a spotlight in a scene.
  * A spotLight is a type of point light that emits light in a specific direction.
@@ -16,6 +18,7 @@ public class SpotLight extends PointLight{
 
     /** The direction of the light beam. */
     private final Vector direction;
+    private double narrowBeam = 1;
 
     /**
      * Constructor for the SpotLight class.
@@ -58,6 +61,14 @@ public class SpotLight extends PointLight{
         return this;
     }
 
+    public SpotLight setNarrowBeam(double narrowBeam) {
+        if (narrowBeam <= 0) {
+            throw new IllegalArgumentException("Narrow beam must be greater than 0");
+        }
+        this.narrowBeam = narrowBeam;
+        return this;
+    }
+
     /**
      * Calculates the intensity of the light at a specific point in the scene.
      * The intensity is affected by the angle between the direction of the light and the direction to the point being illuminated.
@@ -68,7 +79,10 @@ public class SpotLight extends PointLight{
     public Color getIntensity(Point p) {
         Color intensityPoint = super.getIntensity(p);
         double factor = Math.max(0, direction.dotProduct(getL(p)));
-        return intensityPoint.scale(factor);
+        if (isZero(factor)) {
+            return Color.BLACK;
+        }
+        return intensityPoint.scale(Math.pow(factor, narrowBeam));
     }
 
     /**

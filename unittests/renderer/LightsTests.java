@@ -174,7 +174,7 @@ class LightsTests {
    }
 
    /** Produce a picture of a sphere lighted by a narrow spotlight */
-   /**@Test
+   @Test
    void sphereSpotSharp() {
       scene1.geometries.add(sphere);
       scene1.lights
@@ -185,10 +185,10 @@ class LightsTests {
          .build() //
          .renderImage() //
          .writeToImage("lightSphereSpotSharp");
-   }*/
+   }
 
    /** Produce a picture of two triangles lighted by a narrow spotlight */
-   /**@Test
+   @Test
    void trianglesSpotSharp() {
       scene2.geometries.add(triangle1, triangle2);
       scene2.lights.add(new SpotLight(trianglesLightColor, trianglesLightPosition, trianglesLightDirection) //
@@ -198,7 +198,7 @@ class LightsTests {
          .build() //
          .renderImage() //
          .writeToImage("lightTrianglesSpotSharp");
-   }*/
+   }
 
    /**
     * Produce a picture of a sphere lighted by a point light, a spotlight and a directional light
@@ -245,19 +245,21 @@ class LightsTests {
         // lights
         // point light
       scene2.lights.add(
-              new PointLight(new Color(1000, 500, 500), new Point(150, -100, -100))
-                      .setKc(1).setKl(0.0004).setKq(0.0001)
+              new PointLight(new Color(1500, 300, 300), new Point(90, -90, 30))
+                      .setKc(1).setKl(0.0005).setKq(0.0001)
       );
 
         // spotLight
       scene2.lights.add(
-              new SpotLight(new Color(500, 1000, 500), new Point(0, 250, 100), new Vector(0, -1, -1))
-                      .setKc(1).setKl(0.00005).setKq(0.000005)
+              new SpotLight(new Color(300, 1500, 300), new Point(-120, 160, 100), new Vector(1, -1, -2))
+                      .setKc(1).setKl(0.0003).setKq(0.00005)
+                      .setNarrowBeam(10)
       );
 
-        // directional light
+
+      // directional light
       scene2.lights.add(
-              new DirectionalLight(new Color(400, 400, 1000), new Vector(-1, -1, -0.5))
+              new DirectionalLight(new Color(100, 100, 500), new Vector(1, 1, -1))
       );
 
 
