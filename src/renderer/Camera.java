@@ -268,6 +268,11 @@ public class Camera implements Cloneable {
             this.camera.distance = camera.distance;
             this.camera.width = camera.width;
             this.camera.height = camera.height;
+            this.camera.pc = camera.pc;
+            this.camera.imageWriter = camera.imageWriter;
+            this.camera.rayTracer = camera.rayTracer;
+            this.camera.nX = camera.nX;
+            this.camera.nY = camera.nY;
         }
 
         /**
