@@ -3,6 +3,7 @@ package lighting;
 import primitives.Color;
 import primitives.*;
 
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
@@ -72,7 +73,7 @@ public class SpotLight extends PointLight{
      * @throws IllegalArgumentException if the narrowBeam is less than or equal to 0.
      */
     public SpotLight setNarrowBeam(double narrowBeam) {
-        if (narrowBeam <= 0) {
+        if (alignZero(narrowBeam) <= 0) {
             throw new IllegalArgumentException("Narrow beam must be greater than 0");
         }
         this.narrowBeam = narrowBeam;
@@ -89,7 +90,7 @@ public class SpotLight extends PointLight{
     @Override
     public Color getIntensity(Point p) {
         Color intensityPoint = super.getIntensity(p);
-        double factor = Math.max(0, direction.dotProduct(getL(p)));
+        double factor = Math.max(0, alignZero(direction.dotProduct(getL(p))));
         if (isZero(factor)) {
             return Color.BLACK;
         }

@@ -41,15 +41,12 @@ public class SimpleRayTracer extends RayTracerBase {
     public Color traceRay(Ray ray) {
         // Check if the ray intersects with any geometries in the scene
         List<Intersection> intersections = scene.geometries.calculateIntersections(ray);
-
         // If there are no intersections, return the background color of the scene
         if (intersections == null || intersections.isEmpty()) {
             return scene.backgroundColor;
         }
-
         // If there are intersections, calculate the closest intersection point
         Intersection closestPoint = ray.findClosestIntersection(intersections);
-
         // Return the color at the closest intersection point
         return calcColor(closestPoint, ray);
     }
@@ -64,9 +61,12 @@ public class SimpleRayTracer extends RayTracerBase {
      * @return The color at the given point.
      */
     private Color calcColor(Intersection intersection, Ray ray) {
+        // Check if the intersection and geometry are not null
         if (!preprocessIntersection(intersection, ray.getDirection())) {
+            // If the intersection is null or the geometry is null, return black color
             return new Color(java.awt.Color.BLACK);
         }
+        // Return the color at the intersection point
         return scene.ambientLight.getIntensity().scale(intersection.geometry.getMaterial().kA).add(calcColorLocalEffects(intersection));
     }
 
@@ -126,12 +126,15 @@ public class SimpleRayTracer extends RayTracerBase {
      * @return The color at the intersection point based on local effects.
      */
     private Color calcColorLocalEffects(Intersection intersection) {
+        // Check if the intersection and geometry are not null
         Color color = intersection.geometry.getEmission();
+        // Iterate through all the light sources in the scene
         for (LightSource lightSource : scene.lights) {
             // Set the light source for the intersection point
             if (setLightSource(intersection, lightSource)) {
                 // Calculate the diffuse and specular components of the color
                 Color iL = lightSource.getIntensity(intersection.point);
+                // Add the color contributions from the light source
                 color = color.add(iL.scale(calcDiffuse(intersection))).add(iL.scale(calcSpecular(intersection)));
             }
         }
@@ -147,10 +150,14 @@ public class SimpleRayTracer extends RayTracerBase {
      * @return The specular component of the color at the intersection point.
      */
     private Double3 calcSpecular(Intersection intersection) {
+        // Check if the intersection and material are not null
         if (intersection == null || intersection.material == null)
             throw new IllegalArgumentException("intersection or material is null");
+        // Calculate the reflection vector
         Vector r = intersection.l.add(intersection.normal.scale(-2 * intersection.lNormal)).normalize();
+        // Calculate the dot product of the reflection vector and the view vector
         double vr = r.dotProduct(intersection.v) * (-1);
+        // Check if the dot product is less than or equal to zero
         return intersection.material.kS.scale(Math.max(0, Math.pow(vr, intersection.material.nShininess)));
     }
 
@@ -162,11 +169,14 @@ public class SimpleRayTracer extends RayTracerBase {
      * @return The diffuse component of the color at the intersection point.
      */
     private Double3 calcDiffuse(Intersection intersection) {
+        // Check if the intersection and material are not null
         if (intersection == null || intersection.material == null)
             throw new IllegalArgumentException("intersection or material is null");
+        // Calculate the diffuse component based on the light direction and normal vector
         if (intersection.lNormal > 0) {
             return intersection.material.kD.scale(intersection.lNormal);
         }
+        // If the light direction is opposite to the normal vector, return the negative diffuse component
         return intersection.material.kD.scale(intersection.lNormal * (-1));
     }
 }

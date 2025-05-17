@@ -14,7 +14,7 @@ public class AmbientLight extends Light {
     /** Default ambient light with intensity of black (no light).*/
     public final static AmbientLight NONE = new AmbientLight(Color.BLACK);
 
-    /**
+     /**
      * Constructor for AmbientLight.
      * @param iA the intensity of the ambient light
      */
