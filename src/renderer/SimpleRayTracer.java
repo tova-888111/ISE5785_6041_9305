@@ -146,11 +146,14 @@ public class SimpleRayTracer extends RayTracerBase {
         for (LightSource lightSource : scene.lights) {
             // Set the light source for the intersection point
             // Check also if the intersection point is unshaded
-            if (setLightSource(intersection, lightSource)&&unshaded(intersection)) {
+            if (setLightSource(intersection, lightSource)) {
+                Double3 ktr= transparency(intersection);
+                if (!(ktr.product(k).lowerThan(MIN_CALC_COLOR_K))){
                 // Calculate the diffuse and specular components of the color
-                Color iL = lightSource.getIntensity(intersection.point);
+                Color iL = lightSource.getIntensity(intersection.point).scale(ktr);
                 // Add the color contributions from the light source
                 color = color.add(iL.scale(calcDiffuse(intersection))).add(iL.scale(calcSpecular(intersection)));
+                }
             }
         }
         return color;
@@ -283,4 +286,35 @@ public class SimpleRayTracer extends RayTracerBase {
         }
         return ray.findClosestIntersection(intersections);
     }
+
+    private Double3 transparency(Intersection intersection){
+        Double3 ktr= Double3.ONE;
+        // Calculate the ray from the intersection point to the light source
+        Vector pointToLight = intersection.l.scale(-1);
+        Ray shadowRay = new Ray(intersection.point, pointToLight, intersection.normal);
+        // Check if the shadow ray intersects with any geometries in the scene
+        List<Intersection> intersections = scene.geometries.calculateIntersections(shadowRay);
+        // If there are no intersections, return true (the point is unshaded)
+        if (intersections == null || intersections.isEmpty()) {
+            return ktr;
+        }
+        // If there are intersections, check if the light source is blocked
+        // Calculate the distance from the light source to the intersection point
+        double distanceLight= intersection.light.getDistance(intersection.point);
+        // A variable to store the distance between the head of the ray and the intersection point
+        double distance;
+        // Iterate through all the intersections
+        for (Intersection i : intersections) {
+            // Check if the intersection point is closer to the light source than the original intersection point
+            distance= shadowRay.getHead().distance(i.point);
+            if ((alignZero( distanceLight-distance)>0)&&(i.material.kT.lowerThan(MIN_CALC_COLOR_K))){
+                ktr=ktr.product(i.material.kT);
+                if (ktr.lowerThan(MIN_CALC_COLOR_K)){
+                    return Double3.ZERO;
+                }
+            }
+        }
+        return ktr;
+    }
+
 }
