@@ -8,6 +8,7 @@ import primitives.*;
  * It contains methods to get the intensity of the light at a specific point
  * and to get the direction of the light from that point.
  * The intensity of the light can be used to calculate the color of objects illuminated by the light source.
+ * This interface is implemented by various types of light sources, such as point lights and spotlights.
  *
  * @author Tehila Shraga and Tova Tretiak
  */
