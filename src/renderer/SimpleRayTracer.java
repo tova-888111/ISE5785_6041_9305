@@ -29,6 +29,12 @@ public class SimpleRayTracer extends RayTracerBase {
     }
 
     /**
+     * A small value used to avoid floating-point precision issues.
+     * This value is used to check if two floating-point numbers are equal.
+     */
+    private static final double DELTA = 0.1;
+
+    /**
      * Traces a ray through the scene and returns the color at the intersection point.
      * This method checks if the ray intersects with any geometries in the scene.
      * If there are no intersections, it returns the background color of the scene.
@@ -131,7 +137,8 @@ public class SimpleRayTracer extends RayTracerBase {
         // Iterate through all the light sources in the scene
         for (LightSource lightSource : scene.lights) {
             // Set the light source for the intersection point
-            if (setLightSource(intersection, lightSource)) {
+            // Check also if the intersection point is unshaded
+            if (setLightSource(intersection, lightSource)&&unshaded(intersection)) {
                 // Calculate the diffuse and specular components of the color
                 Color iL = lightSource.getIntensity(intersection.point);
                 // Add the color contributions from the light source
@@ -178,5 +185,40 @@ public class SimpleRayTracer extends RayTracerBase {
         }
         // If the light direction is opposite to the normal vector, return the negative diffuse component
         return intersection.material.kD.scale(intersection.lNormal * (-1));
+    }
+
+    /**
+     * Checks if the intersection point is unshaded by any geometries in the scene.
+     * This method calculates the ray from the intersection point to the light source
+     * and checks if there are any intersections with other geometries in the scene.
+     *
+     * @param intersection - the intersection object containing the geometry and point of intersection
+     * @return true if the intersection point is unshaded, false otherwise
+     */
+    private boolean unshaded(Intersection intersection) {
+        // Calculate the ray from the intersection point to the light source
+        Vector pointToLight = intersection.l.scale(-1);
+        Vector delta= intersection.normal.scale(intersection.lNormal<0? DELTA : -DELTA);
+        Ray shadowRay = new Ray(intersection.point.add(delta), pointToLight);
+        // Check if the shadow ray intersects with any geometries in the scene
+        List<Intersection> intersections = scene.geometries.calculateIntersections(shadowRay);
+        // If there are no intersections, return true (the point is unshaded)
+        if (intersections == null || intersections.isEmpty()) {
+            return true;
+        }
+        // If there are intersections, check if the light source is blocked
+        // Calculate the distance from the light source to the intersection point
+        double distanceLight= intersection.light.getDistance(intersection.point);
+        // A variable to store the distance between the head of the ray and the intersection point
+        double distance;
+        // Iterate through all the intersections
+        for (Intersection i : intersections) {
+            // Check if the intersection point is closer to the light source than the original intersection point
+            distance= shadowRay.getHead().distance(i.point);
+            if (alignZero( distanceLight-distance)>0){
+                return false;
+            }
+        }
+        return true;
     }
 }
