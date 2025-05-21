@@ -18,6 +18,10 @@ public class Material {
     public Double3 kD= Double3.ZERO;
     /** The specular coefficient of the material. */
     public Double3 kS= Double3.ZERO;
+    /** The reflection coefficient of the material. */
+    public Double3 kR= Double3.ZERO;
+    /** The transparency coefficient of the material. */
+    public Double3 kT= Double3.ZERO;
     /** The shininess of the material. */
     public int nShininess=0;
 
@@ -84,6 +88,46 @@ public class Material {
      */
     public Material setKS(double kS) {
         this.kS = new Double3(kS);
+        return this;
+    }
+
+    /**
+     * Sets method for kR- reflection coefficient.
+     * @param kR the reflection coefficient of the material
+     * @return the Material object itself
+     */
+    public Material setKR(Double3 kR) {
+        this.kR = kR;
+        return this;
+    }
+
+    /**
+     * Sets method for kR- reflection coefficient.
+     * @param kR -the reflection coefficient of the material is (kR, kR, kR)
+     * @return the Material object itself
+     */
+    public Material setKR(double kR) {
+        this.kR = new Double3(kR);
+        return this;
+    }
+
+    /**
+     * Sets method for kT- transparency coefficient.
+     * @param kT the transparency coefficient of the material
+     * @return the Material object itself
+     */
+    public Material setKT(Double3 kT) {
+        this.kT = kT;
+        return this;
+    }
+
+    /**
+     * Sets method for kT- transparency coefficient.
+     * @param kT -the transparency coefficient of the material is (kT, kT, kT)
+     * @return the Material object itself
+     */
+    public Material setKT(double kT) {
+        this.kT = new Double3(kT);
         return this;
     }
 

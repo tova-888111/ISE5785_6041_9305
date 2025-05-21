@@ -23,6 +23,11 @@ public class Ray {
     final private Vector direction;
 
     /**
+     * A small constant used to create a delta vector for shadow rays.
+     * This is used to avoid self-intersection in shadow calculations.
+     */
+    private static final double DELTA = 0.1;
+    /**
      * Constructor to initialize new ray with a given starting point and direction.
      * @param head The starting point of the ray.
      * @param direction The direction vector of the ray, which will be normalized.
@@ -30,6 +35,22 @@ public class Ray {
     public Ray(Point head, Vector direction) {
         this.head = head;
         this.direction = direction.normalize();
+    }
+
+    /**
+     * Constructor to initialize a new ray with a given starting point, direction, and normal vector.
+     * This constructor is used to create shadow rays.
+     * @param head The starting point of the ray.
+     * @param direction The direction vector of the ray, which will be normalized.
+     * @param normal The normal vector at the point of intersection.
+     */
+    public Ray(Point head, Vector direction, Vector normal) {
+        // Normalize the direction vector
+        this.direction = direction.normalize();
+        // Calculate the delta vector based on the normal vector and the direction
+        // If the dot product of the normal and direction is positive, use DELTA
+        Vector delta= normal.scale(normal.dotProduct(direction)>0? DELTA : -DELTA);
+        this.head=head.add(delta);
     }
 
     @Override
