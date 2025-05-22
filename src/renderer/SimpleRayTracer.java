@@ -307,7 +307,7 @@ public class SimpleRayTracer extends RayTracerBase {
         for (Intersection i : intersections) {
             // Check if the intersection point is closer to the light source than the original intersection point
             distance= shadowRay.getHead().distance(i.point);
-            if ((alignZero( distanceLight-distance)>0)&&(i.material.kT.lowerThan(MIN_CALC_COLOR_K))){
+            if ((alignZero( distanceLight-distance)>0)){
                 ktr=ktr.product(i.material.kT);
                 if (ktr.lowerThan(MIN_CALC_COLOR_K)){
                     return Double3.ZERO;
