@@ -80,4 +80,19 @@ class GeometriesTests {
         List<Point> intersections5 = geometries2.findIntersections(ray5);
         assertNull(intersections5, "The intersection point is incorrect");
     }
+
+    /**
+     * Test method for {@link geometries.Geometries#calculateIntersectionsHelper(primitives.Ray, double)}.
+     * Test method for calculateIntersectionsHelper.
+     */
+    @Test
+    void testCalculateIntersectionsHelper() {
+        // ============ Equivalence Partitions Tests ==============
+        //TC01: Test that the intersections are calculated correctly
+        Geometries geometries = new Geometries();
+        geometries.add(sphere, plane);
+        Ray ray1 = new Ray(new Point(3,0,8), new Vector(0, 0, -1));
+        List<Intersectable.Intersection> intersections1 = geometries.calculateIntersectionsHelper(ray1, 9);
+        assertEquals(2, intersections1.size(), "The number of intersection points is incorrect");
+    }
 }

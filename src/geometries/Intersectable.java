@@ -38,20 +38,34 @@ public abstract class Intersectable {
      * The list may contain multiple intersections if the ray intersects the object at multiple locations.
      *
      * @param ray the ray to check for intersections
+     * @param maxDistance the maximum distance from the ray's origin to consider for intersections
      * @return a list of Intersection objects, or {@code null} if there are no intersections
      */
-    protected abstract List<Intersection> calculateIntersectionsHelper(Ray ray);
+    protected abstract List<Intersection> calculateIntersectionsHelper(Ray ray, double maxDistance);
 
     /**
-     * Calculates the intersections of a ray with the geometric object.
-     * This method is a wrapper around the calculateIntersectionsHelper method.
-     * It provides a public interface for calculating intersections.
+     * Finds the intersection points of a ray with the geometric object.
+     * This method is a wrapper around the calculateIntersectionsHelper method,
+     * providing a default maximum distance of positive infinity.
+     *
+     * @param ray the ray to check for intersections
+     * @param maxDistance the maximum distance from the ray's origin to consider for intersections
+     * @return a list of Intersection objects, or {@code null} if there are no intersections
+     */
+    public final List<Intersection> calculateIntersections(Ray ray, double maxDistance) {
+        return calculateIntersectionsHelper(ray, maxDistance);
+    }
+
+    /**
+     * Finds the intersection points of a ray with the geometric object.
+     * This method is a wrapper around the calculateIntersectionsHelper method,
+     * providing a default maximum distance of positive infinity.
      *
      * @param ray the ray to check for intersections
      * @return a list of Intersection objects, or {@code null} if there are no intersections
      */
-    public final List<Intersection> calculateIntersections(Ray ray){
-        return  calculateIntersectionsHelper(ray);
+    public final List<Intersection> calculateIntersections(Ray ray) {
+        return calculateIntersections(ray, Double.POSITIVE_INFINITY);
     }
 
     /**

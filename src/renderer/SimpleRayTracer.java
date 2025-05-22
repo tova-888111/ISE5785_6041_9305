@@ -19,11 +19,6 @@ import static primitives.Util.alignZero;
  */
 public class SimpleRayTracer extends RayTracerBase {
     /**
-     * A small value used to avoid floating-point precision issues.
-     * This value is used to check if two floating-point numbers are equal.
-     */
-    private static final double DELTA = 0.1;
-    /**
      * The maximum number of color levels used in the ray tracing algorithm.
      * This value is used to limit the number of color levels in the final image.
      */
@@ -97,7 +92,7 @@ public class SimpleRayTracer extends RayTracerBase {
      */
     private boolean preprocessIntersection(Intersection intersection, Vector vector) {
         // Initialize the normal vector
-        intersection.v = vector;
+        intersection.v = vector.normalize();
         // Calculate the normal vector at the intersection point
         intersection.normal = intersection.geometry.getNormal(intersection.point);
         // Calculate the dot product of the ray vector and the normal vector
@@ -210,22 +205,17 @@ public class SimpleRayTracer extends RayTracerBase {
         // Calculate the ray from the intersection point to the light source
         Vector pointToLight = intersection.l.scale(-1);
         Ray shadowRay = new Ray(intersection.point, pointToLight, intersection.normal);
+        // Calculate the distance from the intersection point to the light source
+        double distanceLight= intersection.light.getDistance(intersection.point);
         // Check if the shadow ray intersects with any geometries in the scene
-        List<Intersection> intersections = scene.geometries.calculateIntersections(shadowRay);
+        List<Intersection> intersections = scene.geometries.calculateIntersections(shadowRay,distanceLight);
         // If there are no intersections, return true (the point is unshaded)
         if (intersections == null || intersections.isEmpty()) {
             return true;
         }
-        // If there are intersections, check if the light source is blocked
-        // Calculate the distance from the light source to the intersection point
-        double distanceLight= intersection.light.getDistance(intersection.point);
-        // A variable to store the distance between the head of the ray and the intersection point
-        double distance;
-        // Iterate through all the intersections
+        // If there are intersections, check if the kt coefficient of the material is less than the minimum color level
         for (Intersection i : intersections) {
-            // Check if the intersection point is closer to the light source than the original intersection point
-            distance= shadowRay.getHead().distance(i.point);
-            if ((alignZero( distanceLight-distance)>0)&&(i.material.kT.lowerThan(MIN_CALC_COLOR_K))){
+            if (i.material.kT.lowerThan(MIN_CALC_COLOR_K)){
                 return false;
             }
         }
@@ -265,11 +255,32 @@ public class SimpleRayTracer extends RayTracerBase {
         return new Ray(intersection.point,intersection.v,intersection.normal);
     }
 
+    /**
+     * Calculates the global effects of the ray tracing algorithm.
+     * This method constructs the refracted and reflected rays from the intersection point
+     * and calculates the color contributions from these rays.
+     *
+     * @param intersection - the intersection object containing the geometry and point of intersection
+     * @param level - the level of recursion for the ray tracing algorithm
+     * @param k - the coefficient for the color calculation
+     * @return The color contributions from the refracted and reflected rays.
+     */
     private Color calcGlobalEffects(Intersection intersection, int level, Double3 k) {
         return calcColorGlobalEffect(constructRefractedRay(intersection), level, k, intersection.material.kT)
             .add(calcColorGlobalEffect(constructReflectedRay(intersection), level, k, intersection.material.kR));
     }
 
+    /**
+     * Calculates the color at the intersection point based on the global effects of the ray tracing algorithm.
+     * This method checks if the coefficient kx is less than the minimum color level.
+     * If so, it returns black. Otherwise, it calculates the color contributions from the closest intersection point.
+     *
+     * @param ray - the ray to be traced
+     * @param level - the level of recursion for the ray tracing algorithm
+     * @param k - the coefficient for the color calculation
+     * @param kx - the coefficient for the global effects calculation
+     * @return The color at the intersection point based on the global effects of the ray tracing algorithm.
+     */
     private Color calcColorGlobalEffect(Ray ray, int level, Double3 k, Double3 kx) {
         Double3 kkx = k.product(kx);
         if (kkx.lowerThan(MIN_CALC_COLOR_K)) return Color.BLACK;
@@ -279,6 +290,14 @@ public class SimpleRayTracer extends RayTracerBase {
                 ? calcColor(intersection,level-1 , kkx).scale(kx) : Color.BLACK;
     }
 
+    /**
+     * Finds the closest intersection point of a ray with the geometries in the scene.
+     * This method calculates the intersections of the ray with all geometries in the scene
+     * and returns the closest intersection point.
+     *
+     * @param ray - the ray to be traced
+     * @return The closest intersection point of the ray with the geometries in the scene.
+     */
     private Intersection findClosestIntersection(Ray ray){
         List<Intersection> intersections = scene.geometries.calculateIntersections(ray);
         if (intersections == null || intersections.isEmpty()) {
@@ -287,31 +306,33 @@ public class SimpleRayTracer extends RayTracerBase {
         return ray.findClosestIntersection(intersections);
     }
 
-    private Double3 transparency(Intersection intersection){
-        Double3 ktr= Double3.ONE;
+    /**
+     * Checks if the intersection point is unshaded by any geometries in the scene.
+     * This method calculates the transparency of the intersection point based on the light source
+     * and checks if there are any intersections with other geometries in the scene.
+     *
+     * @param intersection - the intersection object containing the geometry and point of intersection
+     * @return The transparency of the intersection point based on the light source.
+     */
+    private Double3 transparency(Intersection intersection) {
+        Double3 ktr = Double3.ONE;
         // Calculate the ray from the intersection point to the light source
         Vector pointToLight = intersection.l.scale(-1);
         Ray shadowRay = new Ray(intersection.point, pointToLight, intersection.normal);
+        // Calculate the distance from the intersection point to the light source
+        double distanceLight = intersection.light.getDistance(intersection.point);
         // Check if the shadow ray intersects with any geometries in the scene
-        List<Intersection> intersections = scene.geometries.calculateIntersections(shadowRay);
+        List<Intersection> intersections = scene.geometries.calculateIntersections(shadowRay, distanceLight);
         // If there are no intersections, return true (the point is unshaded)
         if (intersections == null || intersections.isEmpty()) {
             return ktr;
         }
-        // If there are intersections, check if the light source is blocked
-        // Calculate the distance from the light source to the intersection point
-        double distanceLight= intersection.light.getDistance(intersection.point);
-        // A variable to store the distance between the head of the ray and the intersection point
-        double distance;
-        // Iterate through all the intersections
+        // If there are intersections, check if the kt coefficient of the material is less than the minimum color level
         for (Intersection i : intersections) {
-            // Check if the intersection point is closer to the light source than the original intersection point
-            distance= shadowRay.getHead().distance(i.point);
-            if ((alignZero( distanceLight-distance)>0)){
-                ktr=ktr.product(i.material.kT);
-                if (ktr.lowerThan(MIN_CALC_COLOR_K)){
-                    return Double3.ZERO;
-                }
+
+            ktr = ktr.product(i.material.kT);
+            if (ktr.lowerThan(MIN_CALC_COLOR_K)) {
+                return Double3.ZERO;
             }
         }
         return ktr;

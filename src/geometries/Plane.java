@@ -72,10 +72,12 @@ public class Plane extends Geometry {
     /**
      * Finds the intersection points of a ray with the plane.
      * @param ray the ray to check for intersections
+     * @param maxDistance the maximum distance from the ray's origin to consider for intersections
+     *
      * @return a list containing the intersection point, or {@code null} if there is no intersection
      */
     @Override
-    public List<Intersection> calculateIntersectionsHelper(Ray ray) {
+    public List<Intersection> calculateIntersectionsHelper(Ray ray, double maxDistance) {
         Point p0 = ray.getHead(); // Ray's origin
         Vector v = ray.getDirection(); // Ray's direction
         Vector n = normal; // Plane's normal vector
@@ -103,6 +105,11 @@ public class Plane extends Geometry {
 
         // If t is negative, the intersection point is behind the ray's origin
         if (t < 0) {
+            return null; // No intersection
+        }
+
+        // If t is greater than the maximum distance, the intersection point is too far
+        if (alignZero( maxDistance-t)<=0) {
             return null; // No intersection
         }
 

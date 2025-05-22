@@ -63,50 +63,61 @@ public class Tube extends RadialGeometry {
     /**
      * Finds the intersection points of a ray with the tube.
      * @param ray The ray to check for intersections.
+     * @param maxDistance The maximum distance from the ray's origin to consider for intersections.
      * @return A list of intersection points, or {@code null} if there are no intersections.
      */
     @Override
-    public List<Intersection> calculateIntersectionsHelper(Ray ray) {
-        Point p = ray.getHead(); // Ray's origin
-        Vector v = ray.getDirection(); // Ray's direction
-        Point p0 = axis.getHead(); // Tube's axis head
+    public List<Intersection> calculateIntersectionsHelper(Ray ray, double maxDistance) {
+        Point p = ray.getHead(); // Ray's origin point
+        Vector v = ray.getDirection(); // Ray's direction vector
+        Point p0 = axis.getHead(); // Tube's axis origin
         Vector v0 = axis.getDirection(); // Tube's axis direction
 
-        // Calculate the vector from the ray's origin to the tube's axis head
+        // Compute the vector from the ray's origin to the tube's axis origin
         Vector deltaP;
         try {
             deltaP = p.subtract(p0);
         } catch (IllegalArgumentException e) {
             // Special case: ray starts at the axis head
             if (isZero(v.dotProduct(v0))) {
-                return List.of(new Intersection(this,ray.getPoint(radius)));
+                Point intersection = ray.getPoint(radius);
+                if (intersection.distance(p) < maxDistance) {
+                    return List.of(new Intersection(this, intersection));
+                }
+                return null;
             }
             return null;
         }
 
-        // Check if the ray is parallel to the tube's axis
+        // Check if the ray is perpendicular to the tube's axis and starts on the axis
         try {
             Vector cross = deltaP.crossProduct(v0);
             if (isZero(cross.length())) {
                 if (isZero(v.dotProduct(v0))) {
-                    return List.of(new Intersection(this,ray.getPoint(radius)));
+                    Point intersection = ray.getPoint(radius);
+                    if (intersection.distance(p) < maxDistance) {
+                        return List.of(new Intersection(this, intersection));
+                    }
                 }
                 return null;
             }
         } catch (IllegalArgumentException e) {
             // Special case: deltaP is parallel to v0
             if (isZero(v.dotProduct(v0))) {
-                return List.of(new Intersection(this,ray.getPoint(radius)));
+                Point intersection = ray.getPoint(radius);
+                if (intersection.distance(p) < maxDistance) {
+                    return List.of(new Intersection(this, intersection));
+                }
             }
             return null;
         }
 
-        // Check if the ray is parallel to the tube's axis
+        // If the ray is almost parallel to the tube's axis, no intersection
         if (Math.abs(v0.dotProduct(v)) > v0.length() * v.length() - 1e-10) {
             return null;
         }
 
-        // Calculate coefficients for the quadratic equation
+        // Compute the quadratic equation coefficients for intersection
         Vector vCrossV0 = v.crossProduct(v0);
         Vector deltaPCrossV0 = deltaP.crossProduct(v0);
 
@@ -114,55 +125,58 @@ public class Tube extends RadialGeometry {
         double b = alignZero(2 * vCrossV0.dotProduct(deltaPCrossV0));
         double c = alignZero(deltaPCrossV0.lengthSquared() - radius * radius * v0.lengthSquared());
 
-        // Calculate the discriminant of the quadratic equation
+        // Calculate the discriminant
         double discriminant = alignZero(b * b - 4 * a * c);
 
-        // If the discriminant is zero or negative, there are no intersections
+        // If no real roots, then there is no intersection
         if (isZero(discriminant) || discriminant < 0 || isZero(a)) {
             return null;
         }
 
-        // Calculate the two solutions of the quadratic equation
+        // Solve the quadratic equation
         double sqrtDisc = alignZero(Math.sqrt(discriminant));
         double denom = alignZero(2 * a);
 
         double t1 = alignZero((-b + sqrtDisc) / denom);
         double t2 = alignZero((-b - sqrtDisc) / denom);
 
-        // Filter out points that are behind the ray's origin or duplicate points
+        // Collect valid intersection points within the maxDistance (excluding exactly equal)
         List<AbstractMap.SimpleEntry<Double, Point>> temp = new java.util.LinkedList<>();
         final double EPSILON = 1e-10;
 
-        if (t1 > EPSILON) {
+        if (t1 > EPSILON && t1 < maxDistance) {
             temp.add(new AbstractMap.SimpleEntry<>(t1, ray.getPoint(t1)));
         }
 
-        if (t2 > EPSILON) {
+        if (t2 > EPSILON && t2 < maxDistance) {
             Point point2 = ray.getPoint(t2);
             boolean alreadyExists = false;
+
+            // Avoid adding duplicate intersection points
             for (AbstractMap.SimpleEntry<Double, Point> entry : temp) {
                 if (entry.getValue().distance(point2) < EPSILON) {
                     alreadyExists = true;
                     break;
                 }
             }
+
             if (!alreadyExists) {
                 temp.add(new AbstractMap.SimpleEntry<>(t2, point2));
             }
         }
 
-        // If no valid intersection points are found, return null
+        // If no valid intersections found, return null
         if (temp.isEmpty()) {
             return null;
         }
 
-        // Sort the intersection points by distance from the ray's origin
+        // Sort intersections by distance from the ray origin
         temp.sort(Comparator.comparingDouble(AbstractMap.SimpleEntry::getKey));
 
-        // Extract the points from the sorted list
+        // Convert to Intersection objects
         List<Intersection> result = new java.util.LinkedList<>();
         for (AbstractMap.SimpleEntry<Double, Point> entry : temp) {
-            result.add(new Intersection(this,entry.getValue()));
+            result.add(new Intersection(this, entry.getValue()));
         }
 
         return result;

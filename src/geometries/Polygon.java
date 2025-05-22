@@ -83,14 +83,14 @@ public class Polygon extends Geometry {
    public Vector getNormal(Point point) { return plane.getNormal(null); }
 
    @Override
-   public List<Intersection> calculateIntersectionsHelper(Ray ray) {
+   public List<Intersection> calculateIntersectionsHelper(Ray ray, double maxDistance) {
       // Step 1: Intersect the ray with the polygon's plane
-      List<Point> planeIntersections = plane.findIntersections(ray);
+      List<Intersection> planeIntersections = plane.calculateIntersections(ray, maxDistance);
       if (planeIntersections == null) {
          return null; // No intersection with the plane
       }
 
-      Point intersectionPoint = planeIntersections.getFirst();
+      Point intersectionPoint = planeIntersections.getFirst().point;
       Point p0 = ray.getHead();
 
       // Exclude the ray's origin point (head) if it's exactly on the polygon

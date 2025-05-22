@@ -227,4 +227,29 @@ class TubeTests {
         //TC41: Test when ray cross the tube zero points under its head's ray
         assertNull(tube.findIntersections(new Ray(new Point(1,1,-10), new Vector(1,1,0))),"There is intersection point when the ray do not cross the tube");
     }
+
+    /***
+     * Test method for {@link geometries.Tube#calculateIntersectionsHelper(Ray, double)}.
+     * Test method for calculateIntersectionsHelper() method.
+     */
+    @Test
+    void testCalculateIntersectionsHelper() {
+        //The tube used in the tests
+        Tube tube = new Tube(1, new Ray(p100, v001));
+        //The ray used in the tests
+        Ray ray1 = new Ray(new Point(-1, 0, 0), new Vector(1,0,0));
+        // ============ Equivalence Partitions Tests ==============
+        //TC01:
+        assertEquals(null, tube.calculateIntersectionsHelper(ray1, 0.5), "The number of intersections points is incorrect");
+        //TC02:
+        assertEquals(null, tube.calculateIntersectionsHelper(ray1, 1), "The number of intersections points is incorrect");
+        //TC03:
+        assertEquals(1, tube.calculateIntersectionsHelper(ray1, 2).size(), "The number of intersections points is incorrect");
+        //TC04:
+        assertEquals(1, tube.calculateIntersectionsHelper(ray1, 2.5).size(), "The number of intersections points is incorrect");
+        //TC05:
+        assertEquals(1, tube.calculateIntersectionsHelper(ray1, 3).size(), "The number of intersections points is incorrect");
+        //TC06:
+        assertEquals(2, tube.calculateIntersectionsHelper(ray1, 4).size(), "The number of intersections points is incorrect");
+    }
 }

@@ -138,4 +138,26 @@ class PlaneTests {
         Ray ray9 = new Ray(p7, new Vector(1,0,9));
         assertNull(plane.findIntersections(ray9), "The ray intersects the plane when the head of the ray is on the plane and the ray is not parallel or orthogonal to the plane");
     }
+
+    /***
+     * Test method for {@link geometries.Plane#calculateIntersectionsHelper(Ray, double)}.
+     * This test checks if the intersection points of the plane and the ray are calculated correctly.
+     */
+    @Test
+    void testCalculateIntersectionsHelper() {
+        //The plane used in the tests
+        Plane plane =new Plane (p2,p4,p5);
+        //The ray used in the tests
+        Ray ray1 = new Ray(p6, new Vector(0,0,-1));
+        // ============ Equivalence Partitions Tests ==============
+        //TC01: Test that the ray intersects the plane one point
+        assertEquals(1, plane.calculateIntersectionsHelper(ray1, 5).size(), "The ray does not intersect the plane");
+
+        // ================ Boundary Values Tests ==================
+        //TC02: Test that the ray does not intersect the plane
+        assertEquals(null, plane.calculateIntersectionsHelper(ray1, 4), "The ray intersects the plane");
+
+        //TC03: Test that the ray does not intersect the plane
+        assertEquals(null, plane.calculateIntersectionsHelper(ray1, 3), "The ray intersects the plane");
+    }
 }

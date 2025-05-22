@@ -146,4 +146,33 @@ class SphereTests {
         assertEquals(List.of(new Point(1.866025403784439,0.5,0)),sphere.findIntersections(new Ray(new Point(1,0.5,0), v100)), "Ray's starts inside, ray is orthogonal to ray start to sphere's center line");
 
     }
+
+    /***
+     * Test method for {@link geometries.Sphere#findIntersections(primitives.Ray)}.
+     * Test method for findIntersections() method.
+     */
+    @Test
+    void calculateIntersectionsHelper() {
+        //The sphere used in the tests
+        Sphere sphere = new Sphere(3, p000);
+        // ============ Equivalence Partitions Tests ==============
+        //TC01:
+        Ray ray1 = new Ray(new Point(-6,3,0), v100);
+        assertEquals(null, sphere.calculateIntersectionsHelper(ray1, 3.5), "The ray intersects the sphere when it is outside the sphere");
+        //TC02:
+        Ray ray2 = new Ray(new Point(-4,1.5,0), v100);
+        assertEquals(1, sphere.calculateIntersectionsHelper(ray2, 3.5).size(), "The ray does not intersect the sphere");
+        //TC03:
+        Ray ray3 = new Ray(new Point(-2,0.5,0), v100);
+        assertEquals(null, sphere.calculateIntersectionsHelper(ray3, 3.5), "The ray intersects the sphere");
+        //TC04:
+        Ray ray4 = new Ray(new Point(0,-0.5,0), v100);
+        assertEquals(1, sphere.calculateIntersectionsHelper(ray4, 3.5).size(), "The ray does not intersect the sphere");
+        //TC05:
+        Ray ray5 = new Ray(new Point(2,-1.5,0), v100);
+        assertEquals(1, sphere.calculateIntersectionsHelper(ray5, 3.5).size(), "The ray does not intersect the sphere");
+        //TC06:
+        Ray ray6 = new Ray(new Point(4,-2.5,0), v100);
+        assertEquals(null, sphere.calculateIntersectionsHelper(ray6, 3.5), "The ray intersects the sphere");
+    }
 }

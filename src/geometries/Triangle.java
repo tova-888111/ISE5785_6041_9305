@@ -32,7 +32,7 @@ public class Triangle extends Polygon {
      * @return a list of intersection points, or {@code null} if there are no intersections
      */
     @Override
-    public List<Intersection> calculateIntersectionsHelper(Ray ray) {
+    public List<Intersection> calculateIntersectionsHelper(Ray ray, double maxDistance) {
         // Ray's origin point and direction vector
         Point p0 = ray.getHead();
         Vector dir = ray.getDirection();
@@ -75,6 +75,9 @@ public class Triangle extends Polygon {
 
         // If t is less than or equal to zero, the intersection point is behind the ray's origin
         if (t <= 0) return null;
+
+        // If t is greater than the maximum distance, the intersection point is too far away
+        if (alignZero(maxDistance - t) <= 0) return null;
 
         // Calculate the intersection point
         Point intersectionPoint = ray.getPoint(t);

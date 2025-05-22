@@ -71,4 +71,23 @@ class TriangleTests {
         Ray ray6=new Ray(new Point(-3,0,0),v1);
         assertNull(triangle.findIntersections(ray6), "There is intersection point when the ray hits the continuation of the edge of the triangle");
     }
+
+    /***
+     * Test method for {@link geometries.Triangle#Triangle(primitives.Point, primitives.Point, primitives.Point)}.
+     * Test for findIntersections method.
+     */
+    @Test
+    void testCalculateIntersectionsHelper() {
+        //The triangle used in the tests
+        Triangle triangle=new Triangle(point1,point2,point3);
+        //The ray used in the tests
+        Ray ray1=new Ray(new Point(1,1,5),new Vector(0,0,-1));
+        // ============ Equivalence Partitions Tests ==============
+        //TC01: Test that the ray intersects the triangle, the intersection point within the maximum distance
+        assertEquals(1, triangle.calculateIntersectionsHelper(ray1, 7).size(), "The number of intersection points is incorrect");
+        //TC02: Test that the ray does not intersect the triangle, the intersection point is outside the maximum distance
+        assertEquals(null, triangle.calculateIntersectionsHelper(ray1, 3), "The number of intersection points is incorrect");
+        //TC03: Test that the ray does not intersect the triangle, the intersection point is at the maximum distance
+        assertEquals(null, triangle.calculateIntersectionsHelper(ray1, 5), "The number of intersection points is incorrect");
+    }
 }
