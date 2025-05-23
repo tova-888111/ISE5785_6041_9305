@@ -56,6 +56,16 @@ public class Camera implements Cloneable {
     }
 
     /**
+     * Returns a new Builder instance for constructing a Camera object based on an existing camera.
+     *
+     * @param camera the existing Camera object to copy properties from
+     * @return a new Builder instance
+     */
+    public static Builder getBuilder(Camera camera) {
+        return new Builder(camera);
+    }
+
+    /**
      * Constructs a ray through a specific pixel on the view plane.
      *
      * @param nX the number of pixels in the x-direction (horizontal resolution)
@@ -414,6 +424,63 @@ public class Camera implements Cloneable {
             else {
                 this.camera.rayTracer = null;
             }
+            return this;
+        }
+
+        /**
+         * Moves the camera position by a specified delta vector.
+         *
+         * @param delta the vector to move the camera position
+         * @return the Builder instance
+         */
+        public Builder moveP0(Vector delta) {
+            camera.p0 = camera.p0.add(delta);
+            return this;
+        }
+
+        /**
+         * Rotates the camera around the vTo vector by a specified angle in degrees.
+         *
+         * @param angleDegrees the angle in degrees to rotate the camera
+         * @return the Builder instance
+         */
+        public Builder rotateAroundVTo(double angleDegrees) {
+            // Normalize the angle to the range [0, 360)
+            double normalizedAngle = ((angleDegrees % 360) + 360) % 360;
+
+            // Get the current camera vectors
+            Vector vUp = camera.vUp;
+            Vector vRight = camera.vRight;
+            Vector vTo = camera.vTo;
+
+            // Handle special cases for angles 0, 90, 180, and 270 degrees
+            if (Math.abs(normalizedAngle - 90) < 1e-6) {
+                camera.vUp = vRight;
+                camera.vRight = vTo.crossProduct(camera.vUp).normalize();
+                return this;
+            } else if (Math.abs(normalizedAngle - 180) < 1e-6) {
+                camera.vUp = vUp.scale(-1);
+                camera.vRight = vRight.scale(-1);
+                return this;
+            } else if (Math.abs(normalizedAngle - 270) < 1e-6) {
+                camera.vUp = vRight.scale(-1);
+                camera.vRight = vTo.crossProduct(camera.vUp).normalize();
+                return this;
+            } else if (Math.abs(normalizedAngle) < 1e-6) {
+                return this;
+            }
+
+            // Convert the angle to radians
+            double angle = Math.toRadians(angleDegrees);
+
+            // Calculate the new vUp and vRight vectors based on the rotation angle
+            Vector newVUp = vUp.scale(Math.cos(angle)).add(vRight.scale(Math.sin(angle))).normalize();
+            Vector newVRight = vTo.crossProduct(newVUp).normalize();
+
+            // Update the camera vectors
+            camera.vUp = newVUp;
+            camera.vRight = newVRight;
+
             return this;
         }
 
