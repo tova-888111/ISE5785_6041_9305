@@ -21,12 +21,12 @@ public class PointLight extends Light implements LightSource{
     private final Point position;
 
     /** The attenuation coefficients for the point light source. */
-    /** kC - constant attenuation coefficient */
-    private double kC=1;
-    /** kL - linear attenuation coefficient */
-    private double kL=0;
-    /** kQ - quadratic attenuation coefficient */
-    private double kQ=0;
+    /** kc - constant attenuation coefficient */
+    private double kc=1;
+    /** kl - linear attenuation coefficient */
+    private double kl=0;
+    /** kq - quadratic attenuation coefficient */
+    private double kq=0;
 
     /**
      * Constructor for the PointLight class.
@@ -40,31 +40,31 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * Sets the constant attenuation coefficient for the point light source.
-     * @param kC The constant attenuation coefficient.
+     * @param kc The constant attenuation coefficient.
      * @return The current PointLight object, allowing for method chaining.
      */
-    public PointLight setKC(double kC) {
-        this.kC = kC;
+    public PointLight setKc(double kc) {
+        this.kc = kc;
         return this;
     }
 
     /**
      * Sets the linear attenuation coefficient for the point light source.
-     * @param kL The linear attenuation coefficient.
+     * @param kl The linear attenuation coefficient.
      * @return The current PointLight object, allowing for method chaining.
      */
-    public PointLight setKL(double kL) {
-        this.kL = kL;
+    public PointLight setKl(double kl) {
+        this.kl = kl;
         return this;
     }
 
     /**
      * Sets the quadratic attenuation coefficient for the point light source.
-     * @param kQ The quadratic attenuation coefficient.
+     * @param kq The quadratic attenuation coefficient.
      * @return The current PointLight object, allowing for method chaining.
      */
-    public PointLight setKQ(double kQ) {
-        this.kQ = kQ;
+    public PointLight setKq(double kq) {
+        this.kq = kq;
         return this;
     }
 
@@ -76,7 +76,7 @@ public class PointLight extends Light implements LightSource{
     @Override
     public Color getIntensity(Point p) {
         double distance = position.distance(p);
-        double factor=kC + kL * distance + kQ * distance * distance;
+        double factor=kc + kl * distance + kq * distance * distance;
         if (isZero(factor)) {
             throw new IllegalArgumentException("Cannot divide by zero");
         }

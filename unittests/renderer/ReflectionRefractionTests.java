@@ -32,12 +32,12 @@ class ReflectionRefractionTests {
    void twoSpheres() {
       scene.geometries.add( //
                            new Sphere(50d,new Point(0, 0, -50)).setEmission(new Color(BLUE)) //
-                              .setMaterial(new Material().setKD(0.4).setKS(0.3).setShininess(100).setKT(0.3)), //
+                              .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)), //
                            new Sphere(25d, new Point(0, 0, -50)).setEmission(new Color(RED)) //
-                              .setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(100))); //
+                              .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100))); //
       scene.lights.add( //
                        new SpotLight(new Color(1000, 600, 0), new Point(-100, -100, 500), new Vector(-1, -1, -2)) //
-                          .setKL(0.0004).setKQ(0.0000006));
+                          .setKl(0.0004).setKq(0.0000006));
 
       cameraBuilder
          .setLocation(new Point(0, 0, 1000)) //
@@ -54,21 +54,21 @@ class ReflectionRefractionTests {
    void twoSpheresOnMirrors() {
       scene.geometries.add( //
                            new Sphere(400d, new Point(-950, -900, -1000)).setEmission(new Color(0, 50, 100)) //
-                              .setMaterial(new Material().setKD(0.25).setKS(0.25).setShininess(20) //
-                                 .setKT(new Double3(0.5, 0, 0))), //
+                              .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20) //
+                                 .setKt(new Double3(0.5, 0, 0))), //
                            new Sphere(200d, new Point(-950, -900, -1000)).setEmission(new Color(100, 50, 20)) //
-                              .setMaterial(new Material().setKD(0.25).setKS(0.25).setShininess(20)), //
+                              .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20)), //
                            new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500), //
                                         new Point(670, 670, 3000)) //
                               .setEmission(new Color(20, 20, 20)) //
-                              .setMaterial(new Material().setKR(1)), //
+                              .setMaterial(new Material().setKr(1)), //
                            new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500), //
                                         new Point(-1500, -1500, -2000)) //
                               .setEmission(new Color(20, 20, 20)) //
-                              .setMaterial(new Material().setKR(new Double3(0.5, 0, 0.4))));
+                              .setMaterial(new Material().setKr(new Double3(0.5, 0, 0.4))));
       scene.setAmbientLight(new AmbientLight(new Color(26, 26, 26)));
       scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point(-750, -750, -150), new Vector(-1, -1, -4)) //
-         .setKL(0.00001).setKQ(0.000005));
+         .setKl(0.00001).setKq(0.000005));
 
       cameraBuilder
          .setLocation(new Point(0, 0, 10000)) //
@@ -90,15 +90,15 @@ class ReflectionRefractionTests {
       scene.geometries.add(
                            new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135),
                                         new Point(75, 75, -150))
-                              .setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(60)),
+                              .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)),
                            new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150))
-                              .setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(60)),
+                              .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)),
                            new Sphere(30d,new Point(60, 50, -50)).setEmission(new Color(BLUE))
-                              .setMaterial(new Material().setKD(0.2).setKS(0.2).setShininess(30).setKT(0.6)));
+                              .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.6)));
       scene.setAmbientLight(new AmbientLight(new Color(38, 38, 38)));
       scene.lights.add(
                        new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0), new Vector(0, 0, -1))
-                          .setKL(4E-5).setKQ(2E-7));
+                          .setKl(4E-5).setKq(2E-7));
 
       cameraBuilder
          .setLocation(new Point(0, 0, 1000)) //
@@ -121,8 +121,8 @@ class ReflectionRefractionTests {
               new Sphere(1.5, new Point(-2, 0, -10))
                       .setEmission(new Color(220, 20, 20))
                       .setMaterial(new Material()
-                              .setKD(0.6).setKS(0.4).setShininess(100)
-                              .setKT(0.1)
+                              .setKd(0.6).setKs(0.4).setShininess(100)
+                              .setKt(0.1)
                       ),
 
               // Triangle
@@ -132,7 +132,7 @@ class ReflectionRefractionTests {
                       new Point(6, -2, -12)
               ).setEmission(new Color(255, 180, 0))
                       .setMaterial(new Material()
-                              .setKD(0.7).setKS(0.3).setShininess(60)
+                              .setKd(0.7).setKs(0.3).setShininess(60)
                       ),
 
               // Rectangle
@@ -143,7 +143,7 @@ class ReflectionRefractionTests {
                       new Point(-30, -3, 10)
               ).setEmission(new Color(60, 60, 60))
                       .setMaterial(new Material()
-                              .setKD(0.7).setKS(0.2).setShininess(100).setKR(0.5)
+                              .setKd(0.7).setKs(0.2).setShininess(100).setKr(0.5)
                       )
       );
 
@@ -154,9 +154,9 @@ class ReflectionRefractionTests {
               .setGeometries(geometries)
               .setLights(List.of(
                       new PointLight(new Color(100, 60, 60), new Point(-10, 15, 10))
-                              .setKL(0.01).setKQ(0.001),
+                              .setKl(0.01).setKq(0.001),
                       new SpotLight(new Color(255, 220, 100), new Point(10, 10, 5), new Vector(-2, -2, -3))
-                              .setKL(0.01).setKQ(0.001),
+                              .setKl(0.01).setKq(0.001),
                       new DirectionalLight(new Color(80, 80, 80), new Vector(-1, -1, -1))
               ));
 

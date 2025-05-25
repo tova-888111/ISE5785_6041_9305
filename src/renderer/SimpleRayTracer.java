@@ -75,7 +75,7 @@ public class SimpleRayTracer extends RayTracerBase {
         // Else, calculate the color at the intersection point
         return preprocessIntersection(intersection, ray.getDirection())
                 ? calcColor(intersection, MAX_CALC_COLOR_LEVEL, INITIAL_K)
-                .add(scene.ambientLight.getIntensity().scale(intersection.geometry.getMaterial().kA)) : Color.BLACK;
+                .add(scene.ambientLight.getIntensity().scale(intersection.geometry.getMaterial().ka)) : Color.BLACK;
     }
 
     /**
@@ -171,7 +171,7 @@ public class SimpleRayTracer extends RayTracerBase {
         // Calculate the dot product of the reflection vector and the view vector
         double vr = r.dotProduct(intersection.v) * (-1);
         // Check if the dot product is less than or equal to zero
-        return intersection.material.kS.scale(Math.max(0, Math.pow(vr, intersection.material.nShininess)));
+        return intersection.material.ks.scale(Math.max(0, Math.pow(vr, intersection.material.nShininess)));
     }
 
     /**
@@ -187,10 +187,10 @@ public class SimpleRayTracer extends RayTracerBase {
             throw new IllegalArgumentException("intersection or material is null");
         // Calculate the diffuse component based on the light direction and normal vector
         if (intersection.lNormal > 0) {
-            return intersection.material.kD.scale(intersection.lNormal);
+            return intersection.material.kd.scale(intersection.lNormal);
         }
         // If the light direction is opposite to the normal vector, return the negative diffuse component
-        return intersection.material.kD.scale(intersection.lNormal * (-1));
+        return intersection.material.kd.scale(intersection.lNormal * (-1));
     }
 
     /**
@@ -215,7 +215,7 @@ public class SimpleRayTracer extends RayTracerBase {
         }
         // If there are intersections, check if the kt coefficient of the material is less than the minimum color level
         for (Intersection i : intersections) {
-            if (i.material.kT.lowerThan(MIN_CALC_COLOR_K)){
+            if (i.material.kt.lowerThan(MIN_CALC_COLOR_K)){
                 return false;
             }
         }
@@ -266,8 +266,8 @@ public class SimpleRayTracer extends RayTracerBase {
      * @return The color contributions from the refracted and reflected rays.
      */
     private Color calcGlobalEffects(Intersection intersection, int level, Double3 k) {
-        return calcColorGlobalEffect(constructRefractedRay(intersection), level, k, intersection.material.kT)
-            .add(calcColorGlobalEffect(constructReflectedRay(intersection), level, k, intersection.material.kR));
+        return calcColorGlobalEffect(constructRefractedRay(intersection), level, k, intersection.material.kt)
+            .add(calcColorGlobalEffect(constructReflectedRay(intersection), level, k, intersection.material.kr));
     }
 
     /**
@@ -330,7 +330,7 @@ public class SimpleRayTracer extends RayTracerBase {
         // If there are intersections, check if the kt coefficient of the material is less than the minimum color level
         for (Intersection i : intersections) {
 
-            ktr = ktr.product(i.material.kT);
+            ktr = ktr.product(i.material.kt);
             if (ktr.lowerThan(MIN_CALC_COLOR_K)) {
                 return Double3.ZERO;
             }

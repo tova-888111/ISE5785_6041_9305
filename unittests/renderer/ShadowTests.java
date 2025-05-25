@@ -30,9 +30,9 @@ class ShadowTests {
    /** The sphere in the tests */
    private final Intersectable  sphere     = new Sphere(60d,new Point(0, 0, -200))
       .setEmission(new Color(BLUE))
-      .setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30));
+      .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30));
    /** The material of the triangles in the tests */
-   private final Material       trMaterial = new Material().setKD(0.5).setKS(0.5).setShininess(30);
+   private final Material       trMaterial = new Material().setKd(0.5).setKs(0.5).setShininess(30);
 
    /**
     * Helper function for the tests in this module
@@ -44,7 +44,7 @@ class ShadowTests {
       scene.geometries.add(sphere, triangle.setEmission(new Color(BLUE)).setMaterial(trMaterial));
       scene.lights //
          .add(new SpotLight(new Color(400, 240, 0), spotLocation, new Vector(1, 1, -3)) //
-            .setKL(1E-5).setKQ(1.5E-7));
+            .setKl(1E-5).setKq(1.5E-7));
       camera
          .setResolution(400, 400) //
          .build() //
@@ -101,17 +101,17 @@ class ShadowTests {
       scene.geometries //
          .add( //
               new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135), new Point(75, 75, -150)) //
-                 .setMaterial(new Material().setKS(0.8).setShininess(60)), //
+                 .setMaterial(new Material().setKs(0.8).setShininess(60)), //
               new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150)) //
-                 .setMaterial(new Material().setKS(0.8).setShininess(60)), //
+                 .setMaterial(new Material().setKs(0.8).setShininess(60)), //
               new Sphere(30d,new Point(0, 0, -11)) //
                  .setEmission(new Color(BLUE)) //
-                 .setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30)) //
+                 .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)) //
          );
       scene.setAmbientLight(new AmbientLight(new Color(38, 38, 38)));
       scene.lights //
          .add(new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115), new Vector(-1, -1, -4)) //
-            .setKL(4E-4).setKQ(2E-5));
+            .setKl(4E-4).setKq(2E-5));
 
       camera//
          .setResolution(600, 600) //

@@ -90,13 +90,13 @@ public class RenderTests {
       Scene scene = new Scene("Multi color").setAmbientLight(new AmbientLight(new Color(WHITE)));
       scene.geometries //
               .add(// center
-                      new Sphere(50,new Point(0, 0, -100)).setMaterial(new Material().setKA(0.4)),
+                      new Sphere(50,new Point(0, 0, -100)).setMaterial(new Material().setKa(0.4)),
                       // up left
-                      new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)).setMaterial(new Material().setKA(new Double3(0,0.8,0))),//GREEN
+                      new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)).setMaterial(new Material().setKa(new Double3(0,0.8,0))),//GREEN
                       // down left
-                      new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)).setMaterial(new Material().setKA(new Double3(0.8,0,0))),//RED
+                      new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)).setMaterial(new Material().setKa(new Double3(0.8,0,0))),//RED
                       // down right
-                      new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100)).setMaterial(new Material().setKA(new Double3(0,0,0.8))));//BLUE
+                      new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100)).setMaterial(new Material().setKa(new Double3(0,0,0.8))));//BLUE
 
       camera // Create a camera object
               .setRayTracer(scene, RayTracerType.SIMPLE)
