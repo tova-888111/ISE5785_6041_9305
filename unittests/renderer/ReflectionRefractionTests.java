@@ -9,6 +9,8 @@ import lighting.*;
 import primitives.*;
 import scene.Scene;
 
+import java.util.List;
+
 /**
  * Tests for reflection and transparency functionality, test for partial
  * shadows
@@ -107,4 +109,69 @@ class ReflectionRefractionTests {
          .renderImage() //
          .writeToImage("refractionShadow");
    }
+
+   /**
+    * Produce a picture of triangle, sphere, polygon lighted by a spotLight with a Sphere
+    * producing a shading
+    */
+   @Test
+   void colorfulGeometries() {
+      Geometries geometries = new Geometries(
+              // Sphere
+              new Sphere(1.5, new Point(-2, 0, -10))
+                      .setEmission(new Color(220, 20, 20))
+                      .setMaterial(new Material()
+                              .setKD(0.6).setKS(0.4).setShininess(100)
+                              .setKT(0.1)
+                      ),
+
+              // Triangle
+              new Triangle(
+                      new Point(3.5, 2, -12),
+                      new Point(1, -2, -12),
+                      new Point(6, -2, -12)
+              ).setEmission(new Color(255, 180, 0))
+                      .setMaterial(new Material()
+                              .setKD(0.7).setKS(0.3).setShininess(60)
+                      ),
+
+              // Rectangle
+              new Polygon(
+                      new Point(-30, -3, -40),
+                      new Point(30, -3, -40),
+                      new Point(30, -3, 10),
+                      new Point(-30, -3, 10)
+              ).setEmission(new Color(60, 60, 60))
+                      .setMaterial(new Material()
+                              .setKD(0.7).setKS(0.2).setShininess(100).setKR(0.5)
+                      )
+      );
+
+      // Create the scene with a background color and ambient light
+      Scene scene = new Scene("Colorful Geometries")
+              .setBackground(new Color(150, 200, 255))
+              .setAmbientLight(new AmbientLight(new Color(10, 10, 10)))
+              .setGeometries(geometries)
+              .setLights(List.of(
+                      new PointLight(new Color(100, 60, 60), new Point(-10, 15, 10))
+                              .setKl(0.01).setKq(0.001),
+                      new SpotLight(new Color(255, 220, 100), new Point(10, 10, 5), new Vector(-2, -2, -3))
+                              .setKl(0.01).setKq(0.001),
+                      new DirectionalLight(new Color(80, 80, 80), new Vector(-1, -1, -1))
+              ));
+
+      // Create the camera with specified parameters
+      Camera camera = Camera.getBuilder()
+              .setLocation(new Point(0, 0, 0))
+              .setDirection(new Point(0, 0, -1))
+              .setVpSize(10, 10)
+              .setVpDistance(10)
+              .setResolution(800, 800)
+              .setRayTracer(scene, RayTracerType.SIMPLE)
+              .build();
+
+      // Render the scene and save the image
+      camera.renderImage().writeToImage("multiGeometries");
+   }
+
 }
