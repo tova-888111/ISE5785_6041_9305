@@ -40,8 +40,8 @@ public class SpotLight extends PointLight{
      * @param kC The constant attenuation coefficient.
      * @return The current SpotLight object, allowing for method chaining.
      */
-    public SpotLight setKc(double kC) {
-        super.setKc(kC);
+    public SpotLight setKC(double kC) {
+        super.setKC(kC);
         return this;
     }
 
@@ -50,8 +50,8 @@ public class SpotLight extends PointLight{
      * @param kL The linear attenuation coefficient.
      * @return The current SpotLight object, allowing for method chaining.
      */
-    public SpotLight setKl(double kL) {
-        super.setKl(kL);
+    public SpotLight setKL(double kL) {
+        super.setKL(kL);
         return this;
     }
 
@@ -60,8 +60,8 @@ public class SpotLight extends PointLight{
      * @param kQ The quadratic attenuation coefficient.
      * @return The current SpotLight object, allowing for method chaining.
      */
-    public SpotLight setKq(double kQ) {
-        super.setKq(kQ);
+    public SpotLight setKQ(double kQ) {
+        super.setKQ(kQ);
         return this;
     }
 

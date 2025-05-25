@@ -23,7 +23,7 @@ public class CheckRotationCameraTests {
     /**The geometries of the scene*/
     Geometries geometries= new Geometries(new Triangle( new Point(-3, 0, -20), new Point(3, 0, -20), new Point(0, 2, -20)).setEmission(new Color(java.awt.Color.pink)));
     /**The scene of the camera*/
-    Scene scene = new Scene("Test scene").setBackground( new Color(WHITE)).setGeometries(geometries);;
+    Scene scene = new Scene("Test scene").setBackground( new Color(WHITE)).setGeometries(geometries);
 
 
     /** Create a camera with a specific location and direction*/

@@ -37,7 +37,7 @@ class ReflectionRefractionTests {
                               .setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(100))); //
       scene.lights.add( //
                        new SpotLight(new Color(1000, 600, 0), new Point(-100, -100, 500), new Vector(-1, -1, -2)) //
-                          .setKl(0.0004).setKq(0.0000006));
+                          .setKL(0.0004).setKQ(0.0000006));
 
       cameraBuilder
          .setLocation(new Point(0, 0, 1000)) //
@@ -68,7 +68,7 @@ class ReflectionRefractionTests {
                               .setMaterial(new Material().setKR(new Double3(0.5, 0, 0.4))));
       scene.setAmbientLight(new AmbientLight(new Color(26, 26, 26)));
       scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point(-750, -750, -150), new Vector(-1, -1, -4)) //
-         .setKl(0.00001).setKq(0.000005));
+         .setKL(0.00001).setKQ(0.000005));
 
       cameraBuilder
          .setLocation(new Point(0, 0, 10000)) //
@@ -98,7 +98,7 @@ class ReflectionRefractionTests {
       scene.setAmbientLight(new AmbientLight(new Color(38, 38, 38)));
       scene.lights.add(
                        new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0), new Vector(0, 0, -1))
-                          .setKl(4E-5).setKq(2E-7));
+                          .setKL(4E-5).setKQ(2E-7));
 
       cameraBuilder
          .setLocation(new Point(0, 0, 1000)) //
@@ -154,9 +154,9 @@ class ReflectionRefractionTests {
               .setGeometries(geometries)
               .setLights(List.of(
                       new PointLight(new Color(100, 60, 60), new Point(-10, 15, 10))
-                              .setKl(0.01).setKq(0.001),
+                              .setKL(0.01).setKQ(0.001),
                       new SpotLight(new Color(255, 220, 100), new Point(10, 10, 5), new Vector(-2, -2, -3))
-                              .setKl(0.01).setKq(0.001),
+                              .setKL(0.01).setKQ(0.001),
                       new DirectionalLight(new Color(80, 80, 80), new Vector(-1, -1, -1))
               ));
 

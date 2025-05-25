@@ -112,7 +112,7 @@ class LightsTests {
    void spherePoint() {
       scene1.geometries.add(sphere);
       scene1.lights.add(new PointLight(sphereLightColor, sphereLightPosition) //
-         .setKl(0.001).setKq(0.0002));
+         .setKL(0.001).setKQ(0.0002));
 
       camera1 //
          .setResolution(500, 500) //
@@ -126,7 +126,7 @@ class LightsTests {
    void sphereSpot() {
       scene1.geometries.add(sphere);
       scene1.lights.add(new SpotLight(sphereLightColor, sphereLightPosition, sphereLightDirection) //
-         .setKl(0.001).setKq(0.0001));
+         .setKL(0.001).setKQ(0.0001));
 
       camera1 //
          .setResolution(500, 500) //
@@ -152,7 +152,7 @@ class LightsTests {
    void trianglesPoint() {
       scene2.geometries.add(triangle1, triangle2);
       scene2.lights.add(new PointLight(trianglesLightColor, trianglesLightPosition) //
-         .setKl(0.001).setKq(0.0002));
+         .setKL(0.001).setKQ(0.0002));
 
       camera2.setResolution(500, 500) //
          .build() //
@@ -165,7 +165,7 @@ class LightsTests {
    void trianglesSpot() {
       scene2.geometries.add(triangle1, triangle2);
       scene2.lights.add(new SpotLight(trianglesLightColor, trianglesLightPosition, trianglesLightDirection) //
-         .setKl(0.001).setKq(0.0001));
+         .setKL(0.001).setKQ(0.0001));
 
       camera2.setResolution(500, 500) //
          .build() //
@@ -179,7 +179,7 @@ class LightsTests {
       scene1.geometries.add(sphere);
       scene1.lights
          .add(new SpotLight(sphereLightColor, sphereLightPosition, new Vector(1, 1, -0.5)) //
-            .setKl(0.001).setKq(0.00004).setNarrowBeam(10));
+            .setKL(0.001).setKQ(0.00004).setNarrowBeam(10));
 
       camera1.setResolution(500, 500) //
          .build() //
@@ -192,7 +192,7 @@ class LightsTests {
    void trianglesSpotSharp() {
       scene2.geometries.add(triangle1, triangle2);
       scene2.lights.add(new SpotLight(trianglesLightColor, trianglesLightPosition, trianglesLightDirection) //
-         .setKl(0.001).setKq(0.00004).setNarrowBeam(10));
+         .setKL(0.001).setKQ(0.00004).setNarrowBeam(10));
 
       camera2.setResolution(500, 500) //
          .build() //
@@ -212,13 +212,13 @@ class LightsTests {
       // point light
       scene1.lights.add(
               new PointLight(new Color(800, 200, 200), new Point(-100, 0, 50))
-                      .setKc(1).setKl(0.001).setKq(0.0002)
+                      .setKC(1).setKL(0.001).setKQ(0.0002)
       );
 
       // spotLight
       scene1.lights.add(
               new SpotLight(new Color(200, 800, 200), new Point(0, -150, 50), new Vector(0, 1, -0.3))
-                      .setKc(1).setKl(0.0005).setKq(0.00005)
+                      .setKC(1).setKL(0.0005).setKQ(0.00005)
       );
 
       // directional light
@@ -246,13 +246,13 @@ class LightsTests {
         // point light
       scene2.lights.add(
               new PointLight(new Color(1500, 300, 300), new Point(90, -90, 30))
-                      .setKc(1).setKl(0.0005).setKq(0.0001)
+                      .setKC(1).setKL(0.0005).setKQ(0.0001)
       );
 
         // spotLight
       scene2.lights.add(
               new SpotLight(new Color(300, 1500, 300), new Point(-120, 160, 100), new Vector(1, -1, -2))
-                      .setKc(1).setKl(0.0003).setKq(0.00005)
+                      .setKC(1).setKL(0.0003).setKQ(0.00005)
                       .setNarrowBeam(10)
       );
 
