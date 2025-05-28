@@ -2,6 +2,9 @@ package renderer;
 
 import primitives.*;
 import scene.Scene;
+
+import java.util.LinkedList;
+import java.util.List;
 import java.util.MissingResourceException;
 import static primitives.Util.*;
 
@@ -38,6 +41,14 @@ public class Camera implements Cloneable {
     private int nX=1;
     /** The number of pixels in the y-direction (vertical resolution) */
     private int nY=1;
+
+    /** Aperture radius for depth of field effect (0 disables the effect) */
+    private double apertureRadius = 0.0;
+    /** Distance from camera to the focus plane */
+    private double focalDistance = 0.0;
+    /** Number of rays per pixel for depth of field */
+    private int dofRays = 1;
+
 
     /**
      * Private constructor to prevent direct instantiation.
@@ -104,6 +115,37 @@ public class Camera implements Cloneable {
 
         // Create and return a new ray from the camera position to the pixel point
         return new Ray(p0, vector);
+    }
+
+    /**
+     *
+     * @param nX- number of
+     * @param nY
+     * @param j
+     * @param i
+     * @return
+     */
+    public List<Ray> constructDofRays(int nX, int nY, int j, int i) {
+        List<Ray> rays = new LinkedList<>();
+
+        Ray centerRay = constructRay(nX, nY, j, i);
+        Point focusPoint = centerRay.getPoint(focalDistance);
+
+        for (int k = 0; k < dofRays; k++) {
+            double x, y;
+            do {
+                x = (Math.random() * 2 - 1) * apertureRadius;
+                y = (Math.random() * 2 - 1) * apertureRadius;
+            } while (x * x + y * y > apertureRadius * apertureRadius);
+
+            Point aperturePoint = p0
+                    .add(vRight.scale(x))
+                    .add(vUp.scale(y));
+            Vector direction = focusPoint.subtract(aperturePoint).normalize();
+            rays.add(new Ray(aperturePoint, direction));
+        }
+
+        return rays;
     }
 
     /**
@@ -238,10 +280,20 @@ public class Camera implements Cloneable {
      * @param row the row index of the pixel (0-based)
      */
     private void castRay( int column, int row){
-        // Construct a ray through the pixel (column, row)
-        Ray ray= constructRay(nX, nY,column, row);
-        // Cast the ray and get the color at the intersection point
-        Color color = rayTracer.traceRay(ray);
+        Color color;
+        if (apertureRadius == 0 || dofRays == 1) {
+            // Construct a ray through the pixel (column, row)
+            Ray ray = constructRay(nX, nY, column, row);
+            // Cast the ray and get the color at the intersection point
+            color = rayTracer.traceRay(ray);
+        } else {
+            List<Ray> rays = constructDofRays(nX, nY, column, row);
+            color = Color.BLACK;
+            for (Ray ray : rays) {
+                color = color.add(rayTracer.traceRay(ray));
+            }
+            color = color.reduce(rays.size());
+        }
         // Write the color to the image
         imageWriter.writePixel(column, row, color);
     }
@@ -428,6 +480,45 @@ public class Camera implements Cloneable {
         }
 
         /**
+         * Sets the aperture radius for depth of field effect.
+         * @param apertureRadius the aperture radius (0 disables the effect)
+         * @return the Builder instance
+         */
+        public Builder setAperture(double apertureRadius) {
+            if (alignZero(apertureRadius )< 0) {
+                throw new IllegalArgumentException("Aperture radius must be non-negative");
+            }
+            camera.apertureRadius = apertureRadius;
+            return this;
+        }
+
+        /**
+         * Sets the focal distance for the depth of field effect.
+         * @param focalDistance the distance to the focal plane
+         * @return the Builder instance
+         */
+        public Builder setFocalDistance(double focalDistance) {
+            if (alignZero(focalDistance) <= 0) {
+                throw new IllegalArgumentException("Focal distance must be positive");
+            }
+            camera.focalDistance = focalDistance;
+            return this;
+        }
+
+        /**
+         * Sets the number of rays per pixel for depth of field effect.
+         * @param numRays the number of rays per pixel
+         * @return the Builder instance
+         */
+        public Builder setDofRays(int numRays) {
+            if (alignZero(numRays) <= 0) {
+                throw new IllegalArgumentException("Number of rays must be positive");
+            }
+            camera.dofRays = numRays;
+            return this;
+        }
+
+        /**
          * Moves the camera position by a specified delta vector.
          *
          * @param delta the vector to move the camera position
@@ -437,6 +528,7 @@ public class Camera implements Cloneable {
             camera.p0 = camera.p0.add(delta);
             return this;
         }
+
 
         /**
          * Rotates the camera around the vTo vector by a specified angle in degrees.
