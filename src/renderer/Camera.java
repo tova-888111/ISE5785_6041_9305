@@ -118,30 +118,42 @@ public class Camera implements Cloneable {
     }
 
     /**
-     *
-     * @param nX- number of
-     * @param nY
-     * @param j
-     * @param i
-     * @return
+     * Constructs a list of rays for depth of field effect.
+     * This method generates multiple rays originating from the camera's aperture
+     * and passing through a specific pixel on the view plane.
+     * @param nX the number of pixels in the x-direction (horizontal resolution)
+     * @param nY the number of pixels in the y-direction (vertical resolution)
+     * @param j the column index of the pixel (0-based)
+     * @param i the row index of the pixel (0-based)
+     * @return a list of rays originating from the camera's aperture
      */
     public List<Ray> constructDofRays(int nX, int nY, int j, int i) {
         List<Ray> rays = new LinkedList<>();
 
+        // Construct the center ray passing through the pixel (j, i)
         Ray centerRay = constructRay(nX, nY, j, i);
+        // Calculate the focal point at the focal distance along the center ray
         Point focusPoint = centerRay.getPoint(focalDistance);
 
         for (int k = 0; k < dofRays; k++) {
-            double x, y;
-            do {
-                x = (Math.random() * 2 - 1) * apertureRadius;
-                y = (Math.random() * 2 - 1) * apertureRadius;
-            } while (x * x + y * y > apertureRadius * apertureRadius);
+            // Sample a random radius using sqrt for uniform distribution over the circle area
+            double r = Math.sqrt(Math.random()) * apertureRadius;
+            // Sample a random angle between 0 and 2*PI radians
+            double theta = Math.random() * 2 * Math.PI;
 
+            // Convert polar coordinates (r, theta) to Cartesian (x, y) on the aperture plane
+            double x = r * Math.cos(theta);
+            double y = r * Math.sin(theta);
+
+            // Calculate the random point on the circular aperture around the camera position p0
             Point aperturePoint = p0
-                    .add(vRight.scale(x))
-                    .add(vUp.scale(y));
+                    .add(vRight.scale(x))  // move right by x units
+                    .add(vUp.scale(y));    // move up by y units
+
+            // Calculate the direction from the aperture point to the focal point
             Vector direction = focusPoint.subtract(aperturePoint).normalize();
+
+            // Create a new ray from the aperture point towards the focal point and add it to the list
             rays.add(new Ray(aperturePoint, direction));
         }
 
@@ -275,6 +287,11 @@ public class Camera implements Cloneable {
 
     /**
      * Casts a ray through a specific pixel on the view plane and writes the color to the image.
+     * This method handles both standard ray tracing and depth of field effects.
+     * * If the aperture radius is zero or the number of rays per pixel is one,
+     * it constructs a single ray through the pixel.
+     * * If the aperture radius is greater than zero, it constructs multiple rays
+     * and averages their colors for depth of field effect.
      *
      * @param column the column index of the pixel (0-based)
      * @param row the row index of the pixel (0-based)
@@ -287,11 +304,14 @@ public class Camera implements Cloneable {
             // Cast the ray and get the color at the intersection point
             color = rayTracer.traceRay(ray);
         } else {
+            // Construct multiple rays for depth of field effect
             List<Ray> rays = constructDofRays(nX, nY, column, row);
             color = Color.BLACK;
+            // Trace each ray and accumulate the color
             for (Ray ray : rays) {
                 color = color.add(rayTracer.traceRay(ray));
             }
+            // Average the color over the number of rays
             color = color.reduce(rays.size());
         }
         // Write the color to the image
