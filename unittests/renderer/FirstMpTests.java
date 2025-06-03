@@ -125,9 +125,8 @@ public class FirstMpTests {
                     .setEmission(new Color(java.awt.Color.WHITE))
                     .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)),
             ////Small details - beak
-            new Triangle( new Point(-25, 24, -35), new Point(-25, 23, -35), new Point(-27, 23.5, -35))
-                    .setEmission(new Color(java.awt.Color.ORANGE))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
+            new Triangle( new Point(-25, 24.5, -35), new Point(-25, 23, -35), new Point(-28, 23.5, -35))
+                    .setEmission(new Color(java.awt.Color.ORANGE)),
             //The wings
             new Triangle( new Point(-22, 25.2, -38), new Point(-20, 24, -38), new Point(-21, 30, -38))
                     .setEmission(new Color(192, 192, 192))
