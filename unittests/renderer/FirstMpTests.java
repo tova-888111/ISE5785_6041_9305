@@ -171,7 +171,7 @@ public class FirstMpTests {
                 .setVpDistance(10)
                 .setResolution(500, 500)
                 .setRayTracer(scene, RayTracerType.SIMPLE)
-                .setDofRays(5)
+                .setDofRays(50)
                 .setAperture(0.5)
                 .setFocalDistance(17)
                 .build();
