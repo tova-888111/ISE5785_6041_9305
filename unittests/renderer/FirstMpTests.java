@@ -9,12 +9,33 @@ import org.junit.jupiter.api.Test;
 import primitives.*;
 import primitives.Point;
 import scene.Scene;
-
 import java.util.List;
 
-import static java.awt.Color.WHITE;
-
+/**
+ * This class contains tests for the first MP (Milestone Project) in the course.
+ * It creates a scene with a flower, a bird, and various geometries and lights.
+ * The tests render images of the scene with different camera settings.
+ * The first test renders a basic flower scene,
+ * while the second test enhances the flower scene with depth of field effects.
+ * The geometries include triangles, spheres, polygons, and a bird with detailed features.
+ * The scene is set with a background color and multiple light sources,
+ * including point lights, spotlights, and directional lights.
+ * The camera is configured with a specific location, direction, viewport size, and resolution.
+ * The rendered images are saved with specific filenames.
+ * This class serves as a demonstration of rendering capabilities
+ * and the use of various geometric shapes and lighting effects in a 3D scene.
+ * It is part of the course's unit tests to ensure the rendering engine works correctly.
+ *
+ * @author Tehila Shraga and Tova Tretiak
+ */
 public class FirstMpTests {
+
+    /**
+     * Default Constructor
+     */
+    public FirstMpTests(){
+    }
+
     /**The geometries of the scene*/
     Geometries geometries= new Geometries(
             //The flower
@@ -55,7 +76,7 @@ public class FirstMpTests {
                     .setEmission(new Color(java.awt.Color.BLACK))
                     .setMaterial(new Material().setKd(0.7).setKs(0.3).setShininess(50)),
 
-            //Up right-ORANGE
+            //Up right -light yellow
             new Triangle( new Point(6.5,3.5 , -23), new Point(3.5, 6.5, -23), new Point(7.5, 7.5, -23))
                     .setEmission(new Color(255, 255, 150))
                     .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30)),
@@ -63,7 +84,7 @@ public class FirstMpTests {
                     .setEmission(new Color(255, 255, 150))
                     .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30)),
 
-            //Up left-ORANGE
+            //Up left-light yellow
             new Triangle( new Point(-6.5, 3.5, -23), new Point(-3.5, 6.5, -23), new Point(-7.5, 7.5, -23))
                     .setEmission(new Color(255, 255, 150))
                     .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30)),
@@ -71,7 +92,7 @@ public class FirstMpTests {
                     .setEmission(new Color(255, 255, 150))
                     .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30)),
 
-            //Down right-ORANGE
+            //Down right-light yellow
             new Triangle( new Point(6.5, -3.5, -23), new Point(3.5, -6.5, -23), new Point(7.5, -7.5, -23))
                     .setEmission(new Color(255, 255, 150))
                     .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30)),
@@ -79,7 +100,7 @@ public class FirstMpTests {
                     .setEmission(new Color(255, 255, 150))
                     .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30)),
 
-            //Down left-ORANGE
+            //Down left-light yellow
             new Triangle( new Point(-6.5, -3.5, -23), new Point(-3.5, -6.5, -23), new Point(-7.5, -7.5, -23))
                     .setEmission(new Color(255, 255, 150))
                     .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30)),
@@ -112,6 +133,7 @@ public class FirstMpTests {
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
 
             //The bird - Enhanced flying bird
+
             //The body (main body)
             new Sphere( 3.2,new Point(-22, 22, -38))
                     .setEmission(new Color(java.awt.Color.GRAY))
@@ -136,7 +158,8 @@ public class FirstMpTests {
                     .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(40))
     );
 
-    /**The scene of the camera*/
+    /**The scene of the camera
+     The scene is created with a background color and multiple light sources */
     Scene scene = new Scene("Test scene").setBackground( new Color(176, 226, 255)).setGeometries(geometries)
             .setLights(List.of(
                     new PointLight(new Color(80, 60, 60), new Point(-8, 12, 8))
@@ -147,9 +170,17 @@ public class FirstMpTests {
             ));
 
 
+    /**
+     * This test renders a basic flower scene with a camera.
+     * It creates a camera with a specific location and direction,
+     * sets the viewport size and distance,
+     * sets the resolution,
+     * and uses a simple ray tracer.
+     * The rendered image is saved with the filename "BasicFlower".
+     */
     @Test
     void test1(){
-        /** Create a camera with a specific location and direction*/
+        // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
                 .setLocation(new Point(0, 0, 0))
                 .setDirection(new Point(0, 0, -1))
@@ -161,9 +192,18 @@ public class FirstMpTests {
         cam1.renderImage().writeToImage("BasicFlower");
     }
 
+    /**
+     * This test enhances the flower scene with depth of field effects.
+     * It creates a camera with a specific location and direction,
+     * sets the viewport size and distance,
+     * sets the resolution,
+     * uses a simple ray tracer,
+     * and applies depth of field settings.
+     * The rendered image is saved with the filename "ImprovedFlower".
+     */
     @Test
     void test2() {
-        /** Create a camera with a specific location and direction*/
+        // Create a camera with a specific location and direction
         Camera cam2 = Camera.getBuilder()
                 .setLocation(new Point(0, 0, 0))
                 .setDirection(new Point(0, 0, -1))

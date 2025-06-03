@@ -10,7 +10,18 @@ import scene.Scene;
 
 import static java.awt.Color.WHITE;
 
+/**
+ * Class to test some pictures
+ *
+ * @author Tehile Shrage and Tova Tretiak
+ */
 public class TryingTests {
+
+    /**
+     * Default Constructor
+     */
+    public TryingTests() {
+    }
 
     /**The geometries of the scene*/
     Geometries geometries= new Geometries(new Triangle( new Point(-3, 4, -20), new Point(3, 4, -20), new Point(0, 7, -20)).setEmission(new Color(java.awt.Color.YELLOW)),
@@ -29,6 +40,8 @@ public class TryingTests {
             .setRayTracer(scene, RayTracerType.SIMPLE)
             .build();
 
+    /** Test method to render the image */
+    // render a yellow triangle and a yellow sphere
     @Test
     void test(){
         cam1.renderImage().writeToImage("Trying");
