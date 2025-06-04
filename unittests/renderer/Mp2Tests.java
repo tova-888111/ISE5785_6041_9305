@@ -65,10 +65,10 @@ class Mp2Tests {
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
 
             //The leave
-            new Triangle( new Point(4.5, -13, -21), new Point(2.5, -10, -21), new Point(5.2, -11, -21))
+            new Triangle( new Point(3.5, -13, -21), new Point(2, -10.5, -21), new Point(4.7, -11, -21))
                     .setEmission(new Color(java.awt.Color.GREEN))
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-            new Sphere( 2,new Point(2.5, -12, -21))
+            new Sphere( 1.5,new Point(2, -12, -21))
                     .setEmission(new Color(java.awt.Color.GREEN))
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
 
@@ -76,7 +76,7 @@ class Mp2Tests {
             //The center of the flower
             //Center
             new Sphere( 2.5,new Point(0, 0, -21.25))
-                    .setEmission(new Color(java.awt.Color.BLACK))
+                   .setEmission(new Color(java.awt.Color.BLACK))
                     .setMaterial(new Material().setKd(0.7).setKs(0.3).setShininess(50))
 
             );
@@ -119,8 +119,8 @@ class Mp2Tests {
     void test2(){
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
-                .setLocation(new Point(0, 3, -10))
-                .setDirection(new Vector(0, -0.5, -3), new Vector(0, 3, -0.5))
+                .setLocation(new Point(0, 13, -10))
+                .setDirection(new Vector(0, -1, -1), new Vector(0, 1, -1))
                 .setVpSize(20, 20)
                 .setVpDistance(10)
                 .setResolution(500,500)
