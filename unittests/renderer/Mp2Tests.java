@@ -110,7 +110,7 @@ class Mp2Tests {
                     new Point(24, -20, -29),
                     new Point(24, 22, -29))
                     .setEmission(new Color( 0,0,0))
-                    .setMaterial(new Material().setKd(0.1).setKs(0.2).setShininess(3).setKt(0.9)),
+                    .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(20).setKt(0.9)),
             //The Top of the window
             new Polygon(new Point(-32, 22, -29),
                     new Point(32, 22, -29),
@@ -140,7 +140,8 @@ class Mp2Tests {
                     new Point(26, -20, 5),
                     new Point(26, -20, -29),
                     new Point(-26, -20, -29))
-                    .setEmission(new Color(205, 170, 125)),
+                    .setEmission(new Color(205, 170, 125))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.2).setShininess(30)),
 
             //The flower
             //Up-Yellow
@@ -205,10 +206,26 @@ class Mp2Tests {
                     .setEmission(new Color(192, 192, 192))
                     .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(40)),
             //The sun
-            new Sphere( 8,new Point(26, 26, -37))
+            new Sphere( 10,new Point(26, 26, -44))
                     .setEmission(new Color(java.awt.Color.ORANGE))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30))
+                    .setMaterial(new Material().setKd(0.8).setKs(0.8).setShininess(30)),
             //The field
+            new Polygon( new Point(-40, -15, -37),
+                    new Point(40, -15, -37),
+                    new Point(40, -40, -37),
+                    new Point(-40, -40, -37))
+                    .setEmission(new Color(0, 100, 0)),
+            //The wall
+            new Polygon( new Point(30, 50, -29),
+                    new Point(30, 50, -5),
+                    new Point(30, -40, -5),
+                    new Point(30, -40, -29))
+                    .setEmission(new Color(160, 140, 110)),
+            new Polygon( new Point(-30, 50, -29),
+                    new Point(-30, 50, -5),
+                    new Point(-30, -40, -5),
+                    new Point(-30, -40, -29))
+                    .setEmission(new Color(160, 140, 110))
 
     );
 
@@ -221,8 +238,11 @@ class Mp2Tests {
                     new SpotLight(new Color(160, 125, 80), new Point(8, 8, 6), new Vector(-1, -1, -2))
                             .setKl(0.012).setKq(0.0015),
                     new DirectionalLight(new Color(70, 70, 70), new Vector(-0.3, -0.5, -1)),
-                    new DirectionalLight(new Color(70, 70, 70), new Vector(0, -1, 0))
-            ));
+                    new DirectionalLight(new Color(70, 70, 70), new Vector(0, -1, 0)),
+                    new DirectionalLight(new Color(70, 70, 70), new Vector(-1, 0, 1)),
+                    new DirectionalLight(new Color(70, 70, 70), new Vector(-1, 0, 0)),
+                    new DirectionalLight(new Color(70, 70, 70), new Vector(1, 0, 0))
+                    ));
 
 
     /**
@@ -243,6 +263,9 @@ class Mp2Tests {
                 .setVpDistance(10)
                 .setResolution(500,500)
                 .setRayTracer(scene, RayTracerType.SIMPLE)
+                .setDofRays(50)
+                .setAperture(0.5)
+                .setFocalDistance(21)
                 .build();
         cam1.renderImage().writeToImage("FinalPicture1");
     }
