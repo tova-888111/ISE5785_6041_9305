@@ -26,55 +26,121 @@ class Mp2Tests {
 
     /**The geometries of the scene*/
     Geometries geometries= new Geometries(
-            //The land
-            new Polygon(
-                    new Point(-30, -20, -5),
-                    new Point(-60, -20, -50),
-                    new Point(60, -20, -50),
-                    new Point(30, -20, -5)
-            ).setEmission(new Color(210, 180, 140))
-                    .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(20)),
-
             //The stalk
             // Front side
-            new Polygon(new Point(-0.5, 0, -21),
-                    new Point(0.5, 0, -21),
-                    new Point(0.5, -20, -21),
-                    new Point(-0.5, -20, -21))
+            new Polygon(new Point(-0.25, 0, -21),
+                    new Point(0.25, 0, -21),
+                    new Point(0.25, -20, -21),
+                    new Point(-0.25, -20, -21))
                     .setEmission(new Color( java.awt.Color.GREEN))
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
             // Back side
-            new Polygon(new Point(-0.5, 0, -21.5),
-                    new Point(0.5, 0, -21.5),
-                    new Point(0.5, -20, -21.5),
-                    new Point(-0.5, -20, -21.5))
+            new Polygon(new Point(-0.25, 0, -21.5),
+                    new Point(0.25, 0, -21.5),
+                    new Point(0.25, -20, -21.5),
+                    new Point(-0.25, -20, -21.5))
                     .setEmission(new Color( java.awt.Color.GREEN))
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
             // The left side
-            new Polygon(new Point(-0.5, 0, -21),
-                    new Point(-0.5, 0, -21.5),
-                    new Point(-0.5, -20, -21.5),
-                    new Point(-0.5, -20, -21))
+            new Polygon(new Point(-0.25, 0, -21),
+                    new Point(-0.25, 0, -21.5),
+                    new Point(-0.25, -20, -21.5),
+                    new Point(-0.25, -20, -21))
                     .setEmission(new Color( java.awt.Color.GREEN))
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
             // The right side
-            new Polygon(new Point(0.5, 0, -21),
-                    new Point(0.5, 0, -21.5),
-                    new Point(0.5, -20, -21.5),
-                    new Point(0.5, -20, -21))
+            new Polygon(new Point(0.25, 0, -21),
+                    new Point(0.25, 0, -21.5),
+                    new Point(0.25, -20, -21.5),
+                    new Point(0.25, -20, -21))
                     .setEmission(new Color( java.awt.Color.GREEN))
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
 
             //The leave
-            new Triangle( new Point(3.5, -13, -21), new Point(2, -10.5, -21), new Point(4.7, -11, -21))
+            //The right leave
+            new Triangle( new Point(1, -9, -21), new Point(1.5, -11, -21), new Point(3, -10, -21))
                     .setEmission(new Color(java.awt.Color.GREEN))
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-            new Sphere( 1.5,new Point(2, -12, -21))
+            new Sphere( 1,new Point(1, -10, -21))
+                    .setEmission(new Color(java.awt.Color.GREEN))
+                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
+            //The left leave
+            new Triangle( new Point(-1, -7, -21), new Point(-1.5, -9, -21), new Point(-3, -8, -21))
+                    .setEmission(new Color(java.awt.Color.GREEN))
+                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
+            new Sphere( 1,new Point(-1, -8, -21))
                     .setEmission(new Color(java.awt.Color.GREEN))
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
 
-            //The flower
-            //The center of the flower
+            //The Vase
+            //The front side
+            new Polygon(new Point(-2, -18, -18.25),
+                    new Point(2, -18, -18.25),
+                    new Point(5.5, -14, -18.25),
+                    new Point(-5.5, -14, -18.25))
+                    .setEmission(new Color( java.awt.Color.DARK_GRAY)),
+            //The back side
+            new Polygon(new Point(-2, -18, -24.25),
+                    new Point(2, -18, -24.25),
+                    new Point(5.5, -14, -24.25),
+                    new Point(-5.5, -14, -24.25))
+                    .setEmission(new Color( java.awt.Color.DARK_GRAY)),
+            //The left side
+            new Polygon(new Point(-2, -18, -24.25),
+                    new Point(-2, -18, -18.25),
+                    new Point(-5.5, -14, -18.25),
+                    new Point(-5.5, -14, -24.25))
+                    .setEmission(new Color( java.awt.Color.DARK_GRAY)),
+            //The right side
+            new Polygon(new Point(2, -18, -24.25),
+                    new Point(2, -18, -18.25),
+                    new Point(5.5, -14, -18.25),
+                    new Point(5.5, -14, -24.25))
+                    .setEmission(new Color( java.awt.Color.DARK_GRAY)),
+            //The top
+            new Polygon(new Point(-4.5, -15, -24.25),
+                    new Point(4.5, -15, -24.25),
+                    new Point(4.5, -15, -18.25),
+                    new Point(-4.5, -15, -18.25))
+                    .setEmission(new Color( 101, 67, 33)),
+
+            //The Window
+            new Polygon(new Point(-24, 22, -29),
+                    new Point(-24, -20, -29),
+                    new Point(24, -20, -29),
+                    new Point(24, 22, -29))
+                    .setEmission(new Color( 0,0,0))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.2).setShininess(3).setKt(0.9)),
+            //The Top of the window
+            new Polygon(new Point(-32, 22, -29),
+                    new Point(32, 22, -29),
+                    new Point(32, 32, -29),
+                    new Point(-32, 32, -29))
+                    .setEmission(new Color( 160, 140, 110)),
+            //The Bottom of the window
+            new Polygon(new Point(-32, -20, -29),
+                    new Point(32, -20, -29),
+                    new Point(32, -30, -29),
+                    new Point(-32, -30, -29))
+                    .setEmission(new Color( 160, 140, 110)),
+            //The left side of the window
+            new Polygon(new Point(-32, 22, -29),
+                    new Point(-32, -20, -29),
+                    new Point(-24, -20, -29),
+                    new Point(-24, 22, -29))
+                    .setEmission(new Color( 160, 140, 110)),
+            //The right side of the window
+            new Polygon(new Point(32, 22, -29),
+                    new Point(32, -20, -29),
+                    new Point(24, -20, -29),
+                    new Point(24, 22, -29))
+                    .setEmission(new Color( 160, 140, 110)),
+            //The base
+            new Polygon(new Point(-26, -20, 5),
+                    new Point(26, -20, 5),
+                    new Point(26, -20, -29),
+                    new Point(-26, -20, -29))
+                    .setEmission(new Color(205, 170, 125)),
 
             //The flower
             //Up-Yellow
@@ -114,242 +180,41 @@ class Mp2Tests {
             .setEmission(new Color(java.awt.Color.BLACK))
             .setMaterial(new Material().setKd(0.7).setKs(0.3).setShininess(50)),
 
-            //Field
-            new Polygon(new Point(-7, -7, -16),
-                    new Point(-6.5, -7, -16),
-                    new Point(-6.5, -20, -16),
-                    new Point(-7, -20, -16))
-            .setEmission(new Color( java.awt.Color.GREEN))
-            .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
+            //The bird - Enhanced flying bird
 
-            new Polygon(new Point(-15, -2, -30),
-                    new Point(-14.5, -2, -30),
-                    new Point(-14.5, -20, -30),
-                    new Point(-15, -20, -30))
-                    .setEmission(new Color( java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(-23, -2, -27),
-                    new Point(-22.5, -2, -27),
-                    new Point(-22.5, -20, -27),
-                    new Point(-23, -20, -27))
-            .setEmission(new Color( java.awt.Color.GREEN))
-            .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(15, -2, -30),
-                    new Point(14.5, -2, -30),
-                    new Point(14.5, -20, -30),
-                    new Point(15, -20, -30))
-            .setEmission(new Color( java.awt.Color.GREEN))
-            .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-
-            new Polygon(new Point(10, -5, -18),
-                    new Point(10.3, -5, -18),
-                    new Point(10.3, -20, -18),
-                    new Point(10, -20, -18))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(5, -10, -24),
-                    new Point(5.3, -10, -24),
-                    new Point(5.3, -20, -24),
-                    new Point(5, -20, -24))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(-10, -3, -19),
-                    new Point(-9.7, -3, -19),
-                    new Point(-9.7, -20, -19),
-                    new Point(-10, -20, -19))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(0, -6, -29),
-                    new Point(0.3, -6, -29),
-                    new Point(0.3, -20, -29),
-                    new Point(0, -20, -29))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(-12, -6, -18),
-                    new Point(-11.7, -6, -18),
-                    new Point(-11.7, -20, -18),
-                    new Point(-12, -20, -18))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(8, -4, -26),
-                    new Point(8.4, -4, -26),
-                    new Point(8.4, -20, -26),
-                    new Point(8, -20, -26))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(2, -8, -22),
-                    new Point(2.3, -8, -22),
-                    new Point(2.3, -20, -22),
-                    new Point(2, -20, -22))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(-6, -2, -25),
-                    new Point(-5.6, -2, -25),
-                    new Point(-5.6, -20, -25),
-                    new Point(-6, -20, -25))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(13, -5, -20),
-                    new Point(13.4, -5, -20),
-                    new Point(13.4, -20, -20),
-                    new Point(13, -20, -20))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(-17, -3, -26),
-                    new Point(-16.7, -3, -26),
-                    new Point(-16.7, -20, -26),
-                    new Point(-17, -20, -26))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(-10, -6, -22),
-                    new Point(-9.7, -6, -22),
-                    new Point(-9.7, -20, -22),
-                    new Point(-10, -20, -22))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(-5, -4, -19),
-                    new Point(-4.7, -4, -19),
-                    new Point(-4.7, -20, -19), new Point(-5, -20, -19))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(3, -7, -28),
-                    new Point(3.3, -7, -28),
-                    new Point(3.3, -20, -28), new Point(3, -20, -28))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(8, -5, -24),
-                    new Point(8.3, -5, -24),
-                    new Point(8.3, -20, -24),
-                    new Point(8, -20, -24))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(14, -2, -30),
-                    new Point(14.3, -2, -30),
-                    new Point(14.3, -20, -30),
-                    new Point(14, -20, -30))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(17, -6, -21),
-                    new Point(17.3, -6, -21),
-                    new Point(17.3, -20, -21),
-                    new Point(17, -20, -21))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(-20, -2, -29),
-                    new Point(-19.7, -2, -29),
-                    new Point(-19.7, -20, -29),
-                    new Point(-20, -20, -29))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(-12, -8, -23),
-                    new Point(-11.7, -8, -23),
-                    new Point(-11.7, -20, -23),
-                    new Point(-12, -20, -23))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(-8, -5, -27),
-                    new Point(-7.7, -5, -27),
-                    new Point(-7.7, -20, -27),
-                    new Point(-8, -20, -27))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(6, -6, -17),
-                    new Point(6.3, -6, -17),
-                    new Point(6.3, -20, -17),
-                    new Point(6, -20, -17))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(10, -3, -26),
-                    new Point(10.3, -3, -26),
-                    new Point(10.3, -20, -26),
-                    new Point(10, -20, -26))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(0, -8, -25),
-                    new Point(0.3, -8, -25),
-                    new Point(0.3, -20, -25),
-                    new Point(0, -20, -25))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(-3, -4, -18),
-                    new Point(-2.7, -4, -18),
-                    new Point(-2.7, -20, -18),
-                    new Point(-3, -20, -18))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(12, -2, -27),
-                    new Point(12.3, -2, -27),
-                    new Point(12.3, -20, -27),
-                    new Point(12, -20, -27))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(-4, -6, -12),
-                    new Point(-3.7, -6, -12),
-                    new Point(-3.7, -20, -12),
-                    new Point(-4, -20, -12))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(2, -8, -14),
-                    new Point(2.3, -8, -14),
-                    new Point(2.3, -20, -14),
-                    new Point(2, -20, -14))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(5, -5, -15),
-                    new Point(5.3, -5, -15),
-                    new Point(5.3, -20, -15),
-                    new Point(5, -20, -15))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(-6, -4, -13),
-                    new Point(-5.6, -4, -13),
-                    new Point(-5.6, -20, -13),
-                    new Point(-6, -20, -13))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20)),
-
-            new Polygon(new Point(0, -6, -16),
-                    new Point(0.3, -6, -16),
-                    new Point(0.3, -20, -16),
-                    new Point(0, -20, -16))
-                    .setEmission(new Color(java.awt.Color.GREEN))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(20))
+            //The body (main body)
+            new Sphere( 3.2,new Point(-22, 22, -38))
+                    .setEmission(new Color(java.awt.Color.GRAY))
+                    .setMaterial(new Material().setKd(0.7).setKs(0.3).setShininess(40)),
+            //The head
+            new Sphere( 1.8,new Point(-23.5, 23, -35))
+                    .setEmission(new Color(java.awt.Color.DARK_GRAY))
+                    .setMaterial(new Material().setKd(0.7).setKs(0.3).setShininess(40)),
+            //Small details - eye
+            new Sphere( 0.3,new Point(-22.5, 22.5, -32.5))
+                    .setEmission(new Color(java.awt.Color.WHITE))
+                    .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)),
+            ////Small details - beak
+            new Triangle( new Point(-25, 24.5, -35), new Point(-25, 23, -35), new Point(-28, 23.5, -35))
+                    .setEmission(new Color(java.awt.Color.ORANGE)),
+            //The wings
+            new Triangle( new Point(-22, 25.2, -38), new Point(-20, 24, -38), new Point(-21, 30, -38))
+                    .setEmission(new Color(192, 192, 192))
+                    .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(40)),
+            new Triangle( new Point(-22, 25.2, -38), new Point(-19.5, 23.5, -38), new Point(-17, 27.5, -37))
+                    .setEmission(new Color(192, 192, 192))
+                    .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(40)),
+            //The sun
+            new Sphere( 8,new Point(26, 26, -37))
+                    .setEmission(new Color(java.awt.Color.ORANGE))
+                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30))
+            //The field
 
     );
 
     /**The scene of the camera
      The scene is created with a background color and multiple light sources */
-    Scene scene = new Scene("Test scene").setBackground( new Color(176, 226, 255)).setGeometries(geometries)
+    Scene scene = new Scene("Test scene").setBackground( new Color(180, 210, 235)).setGeometries(geometries)
             .setLights(List.of(
                     new PointLight(new Color(80, 60, 60), new Point(-8, 12, 8))
                             .setKl(0.012).setKq(0.0015),
@@ -372,7 +237,7 @@ class Mp2Tests {
     void test1(){
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
-                .setLocation(new Point(0, 0, 0))
+                .setLocation(new Point(0, 0, 2))
                 .setDirection(new Point(0, 0, -1))
                 .setVpSize(20, 20)
                 .setVpDistance(10)
