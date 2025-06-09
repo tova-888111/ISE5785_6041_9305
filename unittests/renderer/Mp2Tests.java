@@ -15,7 +15,12 @@ import primitives.*;
 import scene.Scene;
 import java.util.List;
 
-
+/**
+ * This class contains unit tests for rendering a scene with a flower, a vase, and a bird.
+ * It uses the Camera class to create a camera that captures the scene from different angles.
+ * The scene includes various geometries such as polygons, spheres, and triangles,
+ * and is illuminated by multiple light sources.
+ */
 class Mp2Tests {
 
     /**
@@ -270,6 +275,16 @@ class Mp2Tests {
         cam1.renderImage().writeToImage("FinalPicture1");
     }
 
+    /**
+     * This test renders a more complex flower scene with a camera.
+     * It creates a camera with a specific location and direction,
+     * sets the viewport size and distance,
+     * sets the resolution,
+     * uses a simple ray tracer,
+     * and applies depth of field (DoF) settings.
+     * The rendered image is saved with the filename "FinalPicture2".
+     * This test is designed to showcase the camera's ability to capture a scene with depth of field effects.
+     */
     @Test
     void test2(){
         // Create a camera with a specific location and direction
@@ -280,6 +295,9 @@ class Mp2Tests {
                 .setVpDistance(10)
                 .setResolution(500,500)
                 .setRayTracer(scene, RayTracerType.SIMPLE)
+                .setDofRays(50)
+                .setAperture(0.5)
+                .setFocalDistance(14)
                 .build();
         cam1.renderImage().writeToImage("FinalPicture2");
     }
