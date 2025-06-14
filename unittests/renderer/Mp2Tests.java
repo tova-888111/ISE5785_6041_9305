@@ -204,14 +204,14 @@ class Mp2Tests {
             new Triangle( new Point(-25, 24.5, -35), new Point(-25, 23, -35), new Point(-28, 23.5, -35))
                     .setEmission(new Color(java.awt.Color.ORANGE)),
             //The wings
-            new Triangle( new Point(-23, 24, -38), new Point(-35, 24, -38), new Point(-11, 17, -36))
+            new Triangle( new Point(-26, 24, -38), new Point(-38, 24, -38), new Point(-13, 17, -36))
                     .setEmission(new Color(192, 192, 192))
                     .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(40)),
 
             //The sun
             new Sphere( 10,new Point(26, 26, -44))
                     .setEmission(new Color(java.awt.Color.ORANGE))
-                    .setMaterial(new Material().setKd(1).setKs(1).setShininess(10)),
+                    .setMaterial(new Material().setKd(1).setKs(1).setShininess(60)),
             //The field
             new Polygon( new Point(-40, -15, -37),
                     new Point(40, -15, -37),
@@ -258,7 +258,7 @@ class Mp2Tests {
                     new DirectionalLight(new Color(70, 70, 70), new Vector(0, -1, 0)),
                     new DirectionalLight(new Color(70, 70, 70), new Vector(-1, 0, 1)),
                     new DirectionalLight(new Color(70, 70, 70), new Vector(-1, 0, 0)),
-                    new PointLight(new Color(80, 60, 60), new Point(26, 26, -44))
+                    new PointLight(new Color(80, 60, 60), new Point(26, 26, 0))
                             .setKl(0.012).setKq(0.0015)
                     ));
 
@@ -312,6 +312,7 @@ class Mp2Tests {
                 .setDofRays(50)
                 .setAperture(0.5)
                 .setFocalDistance(14)
+                .setMultithreading(-2) // Use all available cores for multithreading
                 .build();
         cam1.renderImage().writeToImage("FinalPicture2");
     }
