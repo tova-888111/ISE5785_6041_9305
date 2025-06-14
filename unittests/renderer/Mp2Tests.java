@@ -271,6 +271,7 @@ class Mp2Tests {
                 .setDofRays(50)
                 .setAperture(0.5)
                 .setFocalDistance(23)
+                .setMultithreading(-2) // Use all available cores for multithreading
                 .build();
         cam1.renderImage().writeToImage("FinalPicture1");
     }
