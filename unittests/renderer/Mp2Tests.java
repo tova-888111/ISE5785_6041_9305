@@ -204,16 +204,14 @@ class Mp2Tests {
             new Triangle( new Point(-25, 24.5, -35), new Point(-25, 23, -35), new Point(-28, 23.5, -35))
                     .setEmission(new Color(java.awt.Color.ORANGE)),
             //The wings
-            new Triangle( new Point(-22, 25.2, -38), new Point(-20, 24, -38), new Point(-21, 30, -38))
+            new Triangle( new Point(-23, 24, -38), new Point(-35, 24, -38), new Point(-11, 17, -36))
                     .setEmission(new Color(192, 192, 192))
                     .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(40)),
-            new Triangle( new Point(-22, 25.2, -38), new Point(-19.5, 23.5, -38), new Point(-17, 27.5, -37))
-                    .setEmission(new Color(192, 192, 192))
-                    .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(40)),
+
             //The sun
             new Sphere( 10,new Point(26, 26, -44))
                     .setEmission(new Color(java.awt.Color.ORANGE))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.8).setShininess(60)),
+                    .setMaterial(new Material().setKd(1).setKs(1).setShininess(10)),
             //The field
             new Polygon( new Point(-40, -15, -37),
                     new Point(40, -15, -37),
@@ -230,7 +228,21 @@ class Mp2Tests {
                     new Point(-30, 50, -5),
                     new Point(-30, -40, -5),
                     new Point(-30, -40, -29))
-                    .setEmission(new Color(160, 140, 110))
+                    .setEmission(new Color(160, 140, 110)),
+            //The butterfly
+             new Polygon( new Point(10, 5, -10),
+                    new Point(9.7, 5, -11),
+                    new Point(9.7, 3, -11),
+                    new Point(10, 3, -10))
+            .setEmission(new Color(75, 0, 130)),
+            new Sphere( 0.8,new Point(10.8, 4.5, -10))
+                    .setEmission(new Color(200, 160, 255)),
+            new Sphere( 0.8,new Point(8.9, 4.5, -11))
+                    .setEmission(new Color(200, 160, 255)),
+            new Sphere(0.5,new Point(10.4, 3.3, -10))
+                    .setEmission(new Color(200, 160, 255)),
+            new Sphere( 0.5,new Point(9.3, 3.3, -11))
+                    .setEmission(new Color(200, 160, 255))
 
     );
 
@@ -246,7 +258,8 @@ class Mp2Tests {
                     new DirectionalLight(new Color(70, 70, 70), new Vector(0, -1, 0)),
                     new DirectionalLight(new Color(70, 70, 70), new Vector(-1, 0, 1)),
                     new DirectionalLight(new Color(70, 70, 70), new Vector(-1, 0, 0)),
-                    new DirectionalLight(new Color(70, 70, 70), new Vector(1, 0, 0))
+                    new PointLight(new Color(80, 60, 60), new Point(26, 26, -44))
+                            .setKl(0.012).setKq(0.0015)
                     ));
 
 
