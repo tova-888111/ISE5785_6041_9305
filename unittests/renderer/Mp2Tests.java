@@ -115,7 +115,7 @@ class Mp2Tests {
                     new Point(24, -20, -29),
                     new Point(24, 22, -29))
                     .setEmission(new Color( 0,0,0))
-                    .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(20).setKt(0.9)),
+                    .setMaterial(new Material().setKd(0.4).setKs(0.4).setShininess(20).setKt(0.9).setKr(0.001)),
             //The Top of the window
             new Polygon(new Point(-32, 22, -29),
                     new Point(32, 22, -29),
@@ -204,8 +204,15 @@ class Mp2Tests {
             new Triangle( new Point(-25, 24.5, -35), new Point(-25, 23, -35), new Point(-28, 23.5, -35))
                     .setEmission(new Color(java.awt.Color.ORANGE)),
             //The wings
-            new Triangle( new Point(-26, 24, -38), new Point(-38, 24, -38), new Point(-13, 17, -36))
+            new Triangle( new Point(-26, 24, -38), new Point(-38, 24, -38), new Point(-22, 22, -38))
                     .setEmission(new Color(192, 192, 192))
+                    .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(40)),
+            new Triangle( new Point(-23, 21, -34.8), new Point(-19, 21, -34.8), new Point(-15, 17, -33))
+                    .setEmission(new Color(192, 192, 192))
+                    .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(40)),
+            //The tail
+            new Triangle( new Point(-21, 19, -36), new Point(-19, 21, -38), new Point(-17, 18, -38))
+                    .setEmission(new Color(java.awt.Color.GRAY))
                     .setMaterial(new Material().setKd(0.2).setKs(0.3).setShininess(40)),
 
             //The sun
@@ -279,7 +286,7 @@ class Mp2Tests {
                 .setDirection(new Point(0, 0, -1))
                 .setVpSize(20, 20)
                 .setVpDistance(10)
-                .setResolution(1000,1000)
+                .setResolution(700,700)
                 .setRayTracer(scene, RayTracerType.SIMPLE)
                 .setDofRays(50)
                 .setAperture(0.5)
