@@ -279,7 +279,7 @@ class Mp2Tests {
                 .setDirection(new Point(0, 0, -1))
                 .setVpSize(20, 20)
                 .setVpDistance(10)
-                .setResolution(500,500)
+                .setResolution(1000,1000)
                 .setRayTracer(scene, RayTracerType.SIMPLE)
                 .setDofRays(50)
                 .setAperture(0.5)
