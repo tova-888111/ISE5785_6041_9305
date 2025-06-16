@@ -128,4 +128,36 @@ public class Polygon extends Geometry {
       return List.of(new Intersection(this,intersectionPoint));
    }
 
+   @Override
+   public AABB getBoundingBox() {
+      if (vertices == null || vertices.isEmpty())
+         return null;
+
+      double minX = vertices.get(0).getX();
+      double minY = vertices.get(0).getY();
+      double minZ = vertices.get(0).getZ();
+
+      double maxX = minX;
+      double maxY = minY;
+      double maxZ = minZ;
+
+      for (Point p : vertices) {
+         double x = p.getX();
+         double y = p.getY();
+         double z = p.getZ();
+
+         if (x < minX) minX = x;
+         if (y < minY) minY = y;
+         if (z < minZ) minZ = z;
+
+         if (x > maxX) maxX = x;
+         if (y > maxY) maxY = y;
+         if (z > maxZ) maxZ = z;
+      }
+
+      Point min = new Point(minX, minY, minZ);
+      Point max = new Point(maxX, maxY, maxZ);
+      return new AABB(min, max);
+   }
+
 }

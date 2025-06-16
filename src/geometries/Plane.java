@@ -116,4 +116,45 @@ public class Plane extends Geometry {
         // Calculate the intersection point using the ray equation
         return List.of(new Intersection(this,ray.getPoint(t)));
     }
+
+    @Override
+    public AABB getBoundingBox() {
+        double min = -Double.MAX_VALUE;
+        double max = Double.MAX_VALUE;
+
+        // נבדוק באיזה כיוון המישור "חסום" – כלומר, הנורמל מקביל לציר
+        double nx = normal.getX();
+        double ny = normal.getY();
+        double nz = normal.getZ();
+
+        // ניצור תיבה מאוד "דקה" סביב הנקודה q
+        double thickness = 0.0001; // עובי מזערי כדי לא להיחשב "ללא עובי"
+
+        Point minPoint = new Point(
+                nx == 1 || nx == -1 ? q.getX() : min,
+                ny == 1 || ny == -1 ? q.getY() : min,
+                nz == 1 || nz == -1 ? q.getZ() : min
+        );
+
+        Point maxPoint = new Point(
+                nx == 1 || nx == -1 ? q.getX() : max,
+                ny == 1 || ny == -1 ? q.getY() : max,
+                nz == 1 || nz == -1 ? q.getZ() : max
+        );
+
+        // נעשה הרחבה דקה סביב הנקודה כדי לא לאבד חיתוך
+        return new AABB(
+                new Point(
+                        minPoint.getX() - (nx != 0 ? thickness : 0),
+                        minPoint.getY() - (ny != 0 ? thickness : 0),
+                        minPoint.getZ() - (nz != 0 ? thickness : 0)
+                ),
+                new Point(
+                        maxPoint.getX() + (nx != 0 ? thickness : 0),
+                        maxPoint.getY() + (ny != 0 ? thickness : 0),
+                        maxPoint.getZ() + (nz != 0 ? thickness : 0)
+                )
+        );
+    }
+
 }

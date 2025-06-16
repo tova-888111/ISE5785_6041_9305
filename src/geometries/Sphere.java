@@ -109,4 +109,24 @@ public class Sphere extends RadialGeometry {
 
         return null;
     }
+
+    @Override
+    public AABB getBoundingBox() {
+        double r = radius;
+
+        Point min = new Point(
+                center.getX() - r,
+                center.getY() - r,
+                center.getZ() - r
+        );
+
+        Point max = new Point(
+                center.getX() + r,
+                center.getY() + r,
+                center.getZ() + r
+        );
+
+        return new AABB(min, max);
+    }
+
 }

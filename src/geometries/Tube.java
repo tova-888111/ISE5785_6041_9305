@@ -181,4 +181,34 @@ public class Tube extends RadialGeometry {
 
         return result;
     }
+
+    @Override
+    public AABB getBoundingBox() {
+        // Tube הוא אינסופי – נשתמש בטווחים רחבים סביב הציר
+        // ניצור תיבה בגודל מוגזם שמכסה את אזור הצינור לרוחבו
+
+        final double EXTENT = Double.MAX_VALUE / 4; // להימנע מ-Infinity בבעיות חישוב
+        final double r = radius;
+
+        Point axisPoint = axis.getHead();
+        Vector dir = axis.getDirection().normalize();
+
+        // נבחר נקודה נפרדת באורך קבוע על הציר
+        Point farPoint = axis.getPoint(EXTENT);
+
+        double minX = Math.min(axisPoint.getX(), farPoint.getX()) - r;
+        double maxX = Math.max(axisPoint.getX(), farPoint.getX()) + r;
+
+        double minY = Math.min(axisPoint.getY(), farPoint.getY()) - r;
+        double maxY = Math.max(axisPoint.getY(), farPoint.getY()) + r;
+
+        double minZ = Math.min(axisPoint.getZ(), farPoint.getZ()) - r;
+        double maxZ = Math.max(axisPoint.getZ(), farPoint.getZ()) + r;
+
+        Point min = new Point(minX, minY, minZ);
+        Point max = new Point(maxX, maxY, maxZ);
+
+        return new AABB(min, max);
+    }
+
 }

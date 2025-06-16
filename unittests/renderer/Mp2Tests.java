@@ -30,7 +30,7 @@ class Mp2Tests {
     }
 
     /**The geometries of the scene*/
-    Geometries geometries= new Geometries(
+    Geometries geometries= new Geometries(true,
             //The stalk
             // Front side
             new Polygon(new Point(-0.25, 0, -17),
@@ -296,6 +296,58 @@ class Mp2Tests {
         cam1.renderImage().writeToImage("FinalPicture1");
     }
 
+
+
+    @Test
+    void test2(){
+        // Create a camera with a specific location and direction
+        Camera cam1 = Camera.getBuilder()
+                .setLocation(new Point(-1, 0.5, 5))
+                .setDirection(new Point(0, 0, -1))
+                .setVpSize(20, 20)
+                .setVpDistance(10)
+                .setResolution(700,700)
+                .setRayTracer(scene, RayTracerType.SIMPLE)
+                .setDofRays(50)
+                .setAperture(0.5)
+                .setFocalDistance(23)
+                .build();
+        cam1.renderImage().writeToImage("FinalPicture2");
+    }
+    @Test
+    void test3(){
+        // Create a camera with a specific location and direction
+        Camera cam1 = Camera.getBuilder()
+                .setLocation(new Point(-1, 0.5, 5))
+                .setDirection(new Point(0, 0, -1))
+                .setVpSize(20, 20)
+                .setVpDistance(10)
+                .setResolution(700,700)
+                .setRayTracer(scene, RayTracerType.SIMPLE)
+                .setDofRays(50)
+                .setAperture(0.5)
+                .setFocalDistance(23)
+                .setMultithreading(-2) // Use all available cores for multithreading
+                .build();
+        cam1.renderImage().writeToImage("FinalPicture3");
+    }
+    @Test
+    void test4(){
+        // Create a camera with a specific location and direction
+        Camera cam1 = Camera.getBuilder()
+                .setLocation(new Point(-1, 0.5, 5))
+                .setDirection(new Point(0, 0, -1))
+                .setVpSize(20, 20)
+                .setVpDistance(10)
+                .setResolution(700,700)
+                .setRayTracer(scene, RayTracerType.SIMPLE)
+                .setDofRays(50)
+                .setAperture(0.5)
+                .setFocalDistance(23)
+                .build();
+        cam1.renderImage().writeToImage("FinalPicture4");
+    }
+
     /**
      * This test renders a more complex flower scene with a camera.
      * It creates a camera with a specific location and direction,
@@ -307,7 +359,7 @@ class Mp2Tests {
      * This test is designed to showcase the camera's ability to capture a scene with depth of field effects.
      */
     @Test
-    void test2(){
+    void test5(){
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
                 .setLocation(new Point(0, 13, -10))
@@ -321,7 +373,6 @@ class Mp2Tests {
                 .setFocalDistance(14)
                 .setMultithreading(-2) // Use all available cores for multithreading
                 .build();
-        cam1.renderImage().writeToImage("FinalPicture2");
+        cam1.renderImage().writeToImage("FinalPicture5");
     }
-
 }

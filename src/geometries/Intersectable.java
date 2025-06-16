@@ -20,6 +20,14 @@ public abstract class Intersectable {
     }
 
     /**
+     * Returns the axis-aligned bounding box (AABB) of the geometry.
+     * This is used for spatial acceleration structures like BVH.
+     *
+     * @return the bounding box of the geometry
+     */
+    public abstract AABB getBoundingBox();
+
+    /**
      * Finds the intersection points of a ray with the geometric object.
      * This method returns a list of intersection points, which may be empty if there are no intersections.
      * The list may contain multiple points if the ray intersects the object at multiple locations.
