@@ -117,19 +117,31 @@ public class Plane extends Geometry {
         return List.of(new Intersection(this,ray.getPoint(t)));
     }
 
+    /**
+     * Returns the axis-aligned bounding box (AABB) of the plane.
+     * This method calculates the bounding box based on the plane's normal vector
+     * and the point on the plane.
+     * The bounding box is defined by extending the plane's point in the direction of the normal vector
+     * and a small thickness to ensure it has a volume in 3D space.
+     * * The bounding box is used for spatial acceleration structures like BVH.
+     *
+     * @return the bounding box of the plane
+     */
     @Override
     public AABB getBoundingBox() {
+        // Calculate the axis-aligned bounding box (AABB) of the plane
         double min = -Double.MAX_VALUE;
         double max = Double.MAX_VALUE;
 
-        // נבדוק באיזה כיוון המישור "חסום" – כלומר, הנורמל מקביל לציר
+        // Determine the minimum and maximum extents based on the normal vector
         double nx = normal.getX();
         double ny = normal.getY();
         double nz = normal.getZ();
 
-        // ניצור תיבה מאוד "דקה" סביב הנקודה q
-        double thickness = 0.0001; // עובי מזערי כדי לא להיחשב "ללא עובי"
+        // If the normal vector is zero in a dimension, we set the min and max to extreme values
+        double thickness = 0.0001;
 
+        // Calculate the min and max points based on the normal vector
         Point minPoint = new Point(
                 nx == 1 || nx == -1 ? q.getX() : min,
                 ny == 1 || ny == -1 ? q.getY() : min,
@@ -142,7 +154,7 @@ public class Plane extends Geometry {
                 nz == 1 || nz == -1 ? q.getZ() : max
         );
 
-        // נעשה הרחבה דקה סביב הנקודה כדי לא לאבד חיתוך
+        // Adjust the min and max points based on the normal vector and thickness
         return new AABB(
                 new Point(
                         minPoint.getX() - (nx != 0 ? thickness : 0),

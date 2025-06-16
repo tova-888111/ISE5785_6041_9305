@@ -11,8 +11,11 @@ import java.util.List;
  */
 public class Geometries extends Intersectable {
 
+    /** A list of intersectable geometries */
     private final List<Intersectable> geometries = new LinkedList();
+    /** The acceleration structure for ray intersection, if BVH is used */
     private Intersectable accelerationStructure = null;
+    /** Whether to use BVH for acceleration */
     private final boolean useBVH;
 
     /**
@@ -54,13 +57,16 @@ public class Geometries extends Intersectable {
      */
     public void add(Intersectable... geometries) {
         this.geometries.addAll(List.of(geometries));
-        if (useBVH) buildBVH();
+        if (useBVH) {
+            // Rebuild the BVH structure whenever geometries are added
+            buildBVH();
+        }
     }
 
     /**
      * Builds the BVH tree from current geometries.
      */
-    private void buildBVH() {
+    public void buildBVH() {
         this.accelerationStructure = new BVHNode(geometries);
     }
 
@@ -72,19 +78,31 @@ public class Geometries extends Intersectable {
      */
     @Override
     protected List<Intersection> calculateIntersectionsHelper(Ray ray, double maxDistance) {
+        // If BVH is used, delegate to the acceleration structure
         if (useBVH && accelerationStructure != null) {
             return accelerationStructure.calculateIntersections(ray, maxDistance);
         }
 
+        // If BVH is not used, iterate through all geometries directly
         List<Intersection> intersections = null;
+        double currentMaxDistance = maxDistance;
+
+        // Iterate through all geometries and calculate intersections
         for (Intersectable geometry : geometries) {
-            List<Intersection> tempIntersections = geometry.calculateIntersections(ray, maxDistance);
+            List<Intersection> tempIntersections = geometry.calculateIntersections(ray, currentMaxDistance);
             if (tempIntersections != null) {
                 if (intersections == null)
                     intersections = new LinkedList<>();
                 intersections.addAll(tempIntersections);
+
+                // Update the current maximum distance based on the closest intersection found
+                for (Intersection hit : tempIntersections) {
+                    double distance = hit.point.distance(ray.getHead());
+                    currentMaxDistance = Math.min(currentMaxDistance, distance);
+                }
             }
         }
+        // If no intersections were found, return null
         return intersections;
     }
 
@@ -104,7 +122,7 @@ public class Geometries extends Intersectable {
     public AABB getBoundingBox() {
         if (geometries.isEmpty()) return null;
 
-        AABB bbox = geometries.get(0).getBoundingBox();
+        AABB bbox = geometries.getFirst().getBoundingBox();
         for (int i = 1; i < geometries.size(); i++) {
             bbox = AABB.union(bbox, geometries.get(i).getBoundingBox());
         }

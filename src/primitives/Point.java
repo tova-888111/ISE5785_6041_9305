@@ -96,14 +96,26 @@ public class Point {
         return Math.sqrt(distanceSquared(point));
     }
 
+    /**
+     * Returns the x-coordinate of this point.
+     * @return The x-coordinate.
+     */
     public double getX() {
         return xyz.d1();
     }
 
+    /**
+     * Returns the y-coordinate of this point.
+     * @return The y-coordinate.
+     */
     public double getY() {
         return xyz.d2();
     }
 
+    /**
+     * Returns the z-coordinate of this point.
+     * @return The z-coordinate.
+     */
     public double getZ() {
         return xyz.d3();
     }

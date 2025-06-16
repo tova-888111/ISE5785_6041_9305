@@ -1,16 +1,8 @@
 package renderer;
 
-import geometries.Geometries;
-import geometries.Polygon;
-import geometries.Sphere;
-import geometries.Triangle;
-import lighting.DirectionalLight;
-import lighting.PointLight;
-import lighting.SpotLight;
+import geometries.*;
+import lighting.*;
 import org.junit.jupiter.api.Test;
-import primitives.Color;
-import primitives.Material;
-import primitives.Point;
 import primitives.*;
 import scene.Scene;
 import java.util.List;
@@ -30,7 +22,7 @@ class Mp2Tests {
     }
 
     /**The geometries of the scene*/
-    Geometries geometries= new Geometries(true,
+    private Intersectable[] geometries= {
             //The stalk
             // Front side
             new Polygon(new Point(-0.25, 0, -17),
@@ -151,40 +143,40 @@ class Mp2Tests {
             //The flower
             //Up-Yellow
             new Triangle( new Point(-1.5, 2, -22), new Point(1.5, 2, -22), new Point(0, 5, -24))
-            .setEmission(new Color(java.awt.Color.YELLOW))
-            .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
+                    .setEmission(new Color(java.awt.Color.YELLOW))
+                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
             new Sphere( 2.5,new Point(0, 1, -20))
-            .setEmission(new Color(java.awt.Color.YELLOW))
-            .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
+                    .setEmission(new Color(java.awt.Color.YELLOW))
+                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
 
             //Down-Yellow
             new Triangle( new Point(-1.5, -3, -12.5), new Point(1.5, -3, -12.5), new Point(0, -5, -11))
-            .setEmission(new Color(java.awt.Color.YELLOW))
-            .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
+                    .setEmission(new Color(java.awt.Color.YELLOW))
+                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
             new Sphere( 2.5,new Point(0, -3, -14.5))
-           .setEmission(new Color(java.awt.Color.YELLOW))
-            .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
+                    .setEmission(new Color(java.awt.Color.YELLOW))
+                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
 
             //Left-Yellow
             new Triangle( new Point(-5, -2.5, -16), new Point(-5, -2.5, -21.5), new Point(-8, 0, -17.25))
-            .setEmission(new Color(java.awt.Color.YELLOW))
-            .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
+                    .setEmission(new Color(java.awt.Color.YELLOW))
+                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
             new Sphere( 2.5,new Point(-4, -2.5, -18.25))
-            .setEmission(new Color(java.awt.Color.YELLOW))
-            .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
+                    .setEmission(new Color(java.awt.Color.YELLOW))
+                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
 
             //Right-Yellow
             new Triangle( new Point(5, -2.5, -16), new Point(5, -2.5, -21.5), new Point(8, 0, -17.25))
-            .setEmission(new Color(java.awt.Color.YELLOW))
-            .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
+                    .setEmission(new Color(java.awt.Color.YELLOW))
+                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
             new Sphere( 2.5,new Point(4, -2.5, -18.25))
-            .setEmission(new Color(java.awt.Color.YELLOW))
-            .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
+                    .setEmission(new Color(java.awt.Color.YELLOW))
+                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
 
             //Center
             new Sphere( 2.5,new Point(0, 0, -17.25))
-            .setEmission(new Color(java.awt.Color.BLACK))
-            .setMaterial(new Material().setKd(0.7).setKs(0.3).setShininess(50)),
+                    .setEmission(new Color(java.awt.Color.BLACK))
+                    .setMaterial(new Material().setKd(0.7).setKs(0.3).setShininess(50)),
 
             //The bird - Enhanced flying bird
 
@@ -219,12 +211,14 @@ class Mp2Tests {
             new Sphere( 10,new Point(26, 26, -44))
                     .setEmission(new Color(java.awt.Color.ORANGE))
                     .setMaterial(new Material().setKd(1).setKs(1).setShininess(60)),
+
             //The field
             new Polygon( new Point(-40, -15, -37),
                     new Point(40, -15, -37),
                     new Point(40, -40, -37),
                     new Point(-40, -40, -37))
                     .setEmission(new Color(0, 100, 0)),
+
             //The wall
             new Polygon( new Point(30, 50, -29),
                     new Point(30, 50, -5),
@@ -236,12 +230,13 @@ class Mp2Tests {
                     new Point(-30, -40, -5),
                     new Point(-30, -40, -29))
                     .setEmission(new Color(160, 140, 110)),
+
             //The butterfly
-             new Polygon( new Point(10, 5, -10),
+            new Polygon( new Point(10, 5, -10),
                     new Point(9.7, 5, -11),
                     new Point(9.7, 3, -11),
                     new Point(10, 3, -10))
-            .setEmission(new Color(75, 0, 130)),
+                    .setEmission(new Color(75, 0, 130)),
             new Sphere( 0.8,new Point(10.8, 4.5, -10))
                     .setEmission(new Color(200, 160, 255)),
             new Sphere( 0.8,new Point(8.9, 4.5, -11))
@@ -250,36 +245,50 @@ class Mp2Tests {
                     .setEmission(new Color(200, 160, 255)),
             new Sphere( 0.5,new Point(9.3, 3.3, -11))
                     .setEmission(new Color(200, 160, 255))
+    };
+    /** The geometries of the scene without BVH */
+    Geometries geometriesWithoutBVH = new Geometries(false,geometries);
+    /** The geometries of the scene with BVH */
+    Geometries geometriesWithBVH = new Geometries(true ,geometries);
 
-    );
+    /**The light sources of the scene
+     * The light sources are created with different colors and positions
+     * They are used to illuminate the scene and create shadows */
+    List<LightSource> lights= List.of(
+            new PointLight(new Color(80, 60, 60), new Point(-8, 12, 8))
+            .setKl(0.012).setKq(0.0015),
+                    new SpotLight(new Color(160, 125, 80), new Point(8, 8, 6), new Vector(-1, -1, -2))
+            .setKl(0.012).setKq(0.0015),
+                    new DirectionalLight(new Color(70, 70, 70), new Vector(-0.3, -0.5, -1)),
+            new DirectionalLight(new Color(70, 70, 70), new Vector(0, -1, 0)),
+            new DirectionalLight(new Color(70, 70, 70), new Vector(-1, 0, 1)),
+            new DirectionalLight(new Color(70, 70, 70), new Vector(-1, 0, 0)),
+            new PointLight(new Color(80, 60, 60), new Point(26, 26, 0))
+            .setKl(0.012).setKq(0.0015)
+                    );
 
     /**The scene of the camera
-     The scene is created with a background color and multiple light sources */
-    Scene scene = new Scene("Test scene").setBackground( new Color(180, 210, 235)).setGeometries(geometries)
-            .setLights(List.of(
-                    new PointLight(new Color(80, 60, 60), new Point(-8, 12, 8))
-                            .setKl(0.012).setKq(0.0015),
-                    new SpotLight(new Color(160, 125, 80), new Point(8, 8, 6), new Vector(-1, -1, -2))
-                            .setKl(0.012).setKq(0.0015),
-                    new DirectionalLight(new Color(70, 70, 70), new Vector(-0.3, -0.5, -1)),
-                    new DirectionalLight(new Color(70, 70, 70), new Vector(0, -1, 0)),
-                    new DirectionalLight(new Color(70, 70, 70), new Vector(-1, 0, 1)),
-                    new DirectionalLight(new Color(70, 70, 70), new Vector(-1, 0, 0)),
-                    new PointLight(new Color(80, 60, 60), new Point(26, 26, 0))
-                            .setKl(0.012).setKq(0.0015)
-                    ));
+     The scene is created with a background color and multiple light sources
+        * The scene is created with the geometries that use BVH for optimization
+     */
+    Scene sceneWithBVH = new Scene("Test scene").setBackground( new Color(180, 210, 235)).setGeometries(geometriesWithBVH)
+            .setLights(lights);
+
+    /**The scene of the camera
+     The scene is created with a background color and multiple light sources
+        * The scene is created with the geometries that don't use BVH for optimization
+     */
+    Scene sceneWithoutBVH = new Scene("Test scene").setBackground( new Color(180, 210, 235)).setGeometries(geometriesWithoutBVH)
+            .setLights(lights);
 
 
     /**
-     * This test renders a basic flower scene with a camera.
-     * It creates a camera with a specific location and direction,
-     * sets the viewport size and distance,
-     * sets the resolution,
-     * and uses a simple ray tracer.
-     * The rendered image is saved with the filename "BasicFlower".
+     * Test method that renders a simple flower scene with a camera.
+     * It uses multithreading to speed up the rendering process.
+     * It uses BVH for optimization.
      */
     @Test
-    void test1(){
+    void test1(){//Time: 40 sec 586 ms
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
                 .setLocation(new Point(-1, 0.5, 5))
@@ -287,7 +296,7 @@ class Mp2Tests {
                 .setVpSize(20, 20)
                 .setVpDistance(10)
                 .setResolution(700,700)
-                .setRayTracer(scene, RayTracerType.SIMPLE)
+                .setRayTracer(sceneWithBVH, RayTracerType.SIMPLE)
                 .setDofRays(50)
                 .setAperture(0.5)
                 .setFocalDistance(23)
@@ -297,9 +306,13 @@ class Mp2Tests {
     }
 
 
-
+    /**
+     * Test method that renders a simple flower scene with a camera.
+     * It  doesn't use multithreading to speed up the rendering process.
+     * It uses BVH for optimization.
+     */
     @Test
-    void test2(){
+    void test2(){//Time: 2 min 12 sec
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
                 .setLocation(new Point(-1, 0.5, 5))
@@ -307,15 +320,21 @@ class Mp2Tests {
                 .setVpSize(20, 20)
                 .setVpDistance(10)
                 .setResolution(700,700)
-                .setRayTracer(scene, RayTracerType.SIMPLE)
+                .setRayTracer(sceneWithBVH, RayTracerType.SIMPLE)
                 .setDofRays(50)
                 .setAperture(0.5)
                 .setFocalDistance(23)
                 .build();
         cam1.renderImage().writeToImage("FinalPicture2");
     }
+
+    /**
+     * Test method that renders a simple flower scene with a camera.
+     * It uses multithreading to speed up the rendering process.
+     * It doesn't use BVH for optimization.
+     */
     @Test
-    void test3(){
+    void test3(){//Time: 1 min 5 sec
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
                 .setLocation(new Point(-1, 0.5, 5))
@@ -323,7 +342,7 @@ class Mp2Tests {
                 .setVpSize(20, 20)
                 .setVpDistance(10)
                 .setResolution(700,700)
-                .setRayTracer(scene, RayTracerType.SIMPLE)
+                .setRayTracer(sceneWithoutBVH, RayTracerType.SIMPLE)
                 .setDofRays(50)
                 .setAperture(0.5)
                 .setFocalDistance(23)
@@ -331,8 +350,14 @@ class Mp2Tests {
                 .build();
         cam1.renderImage().writeToImage("FinalPicture3");
     }
+
+    /**
+     * Test method that renders a simple flower scene with a camera.
+     * It doesn't use multithreading to speed up the rendering process.
+     * It doesn't use BVH for optimization.
+     */
     @Test
-    void test4(){
+    void test4(){//Time: 2 min 58 sec
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
                 .setLocation(new Point(-1, 0.5, 5))
@@ -340,7 +365,7 @@ class Mp2Tests {
                 .setVpSize(20, 20)
                 .setVpDistance(10)
                 .setResolution(700,700)
-                .setRayTracer(scene, RayTracerType.SIMPLE)
+                .setRayTracer(sceneWithoutBVH, RayTracerType.SIMPLE)
                 .setDofRays(50)
                 .setAperture(0.5)
                 .setFocalDistance(23)
@@ -359,7 +384,7 @@ class Mp2Tests {
      * This test is designed to showcase the camera's ability to capture a scene with depth of field effects.
      */
     @Test
-    void test5(){
+    void test5(){//Time: 23 sec 176 ms
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
                 .setLocation(new Point(0, 13, -10))
@@ -367,7 +392,7 @@ class Mp2Tests {
                 .setVpSize(20, 20)
                 .setVpDistance(10)
                 .setResolution(500,500)
-                .setRayTracer(scene, RayTracerType.SIMPLE)
+                .setRayTracer(sceneWithBVH, RayTracerType.SIMPLE)
                 .setDofRays(50)
                 .setAperture(0.5)
                 .setFocalDistance(14)

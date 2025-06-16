@@ -128,19 +128,34 @@ public class Polygon extends Geometry {
       return List.of(new Intersection(this,intersectionPoint));
    }
 
+   /**
+    * Returns the bounding box of the polygon.
+    * This method calculates the axis-aligned bounding box (AABB) that
+    * encloses the polygon in 3D space.
+    * The bounding box is defined by the minimum and maximum coordinates
+    * of the polygon's vertices along each axis (X, Y, Z).
+    * * The AABB is useful for spatial acceleration structures like BVH,
+    * allowing for efficient intersection tests with rays.
+    *
+    * @return the axis-aligned bounding box (AABB) of the polygon,
+    */
    @Override
    public AABB getBoundingBox() {
+      // Calculate the axis-aligned bounding box (AABB) of the polygon
       if (vertices == null || vertices.isEmpty())
          return null;
 
+      // Initialize min and max coordinates using the first vertex
       double minX = vertices.get(0).getX();
       double minY = vertices.get(0).getY();
       double minZ = vertices.get(0).getZ();
 
+      // Initialize max coordinates to the same values
       double maxX = minX;
       double maxY = minY;
       double maxZ = minZ;
 
+      // Iterate through all vertices to find the min and max coordinates
       for (Point p : vertices) {
          double x = p.getX();
          double y = p.getY();
@@ -155,6 +170,7 @@ public class Polygon extends Geometry {
          if (z > maxZ) maxZ = z;
       }
 
+      // Create the AABB using the min and max coordinates
       Point min = new Point(minX, minY, minZ);
       Point max = new Point(maxX, maxY, maxZ);
       return new AABB(min, max);

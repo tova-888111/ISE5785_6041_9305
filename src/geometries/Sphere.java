@@ -110,22 +110,33 @@ public class Sphere extends RadialGeometry {
         return null;
     }
 
+    /**
+     * Returns the axis-aligned bounding box (AABB) of the sphere.
+     * The bounding box is defined by the minimum and maximum coordinates
+     * of the sphere's center extended by its radius along each axis (X, Y, Z).
+     *
+     * @return the axis-aligned bounding box (AABB) of the sphere
+     */
     @Override
     public AABB getBoundingBox() {
+        // Calculate the axis-aligned bounding box (AABB) of the sphere
         double r = radius;
 
+        // Create the minimum and maximum points of the bounding box
         Point min = new Point(
                 center.getX() - r,
                 center.getY() - r,
                 center.getZ() - r
         );
 
+        // Create the maximum point of the bounding box
         Point max = new Point(
                 center.getX() + r,
                 center.getY() + r,
                 center.getZ() + r
         );
 
+        // Create and return the AABB using the min and max points
         return new AABB(min, max);
     }
 

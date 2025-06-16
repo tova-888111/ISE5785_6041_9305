@@ -182,32 +182,43 @@ public class Tube extends RadialGeometry {
         return result;
     }
 
+    /**
+     * Returns the axis-aligned bounding box (AABB) of the tube.
+     * The bounding box is defined by the minimum and maximum coordinates
+     * of the tube's axis extended by its radius along each axis (X, Y, Z).
+     *
+     * @return the axis-aligned bounding box (AABB) of the tube
+     */
     @Override
     public AABB getBoundingBox() {
-        // Tube הוא אינסופי – נשתמש בטווחים רחבים סביב הציר
-        // ניצור תיבה בגודל מוגזם שמכסה את אזור הצינור לרוחבו
+        // Calculate the axis-aligned bounding box (AABB) of the tube
+        final double EXTENT = Double.MAX_VALUE / 4; // A large value to extend the axis in both directions
+        final double r = radius;// Tube's radius
 
-        final double EXTENT = Double.MAX_VALUE / 4; // להימנע מ-Infinity בבעיות חישוב
-        final double r = radius;
-
+        // Get the axis point and direction
         Point axisPoint = axis.getHead();
         Vector dir = axis.getDirection().normalize();
 
-        // נבחר נקודה נפרדת באורך קבוע על הציר
+        // Calculate the far point along the axis in both directions
         Point farPoint = axis.getPoint(EXTENT);
 
+        // Calculate the minimum and maximum coordinates for the bounding box
         double minX = Math.min(axisPoint.getX(), farPoint.getX()) - r;
         double maxX = Math.max(axisPoint.getX(), farPoint.getX()) + r;
 
+        // Calculate the minimum and maximum coordinates for Y and Z
         double minY = Math.min(axisPoint.getY(), farPoint.getY()) - r;
         double maxY = Math.max(axisPoint.getY(), farPoint.getY()) + r;
 
+        // Calculate the minimum and maximum coordinates for Z
         double minZ = Math.min(axisPoint.getZ(), farPoint.getZ()) - r;
         double maxZ = Math.max(axisPoint.getZ(), farPoint.getZ()) + r;
 
+        // Create the minimum and maximum points of the bounding box
         Point min = new Point(minX, minY, minZ);
         Point max = new Point(maxX, maxY, maxZ);
 
+        // Create and return the AABB using the min and max points
         return new AABB(min, max);
     }
 
