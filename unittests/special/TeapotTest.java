@@ -33,6 +33,27 @@ class TeapotTest {
                 .printGrid(50, new Color(YELLOW)) //
                 .writeToImage("teapot1");
     }
+    /**
+     * 100 Teapot tests with BVH
+     */
+    @Test
+    @Disabled
+    void testTeapot3() {
+        for (int i = 100; i > 0; --i) {
+            teapot3();
+        }
+    }
+    /**
+     * Teapot with BVH
+     */
+    void teapot3() {//1 min 2 sec
+        prepareTeapot() //
+                .enableBVH() //
+                .build() //
+                .renderImage() //
+                .printGrid(50, new Color(YELLOW)) //
+                .writeToImage("teapot3");
+    }
 
 
     /**

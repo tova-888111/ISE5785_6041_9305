@@ -69,6 +69,11 @@ public class Camera implements Cloneable {
     private double focalDistance = 0.0;
     /** Number of rays per pixel for depth of field */
     private int dofRays = 1;
+    /**
+     * Whether to use BVH (Bounding Volume Hierarchy) for acceleration.
+     * If true, the camera will use BVH for faster ray intersection tests.
+     */
+    private boolean useBVH=false;
 
 
     /**
@@ -259,14 +264,6 @@ public class Camera implements Cloneable {
      * @return the image writer
      */
     public Camera renderImage(){
-       /** // Iterate through each pixel in the image
-        for (int i=0; i<nY; i++){
-            for (int j=0; j<nX; j++){
-                // Cast a ray through the pixel
-                castRay( j, i);
-            }
-        }
-        return this;*/
         pixelManager = new PixelManager(nY, nX, printInterval);
         return switch (threadsCount) {
             case 0 -> renderImageNoThreads();
@@ -424,6 +421,13 @@ public class Camera implements Cloneable {
             this.camera.rayTracer = camera.rayTracer;
             this.camera.nX = camera.nX;
             this.camera.nY = camera.nY;
+            this.camera.threadsCount = camera.threadsCount;
+            this.camera.pixelManager = camera.pixelManager;
+            this.camera.apertureRadius = camera.apertureRadius;
+            this.camera.focalDistance = camera.focalDistance;
+            this.camera.dofRays = camera.dofRays;
+            this.camera.useBVH = camera.useBVH;
+            this.camera.printInterval = camera.printInterval;
         }
 
         /**
@@ -638,6 +642,18 @@ public class Camera implements Cloneable {
         public Builder setDebugPrint(double interval) {
             if (interval < 0) throw new IllegalArgumentException("interval parameter must be non-negative");
             camera.printInterval = interval;
+            return this;
+        }
+
+        /**
+         * Enables the use of BVH (Bounding Volume Hierarchy) for acceleration.
+         * If enabled, the camera will use BVH for faster ray intersection tests.
+         *
+         * @return the Builder instance
+         */
+        public Builder enableBVH() {
+            camera.useBVH = true;
+            camera.rayTracer.getScene().setUseBVH(true);
             return this;
         }
 

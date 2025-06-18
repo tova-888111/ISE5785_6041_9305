@@ -75,4 +75,8 @@ public class Scene {
         this.lights = lights;
         return this;
     }
+    public Scene setUseBVH(boolean useBVH) {
+        this.geometries.setUseBVH(useBVH);
+        return this;
+    }
 }

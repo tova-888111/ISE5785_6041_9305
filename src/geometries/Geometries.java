@@ -16,7 +16,7 @@ public class Geometries extends Intersectable {
     /** The acceleration structure for ray intersection, if BVH is used */
     private Intersectable accelerationStructure = null;
     /** Whether to use BVH for acceleration */
-    private final boolean useBVH;
+    private boolean useBVH;
 
     /**
      * Default constructor without BVH.
@@ -128,4 +128,18 @@ public class Geometries extends Intersectable {
         }
         return bbox;
     }
+
+    public Geometries setUseBVH(boolean useBVH) {
+        this.useBVH = useBVH;
+
+        if (useBVH) {
+            if (accelerationStructure == null) {
+                buildBVH();
+            }
+        } else {
+            this.accelerationStructure = null;
+        }
+        return this;
+    }
+
 }

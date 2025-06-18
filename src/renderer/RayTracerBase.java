@@ -27,4 +27,12 @@ public abstract class RayTracerBase {
      * @return The color at the intersection point of the ray with the scene.
      */
     public abstract Color traceRay(Ray ray);
+
+    /**
+     * Gets the scene associated with this ray tracer.
+     * @return The scene being rendered.
+     */
+    public Scene getScene() {
+        return scene;
+    }
 }

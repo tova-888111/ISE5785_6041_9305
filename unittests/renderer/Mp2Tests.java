@@ -22,7 +22,7 @@ class Mp2Tests {
     }
 
     /**The geometries of the scene*/
-    private Intersectable[] geometries= {
+    Geometries geometries = new Geometries(
             //The stalk
             // Front side
             new Polygon(new Point(-0.25, 0, -17),
@@ -245,11 +245,7 @@ class Mp2Tests {
                     .setEmission(new Color(200, 160, 255)),
             new Sphere( 0.5,new Point(9.3, 3.3, -11))
                     .setEmission(new Color(200, 160, 255))
-    };
-    /** The geometries of the scene without BVH */
-    Geometries geometriesWithoutBVH = new Geometries(false,geometries);
-    /** The geometries of the scene with BVH */
-    Geometries geometriesWithBVH = new Geometries(true ,geometries);
+    );
 
     /**The light sources of the scene
      * The light sources are created with different colors and positions
@@ -267,18 +263,10 @@ class Mp2Tests {
             .setKl(0.012).setKq(0.0015)
                     );
 
-    /**The scene of the camera
-     The scene is created with a background color and multiple light sources
-        * The scene is created with the geometries that use BVH for optimization
+    /**
+     * The scene
      */
-    Scene sceneWithBVH = new Scene("Test scene").setBackground( new Color(180, 210, 235)).setGeometries(geometriesWithBVH)
-            .setLights(lights);
-
-    /**The scene of the camera
-     The scene is created with a background color and multiple light sources
-        * The scene is created with the geometries that don't use BVH for optimization
-     */
-    Scene sceneWithoutBVH = new Scene("Test scene").setBackground( new Color(180, 210, 235)).setGeometries(geometriesWithoutBVH)
+    Scene scene = new Scene("Test scene").setBackground( new Color(180, 210, 235)).setGeometries(geometries)
             .setLights(lights);
 
 
@@ -296,11 +284,12 @@ class Mp2Tests {
                 .setVpSize(20, 20)
                 .setVpDistance(10)
                 .setResolution(700,700)
-                .setRayTracer(sceneWithBVH, RayTracerType.SIMPLE)
+                .setRayTracer(scene, RayTracerType.SIMPLE)
                 .setDofRays(50)
                 .setAperture(0.5)
                 .setFocalDistance(23)
                 .setMultithreading(-2) // Use all available cores for multithreading
+                .enableBVH()// Enable BVH for optimization
                 .build();
         cam1.renderImage().writeToImage("FinalPicture1");
     }
@@ -320,10 +309,11 @@ class Mp2Tests {
                 .setVpSize(20, 20)
                 .setVpDistance(10)
                 .setResolution(700,700)
-                .setRayTracer(sceneWithBVH, RayTracerType.SIMPLE)
+                .setRayTracer(scene, RayTracerType.SIMPLE)
                 .setDofRays(50)
                 .setAperture(0.5)
                 .setFocalDistance(23)
+                .enableBVH()// Enable BVH for optimization
                 .build();
         cam1.renderImage().writeToImage("FinalPicture2");
     }
@@ -342,7 +332,7 @@ class Mp2Tests {
                 .setVpSize(20, 20)
                 .setVpDistance(10)
                 .setResolution(700,700)
-                .setRayTracer(sceneWithoutBVH, RayTracerType.SIMPLE)
+                .setRayTracer(scene, RayTracerType.SIMPLE)
                 .setDofRays(50)
                 .setAperture(0.5)
                 .setFocalDistance(23)
@@ -365,7 +355,7 @@ class Mp2Tests {
                 .setVpSize(20, 20)
                 .setVpDistance(10)
                 .setResolution(700,700)
-                .setRayTracer(sceneWithoutBVH, RayTracerType.SIMPLE)
+                .setRayTracer(scene, RayTracerType.SIMPLE)
                 .setDofRays(50)
                 .setAperture(0.5)
                 .setFocalDistance(23)
@@ -384,7 +374,7 @@ class Mp2Tests {
      * This test is designed to showcase the camera's ability to capture a scene with depth of field effects.
      */
     @Test
-    void test5(){//Time: 23 sec 176 ms
+    void test5(){//Time: 22 sec 932 ms
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
                 .setLocation(new Point(0, 13, -10))
@@ -392,11 +382,12 @@ class Mp2Tests {
                 .setVpSize(20, 20)
                 .setVpDistance(10)
                 .setResolution(500,500)
-                .setRayTracer(sceneWithBVH, RayTracerType.SIMPLE)
+                .setRayTracer(scene, RayTracerType.SIMPLE)
                 .setDofRays(50)
                 .setAperture(0.5)
                 .setFocalDistance(14)
                 .setMultithreading(-2) // Use all available cores for multithreading
+                .enableBVH()// Enable BVH for optimization
                 .build();
         cam1.renderImage().writeToImage("FinalPicture5");
     }
