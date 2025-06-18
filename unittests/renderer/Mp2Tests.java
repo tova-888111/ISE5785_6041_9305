@@ -107,7 +107,31 @@ class Mp2Tests {
                     new Point(24, -20, -29),
                     new Point(24, 22, -29))
                     .setEmission(new Color( 0,0,0))
-                    .setMaterial(new Material().setKd(0.4).setKs(0.4).setShininess(20).setKt(0.9).setKr(0.001)),
+                    .setMaterial(new Material().setKd(0.4).setKs(0.4).setShininess(20).setKt(0.9).setKr(0.01)),
+
+            //The frame of the window
+            //The Top of the window
+            new Polygon(new Point(-24, 22, -28.75),
+                    new Point(24, 22, -28.75),
+                    new Point(24, 24, -28.75),
+                    new Point(-24, 24, -28.75))
+                    .setEmission(new Color( 255, 255, 255)),
+
+            //The left side of the window
+            new Polygon(new Point(-23, 24, -28.75),
+                    new Point(-23, -20, -28.75),
+                    new Point(-25, -20, -28.75),
+                    new Point(-25, 24, -28.75))
+                    .setEmission(new Color( 255, 255, 255)),
+
+            //The right side of the window
+            new Polygon(new Point(23, 24, -28.75),
+                    new Point(23, -20, -28.75),
+                    new Point(25, -20, -28.75),
+                    new Point(25, 24, -28.75))
+                    .setEmission(new Color( 255, 255, 255)),
+
+             //The wall at the front side of the window
             //The Top of the window
             new Polygon(new Point(-32, 22, -29),
                     new Point(32, 22, -29),
@@ -132,6 +156,19 @@ class Mp2Tests {
                     new Point(24, -20, -29),
                     new Point(24, 22, -29))
                     .setEmission(new Color( 160, 140, 110)),
+
+            //the walls at the sides of the window
+            //The wall
+            new Polygon( new Point(30, 50, -29),
+                    new Point(30, 50, -5),
+                    new Point(30, -40, -5),
+                    new Point(30, -40, -29))
+                    .setEmission(new Color(160, 140, 110)),
+            new Polygon( new Point(-30, 50, -29),
+                    new Point(-30, 50, -5),
+                    new Point(-30, -40, -5),
+                    new Point(-30, -40, -29))
+                    .setEmission(new Color(160, 140, 110)),
             //The base
             new Polygon(new Point(-26, -20, 5),
                     new Point(26, -20, 5),
@@ -219,19 +256,8 @@ class Mp2Tests {
                     new Point(-40, -40, -37))
                     .setEmission(new Color(0, 100, 0)),
 
-            //The wall
-            new Polygon( new Point(30, 50, -29),
-                    new Point(30, 50, -5),
-                    new Point(30, -40, -5),
-                    new Point(30, -40, -29))
-                    .setEmission(new Color(160, 140, 110)),
-            new Polygon( new Point(-30, 50, -29),
-                    new Point(-30, 50, -5),
-                    new Point(-30, -40, -5),
-                    new Point(-30, -40, -29))
-                    .setEmission(new Color(160, 140, 110)),
 
-            //The butterfly
+            //The purple butterfly
             new Polygon( new Point(10, 5, -10),
                     new Point(9.7, 5, -11),
                     new Point(9.7, 3, -11),
@@ -244,7 +270,37 @@ class Mp2Tests {
             new Sphere(0.5,new Point(10.4, 3.3, -10))
                     .setEmission(new Color(200, 160, 255)),
             new Sphere( 0.5,new Point(9.3, 3.3, -11))
-                    .setEmission(new Color(200, 160, 255))
+                    .setEmission(new Color(200, 160, 255)),
+
+            //The orange butterfly
+             new Polygon( new Point(5, 4, -10),
+                    new Point(4.7, 4, -11),
+                    new Point(4.7, 2, -11),
+                    new Point(5, 2, -10))
+            .setEmission(new Color(255, 140, 0)),
+            new Sphere( 0.8,new Point(5.8, 3.5, -10))
+            .setEmission(new Color(255, 200, 100)),
+            new Sphere( 0.8,new Point(3.9, 3.5, -11))
+            .setEmission(new Color(255, 200, 100)),
+            new Sphere(0.5,new Point(5.4, 2.3, -10))
+            .setEmission(new Color(255, 200, 100)),
+            new Sphere( 0.5,new Point(4.3, 2.3, -11))
+            .setEmission(new Color(255, 200, 100)),
+
+            //The pink butterfly
+            new Polygon( new Point(9, 2, -10),
+                    new Point(8.7, 2, -11),
+                    new Point(8.7, 0, -11),
+                    new Point(9, 0, -10))
+            .setEmission(new Color(231, 84, 128)),
+            new Sphere( 0.8,new Point(9.8, 1.5, -10))
+            .setEmission(new Color(255, 182, 193)),
+            new Sphere( 0.8,new Point(7.9, 1.5, -11))
+            .setEmission(new Color(255, 182, 193)),
+            new Sphere(0.5,new Point(9.4, 0.3, -10))
+            .setEmission(new Color(255, 182, 193)),
+            new Sphere( 0.5,new Point(8.3, 0.3, -11))
+            .setEmission(new Color(255, 182, 193))
     );
 
     /**The light sources of the scene
