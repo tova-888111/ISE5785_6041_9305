@@ -130,6 +130,24 @@ class Mp2Tests {
                     new Point(25, -20, -28.75),
                     new Point(25, 24, -28.75))
                     .setEmission(new Color( 255, 255, 255)),
+            //The Bottom of the window
+            new Polygon(new Point(25, -20, -28.75),
+                    new Point(25, -18, -28.75),
+                    new Point(-25, -18, -28.75),
+                    new Point(-25, -20, -28.75))
+                    .setEmission(new Color( 255, 255, 255)),
+             //The middle left to right
+            new Polygon(new Point(-25, 1, -28.75),
+                    new Point(-25, 3, -28.75),
+                    new Point(25, 3, -28.75),
+                    new Point(25, 1, -28.75))
+                    .setEmission(new Color( 255, 255, 255)),
+            //The middle up to down
+            new Polygon(new Point(-1, 22, -28.75),
+                    new Point(1, 22, -28.75),
+                    new Point(1, -20, -28.75),
+                    new Point(-1, -20, -28.75))
+                    .setEmission(new Color( 255, 255, 255)),
 
              //The wall at the front side of the window
             //The Top of the window
@@ -170,12 +188,12 @@ class Mp2Tests {
                     new Point(-30, -40, -29))
                     .setEmission(new Color(160, 140, 110)),
             //The base
-            new Polygon(new Point(-26, -20, 5),
-                    new Point(26, -20, 5),
-                    new Point(26, -20, -29),
+            new Polygon(new Point(-26, -20, 2),
+                    new Point(28, -20, 2),
+                    new Point(28, -20, -29),
                     new Point(-26, -20, -29))
                     .setEmission(new Color(205, 170, 125))
-                    .setMaterial(new Material().setKd(0.1).setKs(0.2).setShininess(30)),
+                    .setMaterial(new Material().setKd(0.3).setKs(0.3).setShininess(30)),
 
             //The flower
             //Up-Yellow
@@ -357,7 +375,7 @@ class Mp2Tests {
      * It uses BVH for optimization.
      */
     @Test
-    void test2(){//Time: 2 min 12 sec
+    void test2(){//Time: 2 min 55 sec
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
                 .setLocation(new Point(-1, 0.5, 5))
@@ -403,7 +421,7 @@ class Mp2Tests {
      * It doesn't use BVH for optimization.
      */
     @Test
-    void test4(){//Time: 2 min 58 sec
+    void test4(){//Time: 4 min 51 sec
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
                 .setLocation(new Point(-1, 0.5, 5))
