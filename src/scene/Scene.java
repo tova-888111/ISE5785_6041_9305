@@ -75,6 +75,12 @@ public class Scene {
         this.lights = lights;
         return this;
     }
+
+    /**
+     * Sets whether to use BVH (Bounding Volume Hierarchy) for acceleration in the scene's geometries.
+     * @param useBVH Whether to use BVH.
+     * @return The current Scene object for method chaining.
+     */
     public Scene setUseBVH(boolean useBVH) {
         this.geometries.setUseBVH(useBVH);
         return this;

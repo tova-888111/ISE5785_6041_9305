@@ -129,6 +129,12 @@ public class Geometries extends Intersectable {
         return bbox;
     }
 
+    /**
+     * Sets whether to use BVH for acceleration.
+     *
+     * @param useBVH true to enable BVH, false to disable
+     * @return this Geometries instance for method chaining
+     */
     public Geometries setUseBVH(boolean useBVH) {
         this.useBVH = useBVH;
 

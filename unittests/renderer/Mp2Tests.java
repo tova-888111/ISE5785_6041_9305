@@ -318,7 +318,82 @@ class Mp2Tests {
             new Sphere(0.5,new Point(9.4, 0.3, -10))
             .setEmission(new Color(255, 182, 193)),
             new Sphere( 0.5,new Point(8.3, 0.3, -11))
-            .setEmission(new Color(255, 182, 193))
+            .setEmission(new Color(255, 182, 193)),
+
+            //The blue butterfly
+            new Polygon( new Point(-7, 2, -11),
+                    new Point(-6.7, 2, -12),
+                    new Point(-6.7, 0, -12),
+                    new Point(-7, 0, -11))
+            .setEmission(new Color(0, 51, 102)),
+            new Sphere( 0.8,new Point(-7.8, 1.5, -11))
+            .setEmission(new Color(153, 204, 255)),
+            new Sphere( 0.8,new Point(-5.9, 1.5, -12))
+            .setEmission(new Color(153, 204, 255)),
+            new Sphere(0.5,new Point(-7.4, 0.3, -11))
+            .setEmission(new Color(153, 204, 255)),
+            new Sphere( 0.5,new Point(-6.3, 0.3, -12))
+            .setEmission(new Color(153, 204, 255)),
+
+            //The  green butterfly
+            new Polygon( new Point(-8, -1, -11),
+                    new Point(-7.7, -1, -12),
+                    new Point(-7.7, -3, -12),
+                    new Point(-8, -3, -11))
+                    .setEmission(new Color(0, 100, 0)),
+            new Sphere( 0.8,new Point(-8.8, -1.5, -11))
+                    .setEmission(new Color(144, 238, 144)),
+            new Sphere( 0.8,new Point(-6.9, -1.5, -12))
+                    .setEmission(new Color(144, 238, 144)),
+            new Sphere(0.5,new Point(-8.4, -2.7, -11))
+                    .setEmission(new Color(144, 238, 144)),
+            new Sphere( 0.5,new Point(-7.3, -2.7, -12))
+                    .setEmission(new Color(144, 238, 144)),
+
+            //The red butterfly
+            new Polygon( new Point(10, -5, -7),
+                    new Point(9.7, -5, -8),
+                    new Point(9.7, -7, -8),
+                    new Point(10, -7, -7))
+                    .setEmission(new Color(204, 0, 0)),
+            new Sphere( 0.8,new Point(10.8, -5.5, -7))
+                    .setEmission(new Color(255, 102, 102)),
+            new Sphere( 0.8,new Point(8.9, -5.5, -8))
+                    .setEmission(new Color(255, 102, 102)),
+            new Sphere(0.5,new Point(10.4, -6.7, -7))
+                    .setEmission(new Color(255, 102, 102)),
+            new Sphere( 0.5,new Point(9.3, -6.7, -8))
+                    .setEmission(new Color(255, 102, 102)),
+
+            //The turkiz  butterfly
+            new Polygon( new Point(8, -8, -7),
+                    new Point(7.7, -8, -8),
+                    new Point(7.7, -10, -8),
+                    new Point(8, -10, -7))
+                    .setEmission(new Color(0, 128, 128)),
+            new Sphere( 0.8,new Point(8.8, -8.5, -7))
+                    .setEmission(new Color(175, 238, 238)),
+            new Sphere( 0.8,new Point(6.9, -8.5, -8))
+                    .setEmission(new Color(175, 238, 238)),
+            new Sphere(0.5,new Point(8.4, -9.7, -7))
+                    .setEmission(new Color(175, 238, 238)),
+            new Sphere( 0.5,new Point(7.3, -9.7, -8))
+                    .setEmission(new Color(175, 238, 238)),
+
+            //The  yellow butterfly
+            new Polygon( new Point(13, -8, -7),
+                    new Point(12.7, -8, -8),
+                    new Point(12.7, -10, -8),
+                    new Point(13, -10, -7))
+                    .setEmission(new Color(204, 204, 0)),
+            new Sphere( 0.8,new Point(13.8, -8.5, -7))
+                    .setEmission(new Color(255, 255, 204)),
+            new Sphere( 0.8,new Point(11.9, -8.5, -8))
+                    .setEmission(new Color(255, 255, 204)),
+            new Sphere(0.5,new Point(13.4, -9.7, -7))
+                    .setEmission(new Color(255, 255, 204)),
+            new Sphere( 0.5,new Point(12.3, -9.7, -8))
+                    .setEmission(new Color(255, 255, 204))
     );
 
     /**The light sources of the scene
