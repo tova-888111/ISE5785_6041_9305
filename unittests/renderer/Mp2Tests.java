@@ -197,39 +197,39 @@ class Mp2Tests {
 
             //The flower
             //Up-Yellow
-            new Triangle( new Point(-1.5, 2, -22), new Point(1.5, 2, -22), new Point(0, 5, -24))
+            new Triangle( new Point(-2, 4.5, -17), new Point(2, 4.5, -17), new Point(0, 7.5, -16))
                     .setEmission(new Color(java.awt.Color.YELLOW))
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
-            new Sphere( 2.5,new Point(0, 1, -20))
+            new Sphere( 2.5,new Point(0, 3.5, -18))
                     .setEmission(new Color(java.awt.Color.YELLOW))
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
 
             //Down-Yellow
-            new Triangle( new Point(-1.5, -3, -12.5), new Point(1.5, -3, -12.5), new Point(0, -5, -11))
+            new Triangle( new Point(-2, -4.5, -17), new Point(2, -4.5, -17), new Point(0, -7.5, -16))
                     .setEmission(new Color(java.awt.Color.YELLOW))
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
-            new Sphere( 2.5,new Point(0, -3, -14.5))
+            new Sphere( 2.5,new Point(0, -3.5, -18))
                     .setEmission(new Color(java.awt.Color.YELLOW))
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
 
             //Left-Yellow
-            new Triangle( new Point(-5, -2.5, -16), new Point(-5, -2.5, -21.5), new Point(-8, 0, -17.25))
+            new Triangle( new Point(-4.5, 2, -17), new Point(-4.5, -2, -17), new Point(-7.5, 0, -16))
                     .setEmission(new Color(java.awt.Color.YELLOW))
-                    .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
-            new Sphere( 2.5,new Point(-4, -2.5, -18.25))
+                   .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
+            new Sphere( 2.5,new Point(-3.5, 0, -18))
                     .setEmission(new Color(java.awt.Color.YELLOW))
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
 
             //Right-Yellow
-            new Triangle( new Point(5, -2.5, -16), new Point(5, -2.5, -21.5), new Point(8, 0, -17.25))
+            new Triangle( new Point(4.5, 2, -17), new Point(4.5, -2, -17), new Point(7.5, 0, -16))
                     .setEmission(new Color(java.awt.Color.YELLOW))
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
-            new Sphere( 2.5,new Point(4, -2.5, -18.25))
+            new Sphere( 2.5,new Point(3.5 , 0, -18))
                     .setEmission(new Color(java.awt.Color.YELLOW))
                     .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(30)),
 
             //Center
-            new Sphere( 2.5,new Point(0, 0, -17.25))
+            new Sphere( 2.5,new Point(0, 0, -16.75))
                     .setEmission(new Color(java.awt.Color.BLACK))
                     .setMaterial(new Material().setKd(0.7).setKs(0.3).setShininess(50)),
 
@@ -274,7 +274,6 @@ class Mp2Tests {
                     new Point(-40, -40, -37))
                     .setEmission(new Color(0, 100, 0)),
 
-
             //The purple butterfly
             new Polygon( new Point(10, 5, -10),
                     new Point(9.7, 5, -11),
@@ -282,118 +281,131 @@ class Mp2Tests {
                     new Point(10, 3, -10))
                     .setEmission(new Color(75, 0, 130)),
             new Sphere( 0.8,new Point(10.8, 4.5, -10))
-                    .setEmission(new Color(200, 160, 255)),
+                    .setEmission(new Color(200, 160, 255))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
             new Sphere( 0.8,new Point(8.9, 4.5, -11))
-                    .setEmission(new Color(200, 160, 255)),
+                    .setEmission(new Color(200, 160, 255))
+                    .setMaterial( new Material().setKd(0.1).setKs(0.1).setShininess(20)),
             new Sphere(0.5,new Point(10.4, 3.3, -10))
-                    .setEmission(new Color(200, 160, 255)),
+                    .setEmission(new Color(200, 160, 255))
+                    .setMaterial( new Material().setKd(0.1).setKs(0.1).setShininess(20)),
             new Sphere( 0.5,new Point(9.3, 3.3, -11))
-                    .setEmission(new Color(200, 160, 255)),
+                    .setEmission(new Color(200, 160, 255))
+            .setMaterial( new Material().setKd(0.1).setKs(0.1).setShininess(20)),
 
             //The orange butterfly
              new Polygon( new Point(5, 4, -10),
                     new Point(4.7, 4, -11),
                     new Point(4.7, 2, -11),
                     new Point(5, 2, -10))
-            .setEmission(new Color(255, 140, 0)),
+                    .setEmission(new Color(255, 140, 0)),
             new Sphere( 0.8,new Point(5.8, 3.5, -10))
-            .setEmission(new Color(255, 200, 100)),
+                    .setEmission(new Color(255, 200, 100))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
             new Sphere( 0.8,new Point(3.9, 3.5, -11))
-            .setEmission(new Color(255, 200, 100)),
+                    .setEmission(new Color(255, 200, 100))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
             new Sphere(0.5,new Point(5.4, 2.3, -10))
-            .setEmission(new Color(255, 200, 100)),
+                    .setEmission(new Color(255, 200, 100))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
             new Sphere( 0.5,new Point(4.3, 2.3, -11))
-            .setEmission(new Color(255, 200, 100)),
+                    .setEmission(new Color(255, 200, 100))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
 
             //The pink butterfly
             new Polygon( new Point(9, 2, -10),
                     new Point(8.7, 2, -11),
                     new Point(8.7, 0, -11),
                     new Point(9, 0, -10))
-            .setEmission(new Color(231, 84, 128)),
+                    .setEmission(new Color(231, 84, 128)),
             new Sphere( 0.8,new Point(9.8, 1.5, -10))
-            .setEmission(new Color(255, 182, 193)),
+                    .setEmission(new Color(255, 182, 193))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
             new Sphere( 0.8,new Point(7.9, 1.5, -11))
-            .setEmission(new Color(255, 182, 193)),
+                    .setEmission(new Color(255, 182, 193))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
             new Sphere(0.5,new Point(9.4, 0.3, -10))
-            .setEmission(new Color(255, 182, 193)),
+                    .setEmission(new Color(255, 182, 193))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
             new Sphere( 0.5,new Point(8.3, 0.3, -11))
-            .setEmission(new Color(255, 182, 193)),
+                    .setEmission(new Color(255, 182, 193))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
 
             //The blue butterfly
-            new Polygon( new Point(-7, 2, -11),
-                    new Point(-6.7, 2, -12),
-                    new Point(-6.7, 0, -12),
-                    new Point(-7, 0, -11))
-            .setEmission(new Color(0, 51, 102)),
-            new Sphere( 0.8,new Point(-7.8, 1.5, -11))
-            .setEmission(new Color(153, 204, 255)),
-            new Sphere( 0.8,new Point(-5.9, 1.5, -12))
-            .setEmission(new Color(153, 204, 255)),
-            new Sphere(0.5,new Point(-7.4, 0.3, -11))
-            .setEmission(new Color(153, 204, 255)),
-            new Sphere( 0.5,new Point(-6.3, 0.3, -12))
-            .setEmission(new Color(153, 204, 255)),
+            new Polygon( new Point(-8, 4, -11),
+                    new Point(-7.7, 4, -12),
+                    new Point(-7.7, 2, -12),
+                    new Point(-8, 2, -11))
+                    .setEmission(new Color(0, 51, 102)),
+            new Sphere( 0.8,new Point(-8.8, 3.5, -11))
+                    .setEmission(new Color(153, 204, 255))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere( 0.8,new Point(-6.9, 3.5, -12))
+                    .setEmission(new Color(153, 204, 255))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere(0.5,new Point(-8.4, 2.3, -11))
+                    .setEmission(new Color(153, 204, 255))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere( 0.5,new Point(-7.3, 2.3, -12))
+                    .setEmission(new Color(153, 204, 255))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
 
             //The  green butterfly
-            new Polygon( new Point(-8, -1, -11),
-                    new Point(-7.7, -1, -12),
-                    new Point(-7.7, -3, -12),
-                    new Point(-8, -3, -11))
+            new Polygon( new Point(-9, 1, -11),
+                    new Point(-8.7, 1, -12),
+                    new Point(-8.7, -1, -12),
+                    new Point(-9, -1, -11))
                     .setEmission(new Color(0, 100, 0)),
-            new Sphere( 0.8,new Point(-8.8, -1.5, -11))
-                    .setEmission(new Color(144, 238, 144)),
-            new Sphere( 0.8,new Point(-6.9, -1.5, -12))
-                    .setEmission(new Color(144, 238, 144)),
-            new Sphere(0.5,new Point(-8.4, -2.7, -11))
-                    .setEmission(new Color(144, 238, 144)),
-            new Sphere( 0.5,new Point(-7.3, -2.7, -12))
-                    .setEmission(new Color(144, 238, 144)),
+            new Sphere( 0.8,new Point(-9.8, 0.5, -11))
+                    .setEmission(new Color(144, 238, 144))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere( 0.8,new Point(-7.9, 0.5, -12))
+                    .setEmission(new Color(144, 238, 144))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere(0.5,new Point(-9.4, -0.7, -11))
+                    .setEmission(new Color(144, 238, 144))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere( 0.5,new Point(-8.3, -0.7, -12))
+                    .setEmission(new Color(144, 238, 144))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
 
             //The red butterfly
-            new Polygon( new Point(10, -5, -7),
-                    new Point(9.7, -5, -8),
-                    new Point(9.7, -7, -8),
-                    new Point(10, -7, -7))
+            new Polygon( new Point(10, -4, -7),
+                    new Point(9.7, -4, -8),
+                    new Point(9.7, -6, -8),
+                    new Point(10, -6, -7))
                     .setEmission(new Color(204, 0, 0)),
-            new Sphere( 0.8,new Point(10.8, -5.5, -7))
-                    .setEmission(new Color(255, 102, 102)),
-            new Sphere( 0.8,new Point(8.9, -5.5, -8))
-                    .setEmission(new Color(255, 102, 102)),
-            new Sphere(0.5,new Point(10.4, -6.7, -7))
-                    .setEmission(new Color(255, 102, 102)),
-            new Sphere( 0.5,new Point(9.3, -6.7, -8))
-                    .setEmission(new Color(255, 102, 102)),
+            new Sphere( 0.8,new Point(10.8, -4.5, -7))
+                    .setEmission(new Color(255, 102, 102))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere( 0.8,new Point(8.9, -4.5, -8))
+                    .setEmission(new Color(255, 102, 102))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere(0.5,new Point(10.4, -5.7, -7))
+                    .setEmission(new Color(255, 102, 102))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere( 0.5,new Point(9.3, -5.7, -8))
+                    .setEmission(new Color(255, 102, 102))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
 
             //The turkiz  butterfly
-            new Polygon( new Point(8, -8, -7),
-                    new Point(7.7, -8, -8),
-                    new Point(7.7, -10, -8),
-                    new Point(8, -10, -7))
+            new Polygon( new Point(8, -6.5, -7),
+                    new Point(7.7, -6.5, -8),
+                    new Point(7.7, -8.5, -8),
+                    new Point(8, -8.5, -7))
                     .setEmission(new Color(0, 128, 128)),
-            new Sphere( 0.8,new Point(8.8, -8.5, -7))
-                    .setEmission(new Color(175, 238, 238)),
-            new Sphere( 0.8,new Point(6.9, -8.5, -8))
-                    .setEmission(new Color(175, 238, 238)),
-            new Sphere(0.5,new Point(8.4, -9.7, -7))
-                    .setEmission(new Color(175, 238, 238)),
-            new Sphere( 0.5,new Point(7.3, -9.7, -8))
-                    .setEmission(new Color(175, 238, 238)),
-
-            //The  yellow butterfly
-            new Polygon( new Point(13, -8, -7),
-                    new Point(12.7, -8, -8),
-                    new Point(12.7, -10, -8),
-                    new Point(13, -10, -7))
-                    .setEmission(new Color(204, 204, 0)),
-            new Sphere( 0.8,new Point(13.8, -8.5, -7))
-                    .setEmission(new Color(255, 255, 204)),
-            new Sphere( 0.8,new Point(11.9, -8.5, -8))
-                    .setEmission(new Color(255, 255, 204)),
-            new Sphere(0.5,new Point(13.4, -9.7, -7))
-                    .setEmission(new Color(255, 255, 204)),
-            new Sphere( 0.5,new Point(12.3, -9.7, -8))
-                    .setEmission(new Color(255, 255, 204))
+            new Sphere( 0.8,new Point(8.8, -7, -7))
+                    .setEmission(new Color(175, 238, 238))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere( 0.8,new Point(6.9, -7, -8))
+                    .setEmission(new Color(175, 238, 238))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere(0.5,new Point(8.4, -8.2, -7))
+                    .setEmission(new Color(175, 238, 238))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere( 0.5,new Point(7.3, -8.2, -8))
+                    .setEmission(new Color(175, 238, 238))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20))
     );
 
     /**The light sources of the scene
