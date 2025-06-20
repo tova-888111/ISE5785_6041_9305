@@ -405,7 +405,79 @@ class Mp2Tests {
                     .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
             new Sphere( 0.5,new Point(7.3, -8.2, -8))
                     .setEmission(new Color(175, 238, 238))
-                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+
+            //The orange  butterfly
+            new Polygon( new Point(13, -7.5, -7),
+                    new Point(12.7, -7.5, -8),
+                    new Point(12.7, -9.5, -8),
+                    new Point(13, -9.5, -7))
+                    .setEmission(new Color(255, 140, 0)),
+            new Sphere( 0.8,new Point(13.8, -8, -7))
+                    .setEmission(new Color(255, 200, 100))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere( 0.8,new Point(11.9, -8, -8))
+                    .setEmission(new Color(255, 200, 100))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere(0.5,new Point(13.4, -9.2, -7))
+                    .setEmission(new Color(255, 200, 100))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere( 0.5,new Point(12.3, -9.2, -8))
+                    .setEmission(new Color(255, 200, 100))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+
+            //The strong pink butterfly
+            new Polygon( new Point(-8, -4, -8),
+                    new Point(-7.7, -4, -9),
+                    new Point(-7.7, -6, -9),
+                    new Point(-8, -6, -8))
+                    .setEmission(new Color(255, 20, 147)),
+            new Sphere( 0.8,new Point(-8.8, -4.5, -8))
+                    .setEmission(new Color(255, 105, 180))
+                    .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(20)),
+            new Sphere( 0.8,new Point(-6.9, -4.5, -9))
+                    .setEmission(new Color(255, 105, 180))
+                    .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(20)),
+            new Sphere(0.5,new Point(-8.4, -5.7, -8))
+                    .setEmission(new Color(255, 105, 180))
+                    .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(20)),
+            new Sphere( 0.5,new Point(-7.3, -5.7, -9))
+                    .setEmission(new Color(255, 105, 180))
+                    .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(20)),
+
+            //The light blue  butterfly
+            new Polygon( new Point(11, -10.5, -7),
+                    new Point(10.7, -10.5, -8),
+                    new Point(10.7, -12.5, -8),
+                    new Point(11, -12.5, -7))
+                    .setEmission(new Color(0, 51, 102)),
+            new Sphere( 0.8,new Point(11.8, -11, -7))
+                    .setEmission(new Color(135, 206, 235))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere( 0.8,new Point(9.9, -11, -8))
+                    .setEmission(new Color(135, 206, 235))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere(0.5,new Point(11.4, -12.2, -7))
+                    .setEmission(new Color(135, 206, 235))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+            new Sphere( 0.5,new Point(10.3, -12.2, -8))
+                    .setEmission(new Color(135, 206, 235))
+                    .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(20)),
+
+            //The light yellow  butterfly
+            new Polygon( new Point(-8.5, -7, -8),
+                    new Point(-8.2, -7, -9),
+                    new Point(-8.2, -9, -9),
+                    new Point(-8.5, -9, -8))
+                    .setEmission(new Color(255, 204, 0)),
+            new Sphere( 0.8,new Point(-9.3, -7.5, -8))
+                    .setEmission(new Color(255, 255, 153)),
+            new Sphere( 0.8,new Point(-7.4, -7.5, -9))
+                    .setEmission(new Color(255, 255, 153)),
+            new Sphere(0.5,new Point(-8.9, -8.7, -8))
+                    .setEmission(new Color(255, 255, 153)),
+            new Sphere( 0.5,new Point(-7.8, -8.7, -9))
+                    .setEmission(new Color(255, 255, 153))
     );
 
     /**The light sources of the scene
@@ -437,7 +509,7 @@ class Mp2Tests {
      * It uses BVH for optimization.
      */
     @Test
-    void test1(){//Time: 40 sec 586 ms
+    void test1(){//Time: 51 sec 536 ms
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
                 .setLocation(new Point(-1, 0.5, 5))
@@ -462,7 +534,7 @@ class Mp2Tests {
      * It uses BVH for optimization.
      */
     @Test
-    void test2(){//Time: 2 min 55 sec
+    void test2(){//Time: 3 min 38 sec
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
                 .setLocation(new Point(-1, 0.5, 5))
@@ -485,7 +557,7 @@ class Mp2Tests {
      * It doesn't use BVH for optimization.
      */
     @Test
-    void test3(){//Time: 1 min 5 sec
+    void test3(){//Time: 1 min 52 sec
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
                 .setLocation(new Point(-1, 0.5, 5))
@@ -508,7 +580,7 @@ class Mp2Tests {
      * It doesn't use BVH for optimization.
      */
     @Test
-    void test4(){//Time: 4 min 51 sec
+    void test4(){//Time: 7 min 5 sec
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
                 .setLocation(new Point(-1, 0.5, 5))
@@ -535,7 +607,7 @@ class Mp2Tests {
      * This test is designed to showcase the camera's ability to capture a scene with depth of field effects.
      */
     @Test
-    void test5(){//Time: 22 sec 932 ms
+    void test5(){//Time: 30 sec 516 ms
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
                 .setLocation(new Point(0, 13, -10))
