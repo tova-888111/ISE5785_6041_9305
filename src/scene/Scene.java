@@ -11,7 +11,7 @@ import java.util.List;
  * This class represents a scene in a 3D rendering system.
  * It contains properties such as the name of the scene, background color, ambient light, and geometries.
  * The class provides methods to set these properties.
- * This class is PDS
+ * This class is PDS.
  * This class includes the design pattern to chaining setters.
  * @author Tehila Shraga and Tova Tretiak
  */

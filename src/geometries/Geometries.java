@@ -1,13 +1,17 @@
 package geometries;
 
 import primitives.*;
-
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * The Geometries class represents a collection of geometric shapes.
  * It supports optional BVH acceleration for efficient ray intersection.
+ *This class uses the BVH (Bounding Volume Hierarchy) design pattern
+ * to optimize ray intersection calculations.
+ * This class uses the design pattern of the Composite Pattern
+ *
+ * @author Tehila Shraga and Tova Tretiak
  */
 public class Geometries extends Intersectable {
 

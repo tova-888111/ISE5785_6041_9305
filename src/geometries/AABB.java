@@ -7,6 +7,8 @@ import primitives.*;
  * defined by two points: the minimum and maximum corners.
  * It provides methods to check for intersection with rays and to compute
  * the union of two AABBs.
+ * This class is used in various geometric computations,
+ * such as collision detection and spatial partitioning.
  *
  * @author Tehila Shraga and Tova Tretiak
  */

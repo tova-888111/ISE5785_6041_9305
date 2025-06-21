@@ -14,6 +14,10 @@ import static primitives.Util.alignZero;
  * This class implements a simple ray tracing algorithm.
  * It extends the RayTracerBase class and provides an implementation for the traceRay method.
  * The traceRay method is responsible for tracing a ray through the scene and returning the color at the intersection point.
+ * * The algorithm uses the ambient light intensity and the material properties of the geometry
+ * to calculate the final color at the intersection point.
+ * The class also includes methods for calculating the color at the intersection point,
+ *  setting the light source for the intersection point, and calculating the color based on local and global effects.
  *
  * @author Tehila Shraga and Tova Tretiak
  */

@@ -624,4 +624,27 @@ class Mp2Tests {
                 .build();
         cam1.renderImage().writeToImage("FinalPicture5");
     }
+
+    /**
+     * Test method that renders a simple flower scene with a camera.
+     * It uses multithreading to speed up the rendering process.
+     * It uses BVH for optimization.
+     *
+     * It is without depth of field (DoF) settings.
+     */
+    @Test
+    void test6(){//Time: 1 sec 678 ms
+        // Create a camera with a specific location and direction
+        Camera cam1 = Camera.getBuilder()
+                .setLocation(new Point(-1, 0.5, 5))
+                .setDirection(new Point(0, 0, -1))
+                .setVpSize(20, 20)
+                .setVpDistance(10)
+                .setResolution(700,700)
+                .setRayTracer(scene, RayTracerType.SIMPLE)
+                .setMultithreading(-2) // Use all available cores for multithreading
+                .enableBVH()// Enable BVH for optimization
+                .build();
+        cam1.renderImage().writeToImage("FinalPicture6");
+    }
 }
