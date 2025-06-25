@@ -553,7 +553,7 @@ class Mp2Tests {
      * It uses BVH for optimization.
      */
     @Test
-    void test2() {//Time: 2 min 53 sec
+    void test2() {//Time: 3 min 25 sec
         // Create a camera with a specific location and direction
         Camera cam1 = Camera.getBuilder()
                 .setLocation(new Point(-1, 0.5, 5))
